@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="CcjhNosql"
+  id="myeclipse.1444723851451"
+  context-root="/CcjhNosql"
+  j2ee-spec="5.0"
+  archive="CcjhNosql.war">
+  <attributes>
+    <attribute name="webrootdir" value="web" />
+  </attributes>
+</project-module>
+
