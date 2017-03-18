@@ -105,6 +105,11 @@ function emit() {
 
 function listen() {
 	socket.onopen = function() {
+		var msg = {
+				"login" : "login",
+				"uid" : "123456789", 
+			};
+		socket.send(JSON.stringify(msg));
 		$("#content").append("<kbd>Welcome!</kbd></br>");
 	};
 	socket.onmessage = function(evt) {
