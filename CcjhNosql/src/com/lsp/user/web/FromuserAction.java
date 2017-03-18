@@ -35,6 +35,8 @@ import com.lsp.suc.entity.Comunit;
 import com.lsp.user.entity.CustomerInfo;
 import com.lsp.user.entity.UserInfo;
 import com.lsp.website.service.WwzService;
+import com.lsp.websocket.ChatServer;
+import com.lsp.websocket.service.WebsoketListen;
 import com.lsp.weixin.entity.WxUser;
 import com.lsp.weixin.entity.WxUserToken;
 import com.mongodb.BasicDBObject;
@@ -501,6 +503,12 @@ public class FromuserAction extends GeneralAction<WxUser>{
 	}
 	public String test(){
 		return "test";
+	}
+	public void  send(){
+		JSONObject  obj=new JSONObject();
+		obj.put("userName","rrrrr");
+		obj.put("message","gestwetwetwet");
+		ChatServer.sendMessages(WebsoketListen.SessionMap.get(WebsoketListen.SessionidMap.get("123456789")),obj.toString());
 	}
 	
 }

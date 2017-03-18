@@ -7,7 +7,10 @@ import javax.websocket.Session;
 
 public interface WebsoketListen{
 
-	  public static final Map<String, Map<String, Object>> SessionMap = new HashMap<String, Map<String, Object>>(); 
+	  public static final Map<String,Session> SessionMap = new HashMap<String, Session>();
+	  public static final Map<String,String> UidMap = new HashMap<String, String>();
+	  public static final Map<String,String> SessionidMap = new HashMap<String, String>();
+	  public static final Map<String, Map<String,Object>> AttributeMap = new HashMap<String, Map<String,Object>>(); 
 	  /** 
 	      * Session创建事件 
 	      */  
@@ -19,11 +22,19 @@ public interface WebsoketListen{
 	  /** 
 	      * 获取所有Session 
 	      */  
-	  public Collection<Map<String, Object>> getSessions(); 
+	  public Collection<Session> getSessions(); 
 	  /** 
 	      * 绑定用户
 	      */  
 	  public void boundSessions(Session session,String uid); 
-	  public Map<String, Object>  getSession(Session session);
+	  /** 
+	      * 绑定属性
+	      */  
+	  public void boundAttribute(String sessionid,String key,String value); 
+	  /** 
+	      * 获取属性
+	      */  
+	  public Object getAttribute(String sessionid,String key); 
+	 
 	  
 }

@@ -3,6 +3,7 @@ import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import javax.websocket.OnClose;
@@ -12,6 +13,7 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import com.lsp.websocket.interceptor.WebsocketInterceptor;
 import com.lsp.websocket.service.WebsoketListen;
 
 import net.sf.json.JSONObject;
@@ -21,9 +23,7 @@ import net.sf.json.JSONObject;
  *
  */
 @ServerEndpoint("/websocket")
-public class ChatServer implements WebsoketListen{
-	 private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm");    // 日期格式化
-
+public class ChatServer implements WebsoketListen,WebsocketInterceptor{  
 	    @OnOpen
 	    public void open(Session session) {
 	        // 添加初始化操作 
@@ -38,24 +38,32 @@ public class ChatServer implements WebsoketListen{
 	    @OnMessage
 	    public void getMessage(String message, Session session) {  
 	        // 把客户端的消息解析为JSON对象
-	        JSONObject jsonObject = JSONObject.fromObject(message); 
-	        if(jsonObject.get("login")!=null){
+	        JSONObject jsonObject = JSONObject.fromObject(message);  
+	       
+	        if(jsonObject.get("init")!=null&&jsonObject.getString("init").equals("init")){
 	        	//绑定用户 
 	        	boundSessions(session,jsonObject.getString("uid"));
-	        	
+	        	Iterator it = jsonObject.keys();
+	 	        while (it.hasNext()) { 
+	                 String key = (String) it.next(); 
+	                 boundAttribute(session.getId(), key, jsonObject.getString(key));
+	             } 
 	        }else{
-	        	  // 在消息中添加发送日期
-		        jsonObject.put("date", DATE_FORMAT.format(new Date()));
-		        jsonObject.put("userName", "admin");
-		        // 把消息发送给所有连接的会话
-		        for (Session openSession : session.getOpenSessions()) {
-		            // 添加本条消息是否为当前会话本身发的标志
-		            jsonObject.put("isSelf", openSession.equals(session));
-		            // 发送JSON格式的消息
-		            sendMessage(session,jsonObject.toString());
-		        }
-	        } 
-	        System.out.println(getSession(session).get("uid"));
+	        	Map<String,Object>checkMap=new HashMap<>();
+	        	if(jsonObject.get("check")!=null){
+	        		for (String key : jsonObject.getString("check").split(",")) {
+	        			checkMap.put(key, jsonObject.get(key));
+					}
+	        	};
+	        	for (Session se : getSessions()) {
+					se=checkSession(session, checkMap);
+					if(se!=null){
+		        		jsonObject.put("userName", "admin");
+		        		 sendMessage(se,jsonObject.toString());
+		        	}
+				}   
+		     
+	        }  
 	      
 	    }
 
@@ -71,23 +79,45 @@ public class ChatServer implements WebsoketListen{
 	    }
 
 		@Override
-		public void sessionCreated(Session session) {
-			Map<String, Object>obj=new HashMap<>();
-			obj.put("session", session);
-			WebsoketListen.SessionMap.put(session.getId(), obj);
+		public void sessionCreated(Session session) { 
+			SessionMap.put(session.getId(), session);
 			
 		}
 
 		@Override
 		public void sessionDestroyed(Session session) {
-			WebsoketListen.SessionMap.remove(session.getId());
-			
+			SessionMap.remove(session.getId());
+			SessionidMap.remove(UidMap.get(session.getId()));
+			UidMap.remove(session.getId()); 	
 		}
 
 		@Override
-		public Collection<Map<String, Object>> getSessions() {
+		public Collection<Session> getSessions() {
 			// TODO Auto-generated method stub 
-			return WebsoketListen.SessionMap.values();
+			return SessionMap.values();
+		} 
+		@Override
+		public void boundSessions(Session session, String uid) {
+			// TODO Auto-generated method stub
+			SessionidMap.put(uid, session.getId());
+			UidMap.put(session.getId(),uid);
+		}
+
+		@Override
+		public void boundAttribute(String sessionid, String key, String value) {
+			// TODO Auto-generated method stub
+			Map<String, Object>obj=AttributeMap.get(sessionid);
+			if(obj==null){
+				obj=new HashMap<>();
+			}
+			obj.put(key, value);
+			AttributeMap.put(sessionid, obj);
+		}
+
+		@Override
+		public Object getAttribute(String sessionid, String key) { 
+			// TODO Auto-generated method stub
+			return AttributeMap.get(sessionid).get(key);
 		}
 		/**
 		 * 向客户端发送消息
@@ -97,19 +127,30 @@ public class ChatServer implements WebsoketListen{
 		public  void   sendMessage(Session session,String msg){
 			session.getAsyncRemote().sendText(msg);
 		}
-
-		@Override
-		public void boundSessions(Session session, String uid) {
-			// TODO Auto-generated method stub 
-			Map<String, Object> obj= WebsoketListen.SessionMap.get(session.getId());
-			obj.put("uid",uid);
-			WebsoketListen.SessionMap.put(session.getId(), obj);
+		/**
+		 * 向客户端发送消息
+		 * @param session
+		 * @param msg
+		 */
+		public static void   sendMessages(Session session,String msg){
+			if(session!=null){
+				session.getAsyncRemote().sendText(msg);
+			}
+			
 		}
 
 		@Override
-		public Map<String, Object> getSession(Session session) {
+		public Session checkSession(Session session,Map<String,Object>checkMap) {
 			// TODO Auto-generated method stub
-			return WebsoketListen.SessionMap.get(session.getId());
+			for (String key : checkMap.keySet()) {
+				if(!checkMap.get(key).equals(AttributeMap.get(session.getId()).get(key))){
+					return null;
+				}
+			}
+			return session;
 		}
+ 
+
+	 
 
 }

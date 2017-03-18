@@ -78,14 +78,13 @@
 		</div>
 		
 </main>
- <script>
-
-var socket = new WebSocket("ws://localhost:8080/CcjhNosql/websocket");
-
-$(function() {
-	listen();
-})
-
+<script src="${ctx }/app/js/websocket.js"> 
+</script> 
+<script>
+ socket.onmessage = function(evt) {
+		var data = JSON.parse(evt.data); 
+		$("#content").append("<kbd style='color: #" + data.color + ";font-size: " + data.fontSize + ";margin-top: 10px;'>" + data.userName + " Say: " + data.message + "</kbd></br>");
+	};
 function emit() {
 	var text = encodeScript($("#msg").val());
 	var msg = {
@@ -95,47 +94,12 @@ function emit() {
 		"fontSize" : "12",
 		"fontType" : "黑体"
 	};
-	msg = JSON.stringify(msg);
-
-	socket.send(msg);
-	
+	send(msg); 
 	$("#content").append("<kbd style='color: #" + "CECECE" + ";float: right; font-size: " + 12 + ";'>" + text +  "</kbd><br/>");
 	$("#msg").val("");
 }
 
-function listen() {
-	socket.onopen = function() {
-		var msg = {
-				"login" : "login",
-				"uid" : "123456789", 
-			};
-		socket.send(JSON.stringify(msg));
-		$("#content").append("<kbd>Welcome!</kbd></br>");
-	};
-	socket.onmessage = function(evt) {
-		var data = JSON.parse(evt.data);
-		$("#content").append("<kbd style='color: #" + data.color + ";font-size: " + data.fontSize + ";margin-top: 10px;'>" + data.userName + " Say: " + data.message + "</kbd></br>");
-	};
-	socket.onclose = function(evt) {
-		$("#content").append("<kbd>" + "Close!" + "</kbd></br>");
-	}
-	socket.onerror = function(evt) {
-		$("#content").append("<kbd>" + "ERROR!" + "</kbd></br>");
-	}
-}
-
-document.onkeydown = function(event){
-	var e = event || window.event || arguments.callee.caller.arguments[0];
-	if(e && e.keyCode == 13){ // enter 键
-		emit();
-	}
-};
-function encodeScript(data) {
-	if(null == data || "" == data) {
-		return "";
-	}
-	return data.replace("<", "&lt;").replace(">", "&gt;");
-}
+ 
 </script> 
 </body>
 </html>
