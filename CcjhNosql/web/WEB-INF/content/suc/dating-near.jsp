@@ -302,5 +302,6 @@
         wx.onMenuShareWeibo(share);
         getLoc();
     }); 
+    
 </script>
 </html>
