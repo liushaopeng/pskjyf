@@ -1,4 +1,0 @@
-input.error { border: 1px dotted red; }    
-label.error {    
-    color: red;display: none;    
-} 
