@@ -99,7 +99,7 @@ function emit() {
 	$("#msg").val("");
 }
 
- 
+ //	小贾测试
 </script> 
 </body>
 </html>
