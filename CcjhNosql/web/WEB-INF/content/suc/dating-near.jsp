@@ -60,10 +60,23 @@
             height: 15px;
             line-height: 17px;
         }
+ .img-w60-h75 {
+            width: 60px;
+            height: 75px;
+        }
 
+        .hang95 {
+            height: 95px;
+        }
+
+        .hang35 {
+            height: 35px;
+        }
+        .line-height35{
+            line-height: 35px;
+        }
     </style>
       <script>
-    
          var total=0;
          var remoney=0;
          var jfdh=0;
@@ -117,55 +130,53 @@
                             for (var i = 0; i < v.length; i++) {
                              if(v[i].dating!=null){ 
                                  if(v[i].dating.sex==2){
-                                  xszf+='<div class="hang80 overflow-hidden bg-bai width-10 position-r border-bottom-d9d9d9">'
-                                      +'<div class="pull-left img-wh60 position-a p-top-left-10" onclick="detail(\''+v[i].dating._id+'\')">'
-                                      +'<img src="${filehttp}/'+v[i].dating.headimgurl+'" class="width-10">'
+                                  xszf+='<div class="hang95 overflow-hidden bg-bai width-10 position-r border-bottom-d9d9d9">'
+                                      +'<div class="pull-left img-w60-h75 position-a p-top-left-10 img-bj" onclick="detail(\''+v[i].dating._id+'\')"style="background-image:url(${filehttp}/'+v[i].dating.headimgurl+')">'
                                       +'</div>'
                                       +'<div class="pt-10 pr-10 width-10 pl-80">'
-                                      +'<div class="col-8 hang20 line-height20 zi-hei-tq" onclick="detail(\''+v[i].dating._id+'\')">'
-                                      +'<div class="sl weight500 size14">'+v[i].dating.nickname+'</div>'
-                                      +'<div class="hang20 line-height20 zi-hui-wx size14 weight500 sl pt-2" onclick="detail(\''+v[i].dating._id+'\')">'
+                                      +'<div class="col-8 zi-hei-tq" onclick="detail(\''+v[i].dating._id+'\')">'
+                                      +'<div class="sl hang25 line-height25 weight500 size16">'+v[i].dating.nickname+'</div>'
+                                      +'<div class="hang25 line-height25 zi-hui-wx size14 weight500 sl pt-5" onclick="detail(\''+v[i].dating._id+'\')">'
                                       +' <font size="1">'
                                       +'<div class="hang15 zi-bai bj-lan2 pl-5 pr-5 pull-left">♀&nbsp'+v[i].dating.age+'岁</div>';
                                       if(v[i].height>0){
                                        xszf+='<div class="hang15 zi-bai bj-hong2 pl-5 pr-5 pull-left ml-5">'+v[i].dating.height+'cm</div>';
                                       } 
                                       xszf+='</font></div>'
-                                      +'<div class="hang20 line-height20 zi-hui-wx size12 weight500 sl" onclick="detail(\''+v[i].dating._id+'\')">'+v[i].distance+'以内</div>'
+                                      +'<div class="hang25 line-height25 zi-hui-wx size14 weight500 sl" onclick="detail(\''+v[i].dating._id+'\')">'+v[i].distance+'以内</div>'
                                       +'</div>'
-                                      +'<div class="col-4 sl pt-15">';
+                                      +'<div class="col-4 sl pt-20">';
                                       if(v[i].dating.msgState==0){
-                                      xszf+='<div class="hang30 pl-10 pr-10 size12 txt-c pull-right line-fa82a5 border-radius50px weight500" onclick="sendMsg('+v[i].dating.no+')">'
-                                      +'<i class="fa fa-magic line-height30 pr-5"></i>打招呼 </div>';
+                                      xszf+='<div class="hang35 pl-10 pr-10 size12 txt-c pull-right line-fa82a5 border-radius50px weight500" onclick="sendMsg('+v[i].dating.no+')">'
+                                      +'<i class="fa fa-magic line-height35 pr-5"></i>打招呼 </div>';
                                       }else{
-                                       xszf+='<div class="hang30 pl-10 pr-10 size12 txt-c pull-right line-9b9b9b border-radius50px weight500" onclick="sendMsg('+v[i].dating.no+')">'
-                                      +'<i class="fa fa-magic line-height30 pr-5"></i>打招呼 </div>';
+                                       xszf+='<div class="hang35 pl-10 pr-10 size12 txt-c pull-right line-9b9b9b border-radius50px weight500" onclick="sendMsg('+v[i].dating.no+')">'
+                                      +'<i class="fa fa-magic line-height35 pr-5"></i>打招呼 </div>';
                                       } 
                                       xszf+='</div></div></div>';
                                 }else{
-                                xszf+='<div class="hang80 overflow-hidden bg-bai width-10 position-r border-bottom-d9d9d9">'
-                                    +'<div class="pull-left img-wh60 position-a p-top-left-10" onclick="detail(\''+v[i]._id+'\')">'
-                                    +'<img src="${filehttp}/'+v[i].dating.headimgurl+'" class="width-10">'
+                                xszf+='<div class="hang95 overflow-hidden bg-bai width-10 position-r border-bottom-d9d9d9">'
+                                    +'<div class="pull-left img-w60-h75 position-a p-top-left-10 img-bj" onclick="detail(\''+v[i]._id+'\')"style="background-image:url(${filehttp}/'+v[i].dating.headimgurl+')">'
                                     +'</div>'
                                     +'<div class="pt-10 pr-10 width-10 pl-80">'
-                                    +'<div class="col-8 hang20 line-height20 zi-hei-tq" onclick="detail(\''+v[i]._id+'\')">'
-                                    +'<div class="sl weight500 size14">'+v[i].dating.nickname+'</div>'
-                                    +'<div class="hang20 line-height20 zi-hui-wx size14 weight500 sl pt-2" onclick="detail(\''+v[i]._id+'\')">'
+                                    +'<div class="col-8 zi-hei-tq" onclick="detail(\''+v[i]._id+'\')">'
+                                    +'<div class="sl hang25 line-height25 weight500 size16">'+v[i].dating.nickname+'</div>'
+                                    +'<div class="hang25 line-height25 zi-hui-wx size14 weight500 sl pt-5" onclick="detail(\''+v[i]._id+'\')">'
                                     +'<font size="1">'
                                     +'<div class="hang15 zi-bai bj-lan3 pl-5 pr-5 pull-left">♂&nbsp'+v[i].dating.age+'岁</div>';
                                     if(v[i].height>0){
                                        xszf+='<div class="hang15 zi-bai bj-hong2 pl-5 pr-5 pull-left ml-5">'+v[i].dating.height+'cm</div>';
                                       }   
                                     xszf+='</font></div>'
-                                    +'<div class="hang20 line-height20 zi-hui-wx size12 weight500 sl" onclick="detail(\''+v[i]._id+'\')">'+v[i].distance+'以内</div>'
+                                    +'<div class="hang25 line-height25 zi-hui-wx size14 weight500 sl" onclick="detail(\''+v[i]._id+'\')">'+v[i].distance+'以内</div>'
                                     +'</div>'
-                                    +'<div class="col-4 sl pt-15">';
+                                    +'<div class="col-4 sl pt-20">';
                                     if(v[i].dating.msgState==0){
-                                     xszf+='<div class="hang30 pl-10 pr-10 size12 txt-c pull-right line-fa82a5 border-radius50px weight500" onclick="sendMsg('+v[i].dating.no+')">'
-                                      +'<i class="fa fa-magic line-height30 pr-5"></i>打招呼 </div>';
+                                     xszf+='<div class="hang35 pl-10 pr-10 size12 txt-c pull-right line-fa82a5 border-radius50px weight500" onclick="sendMsg('+v[i].dating.no+')">'
+                                      +'<i class="fa fa-magic line-height35 pr-5"></i>打招呼 </div>';
                                      }else{
-                                      xszf+='<div class="hang30 pl-10 pr-10 size12 txt-c pull-right line-9b9b9b border-radius50px weight500" onclick="sendMsg('+v[i].dating.no+')">'
-                                      +'<i class="fa fa-magic line-height30 pr-5"></i>打招呼 </div>';
+                                      xszf+='<div class="hang35 pl-10 pr-10 size12 txt-c pull-right line-9b9b9b border-radius50px weight500" onclick="sendMsg('+v[i].dating.no+')">'
+                                      +'<i class="fa fa-magic line-height35 pr-5"></i>打招呼 </div>';
                                      } 
                                     xszf+='</div></div></div>';
                                 } 
@@ -291,5 +302,6 @@
         wx.onMenuShareWeibo(share);
         getLoc();
     }); 
+    //update
 </script>
 </html>
