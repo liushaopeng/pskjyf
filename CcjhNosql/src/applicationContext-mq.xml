@@ -106,7 +106,5 @@
          <property name="destinationName" value="onlinemessage" />  
          <property name="messageListener" ref="onlinemessageConsumer" />  
     </bean>	
-   
-     
-   
+    
 </beans>
