@@ -172,6 +172,10 @@ public class WxUser extends ReflectionDBObject{
 	 * 是否是安卓管理员
 	 */
 	private int     androidAdmin; 
+	/**
+	 * 是否在线0不在线1在线
+	 */
+	private int     online;
 	public int getNeedExperience() {
 		return needExperience;
 	}
@@ -490,6 +494,12 @@ public class WxUser extends ReflectionDBObject{
 	}
 	public void setAndroidAdmin(int androidAdmin) {
 		this.androidAdmin = androidAdmin;
+	}
+	public int getOnline() {
+		return online;
+	}
+	public void setOnline(int online) {
+		this.online = online;
 	} 
 	
 }
