@@ -20,8 +20,8 @@
     <script src="${ctx}/app/js/spin.min.js"></script>
     <link href="${ctx}/app/css/iosOverlay.css" rel="stylesheet"/>
     <style>
-        .pl-70{
-            padding-left: 70px;
+        .pl-60{
+            padding-left: 60px;
         }
         .p-top-left-10{
             top:10px;
@@ -40,6 +40,11 @@
         }
         .zi-808080{
             color: #808080;
+        }
+             .img-w40-h50 {
+            width: 40px;
+            height: 50px;
+            overflow: hidden;
         }
     </style>
     <script>
@@ -88,18 +93,13 @@
                             var v = json.list;
                             for (var i = 0; i < v.length; i++) {
                                 xszf+='<div class="hang70 overflow-hidden bg-bai width-10 position-r line-bottom-92" onclick="chat('+v[i]._id+')">'
-                                     +'<div class="pull-left img-wh50 position-a p-top-left-10">'
-                                     +'<img src="${filehttp}/'+v[i].headimgurl+'" class="width-10">'
+                                     +'<div class="pull-left img-w40-h50 img-bj position-a p-top-left-10"style="background-image:url(${filehttp}/'+v[i].headimgurl+')">'
                                      +'</div>'
-                                     +'<div class="pt-10 pr-10 width-10 pl-70">'
-                                     +'<font size="2">'
-                                     +'<div class="hang25 line-height25 zi-hei-tq">'
-                                     +'<div class="col-9 sl weight500">'+v[i].nickname+'</div>'
-                                     +'<font size="1">'
-                                     +'<div class="col-3 txt-r sl zi-hui-wx weight500">'+v[i].endupdate+'</div>'
-                                     +'</font>'
+                                     +'<div class="pt-10 pr-10 width-10 pl-60">'
+                                     +'<div class="hang25 line-height25 weight500 zi-hei-tq">'
+                                     +'<div class="col-9 sl size14">'+v[i].nickname+'</div>'
+                                     +'<div class="col-3 txt-r size12 sl zi-hui-wx weight500">'+v[i].endupdate+'</div>'
                                      +'</div>'
-                                     +'</font>'
                                      +'<font size="2">'
                                      +'<div class="hang25 line-height25 zi-hui-wx">'
                                      +'<div class="col-10 sl weight500">'+v[i].endmsg+'</div>';

@@ -81,7 +81,7 @@
 <main class="cmp640 pl-5 pr-5">
     <font size="2">
       <div class="hang90 overflow-hidden bg-bai width-10 position-r clear" style="border-bottom: 1px dashed #f0f0f0;">
-            <div class="pull-left bg-hui-tx txt-c img-wh70 position-a p-top-left-10 position-r">
+            <div class="pull-left bg-hui-tx txt-c img-wh70 overflow-hidden position-a p-top-left-10 position-r">
                 
                 <c:if test="${empty entity.headimgurl}">
                 <i class="fa fa-user-secret fa-3x zi-bai" style="line-height: 70px;"></i>
@@ -185,8 +185,9 @@
           </div> 
         </c:if>  
         <c:if test="${not empty photo}">
-        <div class="clear hang7"></div>
+        
          <c:if test="${member==1}"> 
+         <div class="clear hang7"></div>
         <div class="hang40 bg-bai line-height40 weight500 zi-hui-wx pl-5 pr-5 line-bottom-92">
             相册
         </div>
@@ -465,5 +466,6 @@ upload();
         wx.onMenuShareWeibo(share);
     }); 
 </script>
+
 </body>
 </html>
