@@ -108,7 +108,7 @@
                             var html='';
                             var obj=json.value;
                             html+='<div class="hang70 overflow-hidden bg-bai width-10 position-r"style="border-bottom: 1px dashed #f0f0f0;">'
-                                +'<div class="pull-left img-wh50 position-a p-top-left-10">'
+                                +'<div class="pull-left img-wh50 overflow-hidden position-a p-top-left-10">'
                                 +'<img src="${filehttp}/'+obj.headimgurl+'" class="width-10 border-radius3">'
                                 +'</div>'
                                 +'<div class="pt-10 pr-10 width-10 pl-70">'
