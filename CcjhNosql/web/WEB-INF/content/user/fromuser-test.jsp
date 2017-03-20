@@ -100,6 +100,7 @@ function emit() {
 }
 
  //测试
+ //歌舞团格式方法
 </script> 
 </body>
 </html>

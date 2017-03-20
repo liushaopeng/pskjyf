@@ -86,6 +86,12 @@ public class FromuserAction extends GeneralAction<WxUser>{
 				whereMap.put("nickname", pattern);
 				Struts2Utils.getRequest().setAttribute("nickname",  nickname);
 			}
+			String  online=Struts2Utils.getParameter("online");
+			if(StringUtils.isNotEmpty(online))
+			{ 
+				whereMap.put("online", Integer.parseInt(online));
+				Struts2Utils.getRequest().setAttribute("online",  online);
+			}
 		    sortMap.put("createdate", Integer.valueOf(-1));
 			if(StringUtils.isNotEmpty(Struts2Utils.getParameter("fypage"))){
 				fypage=Integer.parseInt(Struts2Utils.getParameter("fypage"));
