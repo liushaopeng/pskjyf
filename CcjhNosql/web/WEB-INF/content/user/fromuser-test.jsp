@@ -78,29 +78,6 @@
 		</div>
 		
 </main>
-<script src="${ctx }/app/js/websocket.js"> 
-</script> 
-<script>
- socket.onmessage = function(evt) {
-		var data = JSON.parse(evt.data); 
-		$("#content").append("<kbd style='color: #" + data.color + ";font-size: " + data.fontSize + ";margin-top: 10px;'>" + data.userName + " Say: " + data.message + "</kbd></br>");
-	};
-function emit() {
-	var text = encodeScript($("#msg").val());
-	var msg = {
-		"message" : text,
-		"color" : "#CECECE",
-		"bubbleColor" : "#2E2E2E",
-		"fontSize" : "12",
-		"fontType" : "黑体"
-	};
-	send(msg); 
-	$("#content").append("<kbd style='color: #" + "CECECE" + ";float: right; font-size: " + 12 + ";'>" + text +  "</kbd><br/>");
-	$("#msg").val("");
-}
-
- //测试
- //歌舞团格式方法
-</script> 
+<%@ include file="/webcom/websocket.jsp" %> 
 </body>
 </html>

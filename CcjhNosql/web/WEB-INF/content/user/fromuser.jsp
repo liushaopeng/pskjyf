@@ -73,6 +73,35 @@
                         
              }, "json"); 
         }
+        function sendMsg() {
+        	if($("#_id").val().length==0){
+        		alert("发送异常！");
+        		return;
+        	}
+        	if($("#msg").val().length==0){
+        		alert("发送内容不能为空！");
+        		return ;
+        	}
+            var submitData = {
+              id:$("#_id").val(),
+              msg:$("#msg").val()
+           };
+           $.post('${ctx}/user/fromuser!sendMsg.action', submitData,
+                  function (json) { 
+                      if(json.state==0){
+                       alert("发送成功！"); 
+                       ps_hide('insmsg');
+                      }else{
+                       alert("发送失败！");
+                      }
+                      
+           }, "json"); 
+      }
+      function showMsg(id){
+    	  $("#_id").val(id);
+    	  $("#msg").val("");
+    	  ps_show('insmsg');
+      }
         function canceladmin(id) { 
               var submitData = {
                 id: id
@@ -133,6 +162,11 @@
                             <input type="text" name="nickname" value="${nickname}"
                                    placeholder="昵称" class="form-control"/>
                         </div>
+                        <div class="form-group col-sm-1d">
+                            <s:select id="isline" cssClass="form-control" name="isline"
+                                      list="#{'':'全部','1':'在线','0':'离线'}" listKey="key"
+                                      listValue="value"/>
+                        </div>
                         <a href="javascript:page_submit(-1);" class="btn btn-primary">搜&nbsp;&nbsp;索</a>
                     </div>
                 </div>
@@ -148,6 +182,7 @@
                                     <th class="th5 table-action">ID</th>
                                     <th class="th5 table-action">会员号</th>
                                     <th class="th5 table-action">头像</th>
+                                    <th class="th5 table-action">在线状态</th>
                                     <th class="th8 table-action">创建时间</th>
                                     <th class="th8 table-action">最后登录时间</th>
                                     <th class="th8 table-action">管理员</th>
@@ -161,6 +196,7 @@
                                         <td>${bean._id}</td>
                                         <td>${bean.no}</td>
                                         <td><img src="${filehttp}/${bean.headimgurl}" height="25px"/></td>
+                                        <td><c:if test="${empty bean.online}">离线</c:if><c:if test="${bean.online==0}">离线</c:if><c:if test="${bean.online==1}">在线</c:if></td>
                                         <td><fmt:formatDate pattern='yyyy-MM-dd HH:mm'
                                                             value='${bean.createdate}'/></td>
                                         <td><c:if test="${not empty bean.logindate }"><fmt:formatDate pattern='yyyy-MM-dd HH:mm'
@@ -201,6 +237,9 @@
                                                 </li>
                                                 <li><a href="javascript:del('${bean._id}');">
                                                             <i class="fa fa-trash-o"></i>&nbsp;&nbsp;&nbsp;&nbsp;删除用户</a>
+                                                </li>
+                                                 <li><a href="javascript:showMsg('${bean._id}');">
+                                                            <i class="fa fa-trash-o"></i>&nbsp;&nbsp;&nbsp;&nbsp;发送消息</a>
                                                 </li>
                                                 
                                                 </ul>
@@ -258,8 +297,47 @@
         </div>
     </div>
 </div>
+
+<%--弹出层新--%>
+<div class="fullscreen bg-hei-8 display-none" id="insmsg" style="height: 100%;">
+    <div style="padding-top:2%">
+        <div class="pl-10 pr-10 maring-a cmp500"
+             style="width: 100%;max-width: 500px;min-width: 320px;margin: 0px auto;right: 0px;">
+            <div class=" bg-bai border-radius3 overflow-hidden">
+                <div class="overflow-hidden line-height40 bg-bai line-bottom">
+                    <div class="hang50 pull-left zi-hui-tq">
+                        <i class="weight500 size14 pl-10 line-height50">发送消息</i>
+                    </div>
+                    <a href="javascript:ps_hide('insmsg')">
+                        <div class="hang40 pull-right zi-hui-tq">
+                            <i class="weight500 size14 pl-10 pr-10 fa-1dx fa fa-remove" style="line-height: 50px;"></i>
+                        </div>
+                    </a>
+                </div> 
+                    <input type="hidden" id="_id"/>
+                    <%--row--%> 
+                    <div class="pt-15 pl-15 pr-15 overflow-auto" style="height:490px;">
  
+                        <div class="col-sm-12">
+                            <div class="mb-20">
+                                <label class="control-label">发送内容：</label>
+                                <textarea type="text" id="msg" 
+                                       class="form-control" style="height: 100px" placeholder="请输入"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-group-10 line-top" style="padding-left: 40px; padding-right: 40px;" onclick="sendMsg()">
+                        <button class="btn btn-primary width-10 maring-a clear weight500 hang40">提 交
+                        </button>
+                    </div> 
+            </div>
+        </div>
+    </div>
+</div> 
 <%@ include file="/webcom/share.jsp" %>
 <%@include file="/webcom/cut-img.jsp" %>
+<script type="text/javascript">  
+$('#isline').val('${isline}');
+</script>
 </body>
 </html>

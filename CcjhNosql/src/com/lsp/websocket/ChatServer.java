@@ -86,11 +86,12 @@ public class ChatServer implements WebsoketListen,WebsocketInterceptor{
 		}
 
 		@Override
-		public void sessionDestroyed(Session session) {
+		public void sessionDestroyed(Session session) { 
+			JmsService.Offline(UidMap.get(session.getId()));
 			SessionMap.remove(session.getId());
 			SessionidMap.remove(UidMap.get(session.getId()));
 			UidMap.remove(session.getId()); 
-			JmsService.Offline(UidMap.get(session.getId()));
+			
 		}
 
 		@Override

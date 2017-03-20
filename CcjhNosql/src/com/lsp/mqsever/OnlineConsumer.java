@@ -24,6 +24,8 @@ import com.lsp.suc.entity.DatingMember;
 import com.lsp.suc.entity.DatingReward;
 import com.lsp.suc.entity.DatingStatistical;
 import com.lsp.website.service.WwzService;
+import com.lsp.websocket.ChatServer;
+import com.lsp.websocket.service.WebsoketListen;
 import com.lsp.weixin.entity.WxUser;
 import com.mongodb.DBObject;  
 import com.sun.swing.internal.plaf.basic.resources.basic;
@@ -60,6 +62,18 @@ public class OnlineConsumer implements MessageListener {
 					user.setOnline(0);
 					mongoDbUtil.insertUpdate(PubConstants.DATA_WXUSER, user);
 				}
+			}else if (Integer.parseInt(type)==2) {
+				//系统发送消息到指定用户
+				String msg=obj.getString("msg");
+				for (String string :id.split("-")) {
+					if(StringUtils.isNotEmpty(msg)&&StringUtils.isNotEmpty(string)&&WebsoketListen.SessionidMap.get(string)!=null){
+						JSONObject  jsonObject=new JSONObject();
+						jsonObject.put("admin","admin");
+						jsonObject.put("message",msg);
+						ChatServer.sendMessages(WebsoketListen.SessionMap.get(WebsoketListen.SessionidMap.get(string)),jsonObject.toString());
+						 
+					} 
+				} 
 			} 
 		
 			
