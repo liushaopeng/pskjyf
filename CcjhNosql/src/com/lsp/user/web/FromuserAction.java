@@ -516,5 +516,5 @@ public class FromuserAction extends GeneralAction<WxUser>{
 		obj.put("message","gestwetwetwet");
 		ChatServer.sendMessages(WebsoketListen.SessionMap.get(WebsoketListen.SessionidMap.get("123456789")),obj.toString());
 	}
-	
+	 
 }
