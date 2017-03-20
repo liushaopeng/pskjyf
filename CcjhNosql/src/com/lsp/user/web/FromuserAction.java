@@ -523,6 +523,7 @@ public class FromuserAction extends GeneralAction<WxUser>{
 		getLscode();
 		Map<String, Object> submap = new HashMap<String, Object>();
 		if(StringUtils.isNotEmpty(fromUserid)){
+			submap.put("state",0);
 			submap.put("value",fromUserid);
 		} 
 		String json = JSONArray.fromObject(submap).toString(); 

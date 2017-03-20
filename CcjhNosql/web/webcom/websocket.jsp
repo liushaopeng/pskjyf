@@ -2,17 +2,13 @@
 <script>
 
 var socket = new WebSocket("ws://localhost:8080/CcjhNosql/websocket");  
-socket.onopen = function() {
-	  var submitData = {
-		         id : id
-		      };
-		     $.post('${ctx}/suc/activity!ajaxcreateewm.action', submitData, function(json) {
+socket.onopen = function() { 
+		     $.post('${ctx}/user/fromuser!getUserid.action?custid=${custid}&lscode=${lscode}', null, function(json) {
 		       if(json.state==0){ 
 		    		var msg = {
 		    				"init" : "init",
-		    				"uid" : "123456789",
-		    				"custid" : "123456789123456789",
-		    				"type" : "test",
+		    				"uid" : json.value,
+		    				"custid" : "${custid}", 
 		    			};
 		    		socket.send(JSON.stringify(msg)); 
 		       }else{ 
