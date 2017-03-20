@@ -516,5 +516,17 @@ public class FromuserAction extends GeneralAction<WxUser>{
 		obj.put("message","gestwetwetwet");
 		ChatServer.sendMessages(WebsoketListen.SessionMap.get(WebsoketListen.SessionidMap.get("123456789")),obj.toString());
 	}
+	/**
+	 * 获取id
+	 */
+	public  void   getUserid(){
+		getLscode();
+		Map<String, Object> submap = new HashMap<String, Object>();
+		if(StringUtils.isNotEmpty(fromUserid)){
+			submap.put("value",fromUserid);
+		} 
+		String json = JSONArray.fromObject(submap).toString(); 
+		Struts2Utils.renderJson(json.substring(1, json.length() - 1), new String[0]);
+	} 
 	 
 }
