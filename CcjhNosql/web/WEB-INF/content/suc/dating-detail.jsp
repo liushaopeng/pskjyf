@@ -465,7 +465,6 @@ upload();
         wx.onMenuShareQQ(share);
         wx.onMenuShareWeibo(share);
     }); 
-</script>
-
+</script> 
 </body>
 </html>
