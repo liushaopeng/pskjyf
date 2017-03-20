@@ -462,6 +462,52 @@ public class JmsService {
 	
 	return true;
   }
-
+  /**
+   * 验证奖励
+   * @param msg
+   * @param type
+   * @return
+   */
+  public  static boolean  Online(String id) {
+	
+		try {  
+			JmsTemplate jmsTemplate = (JmsTemplate) SpringBeanLoader.getBeanMq("jmsTemplate");  
+			Destination destination = (Destination) SpringBeanLoader.getBeanMq("onlineDestination");
+			//向广播队列发送消息发送消息  
+			HashMap<String,String> map=new HashMap<String,String>();
+			map.put("id", id);
+			map.put("type","1");  
+			String json = JSONArray.fromObject(map).toString(); 
+			jmsTemplate.convertAndSend(destination,json.substring(1, json.length() - 1));
+		} catch (JmsException e) {
+			// TODO Auto-generated catch block 
+			e.printStackTrace(); 
+		}  
+	 return true;
+   } 
+  /**
+   * 验证奖励
+   * @param msg
+   * @param type
+   * @return
+   */
+     public  static boolean  Offline(String id) {
+	
+		try {  
+			JmsTemplate jmsTemplate = (JmsTemplate) SpringBeanLoader.getBeanMq("jmsTemplate");  
+			Destination destination = (Destination) SpringBeanLoader.getBeanMq("onlineDestination");
+			//向广播队列发送消息发送消息  
+			HashMap<String,String> map=new HashMap<String,String>();
+			map.put("id", id);
+			map.put("type","0"); 
+			String json = JSONArray.fromObject(map).toString(); 
+			jmsTemplate.convertAndSend(destination,json.substring(1, json.length() - 1));
+		} catch (JmsException e) {
+			// TODO Auto-generated catch block 
+			e.printStackTrace(); 
+		} 
+	  
+	   return true;
+    }
 
 }
