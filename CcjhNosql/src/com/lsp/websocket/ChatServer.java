@@ -13,6 +13,7 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import com.lsp.pub.util.JmsService;
 import com.lsp.websocket.interceptor.WebsocketInterceptor;
 import com.lsp.websocket.service.WebsoketListen;
 
@@ -88,7 +89,8 @@ public class ChatServer implements WebsoketListen,WebsocketInterceptor{
 		public void sessionDestroyed(Session session) {
 			SessionMap.remove(session.getId());
 			SessionidMap.remove(UidMap.get(session.getId()));
-			UidMap.remove(session.getId()); 	
+			UidMap.remove(session.getId()); 
+			JmsService.Offline(UidMap.get(session.getId()));
 		}
 
 		@Override
@@ -101,6 +103,7 @@ public class ChatServer implements WebsoketListen,WebsocketInterceptor{
 			// TODO Auto-generated method stub
 			SessionidMap.put(uid, session.getId());
 			UidMap.put(session.getId(),uid);
+			JmsService.Online(uid);
 		}
 
 		@Override
