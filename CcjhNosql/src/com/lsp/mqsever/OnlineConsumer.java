@@ -1,7 +1,4 @@
-package com.lsp.mqsever;  
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
+package com.lsp.mqsever;   
 import java.util.Iterator;
 
 import javax.jms.JMSException;
@@ -37,32 +34,32 @@ public class OnlineConsumer implements MessageListener {
 		MongoDbUtil mongoDbUtil=new MongoDbUtil(); 
 		MongoSequence mongoSequence=new MongoSequence();  
 		TextMessage txtMsg = ((TextMessage) message);// 任务id  
-		try {
-			JSONObject obj = (JSONObject) JSON.parse(txtMsg.getText().toString());
-			String type=obj.getString("type"); 
-			String id=obj.getString("id"); 
-			if(Integer.parseInt(type)==1){
+		try { 
+			JSONObject obj =JSONObject.fromObject(txtMsg.getText());   
+			String type=obj.getString("type");  
+			String id=obj.getString("id");   
+			if(Integer.parseInt(type)==1){ 
 				DBObject dbObject=mongoDbUtil.findOneById(PubConstants.DATA_WXUSER, id);
 				if(dbObject!=null){
 					WxUser user=(WxUser) UniObject.DBObjectToObject(dbObject, WxUser.class);
-					user.setOnline(1);
+					user.setOnline(1); 
 					mongoDbUtil.insertUpdate(PubConstants.DATA_WXUSER, user);
 				}
 			}else if(Integer.parseInt(type)==0){ 
 				DBObject dbObject=mongoDbUtil.findOneById(PubConstants.DATA_WXUSER, id);
 				if(dbObject!=null){
 					WxUser user=(WxUser) UniObject.DBObjectToObject(dbObject, WxUser.class);
-					user.setOnline(0);
+					user.setOnline(0); 
 					mongoDbUtil.insertUpdate(PubConstants.DATA_WXUSER, user);
 				}
 			}else if (Integer.parseInt(type)==2) {
 				//系统发送消息到指定用户
-				String msg=obj.getString("msg");
-				for (String string :id.split("-")) {
-					if(StringUtils.isNotEmpty(msg)&&StringUtils.isNotEmpty(string)&&WebsoketListen.SessionidMap.get(string)!=null){
+				String msg=obj.getString("msg");   
+				for (String string :id.split(",")) { 
+					if(WebsoketListen.SessionidMap.get(string)!=null){
 						JSONObject  jsonObject=new JSONObject();
 						jsonObject.put("admin","admin");
-						jsonObject.put("message",msg);
+						jsonObject.put("message",msg); 
 						ChatServer.sendMessages(WebsoketListen.SessionMap.get(WebsoketListen.SessionidMap.get(string)),jsonObject.toString());
 						 
 					} 
@@ -70,7 +67,7 @@ public class OnlineConsumer implements MessageListener {
 			}else if (Integer.parseInt(type)==3) {
 				//系统发送消息到指定用户
 				JSONObject msg=obj.getJSONObject("msg");
-				for (String string :id.split("-")) {
+				for (String string :id.split(",")) {
 					if(msg!=null&&StringUtils.isNotEmpty(string)&&WebsoketListen.SessionidMap.get(string)!=null){
 						 
 						JSONObject  jsonObject=new JSONObject(); 
@@ -87,12 +84,11 @@ public class OnlineConsumer implements MessageListener {
 				} 
 				
 			} 
-		
-			
+		 
 		} catch (JMSException e) {
-			// TODO Auto-generated catch block
+			// TODO Auto-generated catch block 
 			e.printStackTrace();
-		}
+		} 
 		mongoDbUtil.close();
 	}
 	

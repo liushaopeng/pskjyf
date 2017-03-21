@@ -104,7 +104,7 @@ public class ChatServer implements WebsoketListen,WebsocketInterceptor{
 			// TODO Auto-generated method stub
 			SessionidMap.put(uid, session.getId());
 			UidMap.put(session.getId(),uid);
-			JmsService.Online(uid);
+			JmsService.Online(uid); 
 		}
 
 		@Override

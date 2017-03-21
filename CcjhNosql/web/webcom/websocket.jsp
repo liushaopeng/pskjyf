@@ -1,9 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<script>
+<script src="${ctx}/app/js/alert_show.js"></script>
+<script >
 
 var socket = new WebSocket("ws://localhost:8080/CcjhNosql/websocket");  
 socket.onopen = function() { 
-		     $.post('${ctx}/user/fromuser!getUserid.action?custid=${custid}&lscode=${lscode}', null, function(json) {
+		     $.post('${ctx}/user/remind!getUserid.action?custid=${custid}&lscode=${lscode}', null, function(json) {
 		       if(json.state==0){ 
 		    		var msg = {
 		    				"init" : "init",
@@ -34,7 +35,7 @@ function encodeScript(data) {
 	return data.replace("<", "&lt;").replace(">", "&gt;");
 }
 socket.onmessage = function(evt) {
-	var data = JSON.parse(evt.data); 
-	alert(data.message);
+	var data = JSON.parse(evt.data);  
+	$("body").showTxt("show",{text:data.message});
 };  
 </script>

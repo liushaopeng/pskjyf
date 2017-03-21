@@ -146,10 +146,8 @@ public class RemindAction extends GeneralAction<WxUser>{
 		String id=Struts2Utils.getParameter("id");
 		String msg=Struts2Utils.getParameter("msg");
 		Map<String, Object> submap = new HashMap<String, Object>();
-		if(StringUtils.isNotEmpty(msg)&&StringUtils.isNotEmpty(id)&&WebsoketListen.SessionidMap.get(id)!=null){
-			JmsService.SendMsg(id, msg);
-			submap.put("state",0);
-		} 
+		JmsService.SendMsg(id, msg); 
+		submap.put("state",0); 
 		String json = JSONArray.fromObject(submap).toString(); 
 		Struts2Utils.renderJson(json.substring(1, json.length() - 1), new String[0]);
 	} 

@@ -92,7 +92,9 @@
          <property name="destinationName" value="checkmessage" />  
          <property name="messageListener" ref="checkmessageConsumer" />  
     </bean>	
-    <!--队列配置-->
+    
+      
+     <!--队列配置-->
 	<bean id="onlineDestination" class="org.apache.activemq.command.ActiveMQQueue">
 		<constructor-arg index="0"><value>onlinemessage</value></constructor-arg>
 	</bean>
@@ -106,5 +108,6 @@
          <property name="destinationName" value="onlinemessage" />  
          <property name="messageListener" ref="onlinemessageConsumer" />  
     </bean>	
+    
     
 </beans>

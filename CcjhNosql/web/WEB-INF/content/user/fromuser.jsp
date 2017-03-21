@@ -78,15 +78,16 @@
         		alert("发送异常！");
         		return;
         	}
+        	alert($("#msg").val());
         	if($("#msg").val().length==0){
         		alert("发送内容不能为空！");
         		return ;
         	}
             var submitData = {
-              id:$("#_id").val(),
+              id:$("#_id").val()+",",
               msg:$("#msg").val()
            };
-           $.post('${ctx}/user/fromuser!sendMsg.action', submitData,
+           $.post('${ctx}/user/remind!sendMsg.action', submitData,
                   function (json) { 
                       if(json.state==0){
                        alert("发送成功！"); 
@@ -238,10 +239,11 @@
                                                 <li><a href="javascript:del('${bean._id}');">
                                                             <i class="fa fa-trash-o"></i>&nbsp;&nbsp;&nbsp;&nbsp;删除用户</a>
                                                 </li>
-                                                 <li><a href="javascript:showMsg('${bean._id}');">
+                                                <c:if test="${bean.online==1}">
+                                                <li><a href="javascript:showMsg('${bean._id}');">
                                                             <i class="fa fa-trash-o"></i>&nbsp;&nbsp;&nbsp;&nbsp;发送消息</a>
                                                 </li>
-                                                
+                                                </c:if> 
                                                 </ul>
                                             </div>
                                         </td>
