@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ include file="/webcom/taglibs.jsp" %>
-<%@ include file="/webcom/limit.jsp" %>
+<%@ include file="/webcom/taglibs.jsp" %>  
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -24,15 +23,64 @@
     <link href="${ctx}/mvccol/mui-css/mui.picker.min.css" rel="stylesheet"/>
     <link href="${ctx}/mvccol/mui-css/mui.poppicker.css" rel="stylesheet"/>
     <style>
+          .bottom-bai-hq {
+            background-color: #ffffff;
+        }
+
+        .bottom-bai-hq:hover, .bottom-bai-hq:focus {
+            color: #fa82a5;
+        }
+
         .border-bottom-d9d9d9 {
             border-bottom: 1px solid #ccc;
         }
+
         .pl-80 {
             padding-left: 80px;
+        }
+
+        .p-top-left-10 {
+            top: 10px;
+            left: 10px;
+        }
+
+        .line-fa82a5 {
+            border: solid 1px #fa82a5;
+            color: #fa82a5;
+            line-height: 23px;
+        }
+
+        .line-9b9b9b {
+            border: solid 1px #9b9b9b;
+            color: #9b9b9b;
+            line-height: 23px;
+        }
+
+        .border-radius50px {
+            border-radius: 50px;
         }
         .hang15{
             height: 15px;
             line-height: 17px;
+        }
+        .mui-btn-blue{
+         background-color: rgba(234, 100, 131, 0.8);
+         border-color: rgba(234, 100, 131, 0.8);
+        }
+    .img-w60-h75 {
+            width: 60px;
+            height: 75px;
+        }
+
+        .hang95 {
+            height: 95px;
+        }
+
+        .hang35 {
+            height: 35px;
+        }
+        .line-height35{
+            line-height: 35px;
         }
     </style>
     <script>
@@ -66,15 +114,14 @@
      }
     
         var issend = true;
-        var fypage =${fypage};
+        var fypage =0;
         var xszf = ""; 
         function ajaxjz() {//加载 
             if (!issend) {
                 return;
             }
              
-            var submitData = { 
-             city:$('#city').html().replace('请选择','')
+            var submitData = {  
             };
             issend = false;  
             load();  
@@ -86,54 +133,52 @@
                             var v = json.list;
                             for (var i = 0; i < v.length; i++) {   
                                 if(v[i].sex==2){
-                                  xszf+='<div class="hang80 overflow-hidden bg-bai width-10 position-r border-bottom-d9d9d9">'
-                                      +'<div class="pull-left img-wh60 position-a p-top-left-10" onclick="detail(\''+v[i]._id+'\')">'
-                                      +'<img src="${filehttp}/'+v[i].headimgurl+'" class="width-10">'
+                                  xszf+='<div class="hang95 overflow-hidden bg-bai width-10 position-r border-bottom-d9d9d9">'
+                                      +'<div class="pull-left img-w60-h75 img-bj position-a p-top-left-10" onclick="detail(\''+v[i]._id+'\')" style="background-image:url(${filehttp}/'+v[i].headimgurl+')">'
                                       +'</div>'
                                       +'<div class="pt-10 pr-10 width-10 pl-80">'
-                                      +'<div class="col-8 hang20 line-height20 zi-hei-tq" onclick="detail(\''+v[i]._id+'\')">'
-                                      +'<div class="sl weight500 size14">'+v[i].nickname+'</div>'
-                                      +'<div class="hang20 line-height20 zi-hui-wx size14 weight500 sl pt-2" onclick="detail(\''+v[i]._id+'\')">'
+                                      +'<div class="col-8 zi-hei-tq" onclick="detail(\''+v[i]._id+'\')">'
+                                      +'<div class="sl hang25 line-height25 weight500 size16">'+v[i].nickname+'</div>'
+                                      +'<div class="hang25 line-height25 zi-hui-wx size14 weight500 sl pt-5" onclick="detail(\''+v[i]._id+'\')">'
                                       +' <font size="1">'
                                       +'<div class="hang15 zi-bai bj-lan2 pl-5 pr-5 pull-left">♀&nbsp'+v[i].age+'岁</div>';
                                       if(v[i].height>0){
                                        xszf+='<div class="hang15 zi-bai bj-hong2 pl-5 pr-5 pull-left ml-5">'+v[i].height+'cm</div>';
                                       } 
                                       xszf+='</font></div>'
-                                      +'<div class="hang20 line-height20 zi-hui-wx size12 weight500 sl" onclick="detail(\''+v[i]._id+'\')">'+v[i].province+'&nbsp'+v[i].city+'</div>'
+                                      +'<div class="hang25 line-height25 zi-hui-wx size14 weight500 sl" onclick="detail(\''+v[i]._id+'\')">'+v[i].province+'&nbsp'+v[i].city+'</div>'
                                       +'</div>'
-                                      +'<div class="col-4 sl pt-15">';
+                                      +'<div class="col-4 sl pt-20">';
                                       if(v[i].msgState==0){
-                                      xszf+='<div class="hang30 pl-10 pr-10 size12 txt-c pull-right line-fa82a5 border-radius50px weight500" onclick="sendMsg('+v[i].no+')">'
-                                      +'<i class="fa fa-magic line-height30 pr-5"></i>打招呼 </div>';
+                                      xszf+='<div class="hang35 pl-10 pr-10 size12 txt-c pull-right line-fa82a5 border-radius50px weight500" onclick="sendMsg('+v[i].no+')">'
+                                      +'<i class="fa fa-magic line-height35 pr-5"></i>打招呼 </div>';
                                       }else{
-                                       xszf+='<div class="hang30 pl-10 pr-10 size12 txt-c pull-right line-9b9b9b border-radius50px weight500" onclick="sendMsg('+v[i].no+')">'
-                                      +'<i class="fa fa-magic line-height30 pr-5"></i>打招呼 </div>';
+                                       xszf+='<div class="hang35 pl-10 pr-10 size12 txt-c pull-right line-9b9b9b border-radius50px weight500" onclick="sendMsg('+v[i].no+')">'
+                                      +'<i class="fa fa-magic line-height35 pr-5"></i>打招呼 </div>';
                                       } 
                                       xszf+='</div></div></div>';
                                 }else{
-                                xszf+='<div class="hang80 overflow-hidden bg-bai width-10 position-r border-bottom-d9d9d9">'
-                                    +'<div class="pull-left img-wh60 position-a p-top-left-10" onclick="detail(\''+v[i]._id+'\')">'
-                                    +'<img src="${filehttp}/'+v[i].headimgurl+'" class="width-10">'
+                                xszf+='<div class="hang95 overflow-hidden bg-bai width-10 position-r border-bottom-d9d9d9">'
+                                    +'<div class="pull-left img-w60-h75 position-a p-top-left-10 img-bj" onclick="detail(\''+v[i]._id+'\')"style="background-image:url(${filehttp}/'+v[i].headimgurl+')">'
                                     +'</div>'
                                     +'<div class="pt-10 pr-10 width-10 pl-80">'
-                                    +'<div class="col-8 hang20 line-height20 zi-hei-tq" onclick="detail(\''+v[i]._id+'\')">'
-                                    +'<div class="sl weight500 size14">'+v[i].nickname+'</div>'
-                                    +'<div class="hang20 line-height20 zi-hui-wx size14 weight500 sl pt-2" onclick="detail(\''+v[i]._id+'\')">'
+                                    +'<div class="col-8 zi-hei-tq" onclick="detail(\''+v[i]._id+'\')">'
+                                    +'<div class="sl hang25 line-height25 weight500 size16">'+v[i].nickname+'</div>'
+                                    +'<div class="hang25 line-height25 zi-hui-wx size14 weight500 sl pt-5" onclick="detail(\''+v[i]._id+'\')">'
                                     +'<font size="1">'
                                     +'<div class="hang15 zi-bai bj-lan3 pl-5 pr-5 pull-left">♂&nbsp'+v[i].age+'岁</div>';
                                     if(v[i].height>0){
                                        xszf+='<div class="hang15 zi-bai bj-hong2 pl-5 pr-5 pull-left ml-5">'+v[i].height+'cm</div>';
                                       }   
                                     xszf+='</font></div>'
-                                    +'<div class="hang20 line-height20 zi-hui-wx size12 weight500 sl" onclick="detail(\''+v[i]._id+'\')">'+v[i].province+'&nbsp'+v[i].city+'</div>'
+                                    +'<div class="hang25 line-height25 zi-hui-wx size14 weight500 sl" onclick="detail(\''+v[i]._id+'\')">'+v[i].province+'&nbsp'+v[i].city+'</div>'
                                     +'</div>'
-                                    +'<div class="col-4 sl pt-15">';
+                                    +'<div class="col-4 sl pt-20">';
                                     if(v[i].msgState==0){
-                                     xszf+='<div class="hang30 pl-10 pr-10 size12 txt-c pull-right line-fa82a5 border-radius50px weight500" onclick="sendMsg('+v[i].no+')">'
+                                     xszf+='<div class="hang35 pl-10 pr-10 size12 txt-c pull-right line-fa82a5 border-radius50px weight500" onclick="sendMsg('+v[i].no+')">'
                                       +'<i class="fa fa-magic line-height30 pr-5"></i>打招呼 </div>';
                                      }else{
-                                      xszf+='<div class="hang30 pl-10 pr-10 size12 txt-c pull-right line-9b9b9b border-radius50px weight500" onclick="sendMsg('+v[i].no+')">'
+                                      xszf+='<div class="hang35 pl-10 pr-10 size12 txt-c pull-right line-9b9b9b border-radius50px weight500" onclick="sendMsg('+v[i].no+')">'
                                       +'<i class="fa fa-magic line-height30 pr-5"></i>打招呼 </div>';
                                      } 
                                     xszf+='</div></div></div>';
@@ -150,13 +195,13 @@
                     }, "json")
         }
         function detail(id){
-         window.location.href='${ctx}/suc/dating!detail.action?custid=${custid}&lscode=${lscode}&id='+id;
+         window.location.href='${ctx}/suc/dating!detail.action?custid=${custid}&lscode=${lscode}&datingid=${datingid}&id='+id;
         }
         function sendMsg(id){
          if (typeof(id) =="undefined"){
             return; 
           }
-         window.location.href='${ctx}/suc/dating!chat.action?custid=${custid}&lscode=${lscode}&id='+id;
+         window.location.href='${ctx}/suc/dating!chat.action?custid=${custid}&lscode=${lscode}&datingid=${datingid}&id='+id;
         }
         function refreshData(){
         $('#ajaxdiv').html('');
@@ -210,11 +255,11 @@
     <div class="hang40 line-height40 pl-10 pr-10 zi-bai line-bottom cmp640 position-f" style="left:0px;top: 0px;z-index: 10; background-color: #fd6c8e">
         <div class="pull-left zi-bai"id="showCityPicker">
             <div class="pull-left pt-5 pr-5">
-                <div class="img-wh30 bg-bai border-radius50 overflow-hidden"><img src="${filehttp}/${headimgurl}" class="width-10"></div>
+                <div class="img-wh30 bg-bai border-radius50 overflow-hidden"><img src="${filehttp}/${user.headimgurl}" class="width-10"></div>
             </div>
             <div class="pull-left" id="city">请选择</div>
         </div>
-        <div class="pull-right zi-bai"onclick="window.location.href='${ctx}/suc/dating!condition.action?custid=${custid}&lscode=${lscode}'">
+        <div class="pull-right zi-bai"onclick="window.location.href='${ctx}/suc/dating!condition.action?custid=${custid}&datingid=${datingid}&lscode=${lscode}'">
             <i class="">征友条件</i><i class="fa fa-chevron-right pl-5"></i>
         </div>
     </div>
@@ -223,7 +268,7 @@
 </main>
 <div class="clear hang50"></div>
 <%@ include file="/webcom/dating-foot.jsp" %>
-
+<%@ include file="/webcom/websocket.jsp" %> 
  
 
 <!--MUIjs-->
@@ -314,5 +359,6 @@
         wx.onMenuShareWeibo(share);
         getLoc();
     }); 
+   //update 
 </script>
 </html>

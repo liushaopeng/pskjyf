@@ -35,7 +35,22 @@ function encodeScript(data) {
 	return data.replace("<", "&lt;").replace(">", "&gt;");
 }
 socket.onmessage = function(evt) {
-	var data = JSON.parse(evt.data);  
-	$("body").showTxt("show",{text:data.message});
+	
+	var data = JSON.parse(evt.data); 
+	if(typeof(data.fromNickname)!="undefined"){
+		 $.post('${ctx}/user/remind!AddUnread.action?custid=${custid}&lscode=${lscode}&rid='+data.rid, null, function(json) {
+		       if(json.state==0){ 
+		    	   $("body").showTxt("show",{text:"您有一条来自"+data.fromNickname+"新消息"});
+		    	   if($("#uncount").length>0){
+		    		   findUnfind();  
+		    	   }
+		    	   
+		       }else{ 
+		       } 
+		     }, "json");  
+	}else{ 
+		 $("body").showTxt("show",{text:data.message});
+	}
+	
 };  
 </script>

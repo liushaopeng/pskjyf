@@ -1034,12 +1034,12 @@ public class DatingAction extends GeneralAction<DatingInfo> {
 	}
 	public  void  delReply(){
 		HashMap<String, Object>whereMap=new HashMap<>();
-		baseDao.delete(PubConstants.SUC_DATINGSERVICETRUMPET);
+		//baseDao.delete(PubConstants.SUC_DATINGSERVICETRUMPET);
 		//baseDao.delete(PubConstants.SUC_DATINGSTATISTICAL, whereMap);
 		//baseDao.delete(PubConstants.SUC_DATINGREWARD, whereMap); 
 		//baseDao.delete(PubConstants.SUC_DATING);
 		//baseDao.delete(PubConstants.SUC_DATINGPHOTO);
-		//baseDao.delete(PubConstants.ANDROID_REPLY);
+		baseDao.delete(PubConstants.ANDROID_REPLY);
 		//baseDao.delete(PubConstants.ANDROID_MESSAGE);
 	}
 	/**
@@ -1084,7 +1084,9 @@ public class DatingAction extends GeneralAction<DatingInfo> {
 			whereMap.put("no",id);
 			DBObject  db=baseDao.getMessage(PubConstants.SUC_DATING, whereMap);
 			Struts2Utils.getRequest().setAttribute("nickname",db.get("nickname"));
-			Struts2Utils.getRequest().setAttribute("headimgurl",wwzService.getWxUser(fromUserid).get("headimgurl"));
+			DBObject fromUser=wwzService.getWxUser(fromUserid);
+			Struts2Utils.getRequest().setAttribute("headimgurl",fromUser.get("headimgurl"));
+			Struts2Utils.getRequest().setAttribute("fromNickname",fromUser.get("nickname"));
 			Struts2Utils.getRequest().setAttribute("id",id); 
 		}
 		
@@ -1133,8 +1135,10 @@ public class DatingAction extends GeneralAction<DatingInfo> {
 				HashMap<String,Object>whereMap=new HashMap<>();
 				whereMap.put("no",db.get("ids").toString().replace(no, "").replace(",", ""));
 				DBObject  dat=baseDao.getMessage(PubConstants.SUC_DATING, whereMap);
-				Struts2Utils.getRequest().setAttribute("nickname",dat.get("nickname"));
-				Struts2Utils.getRequest().setAttribute("headimgurl",wwzService.getWxUser(fromUserid).get("headimgurl"));
+				Struts2Utils.getRequest().setAttribute("nickname",dat.get("nickname")); ;
+				DBObject fromUser=wwzService.getWxUser(fromUserid);
+				Struts2Utils.getRequest().setAttribute("headimgurl",fromUser.get("headimgurl"));
+				Struts2Utils.getRequest().setAttribute("fromNickname",fromUser.get("nickname"));
 				Struts2Utils.getRequest().setAttribute("rid",rid); 
 				Struts2Utils.getRequest().setAttribute("id",db.get("ids").toString().replace(no, "").replace(",", "")); 
 			}

@@ -55,14 +55,8 @@ public class ChatServer implements WebsoketListen,WebsocketInterceptor{
 	        		for (String key : jsonObject.getString("check").split(",")) {
 	        			checkMap.put(key, jsonObject.get(key));
 					}
-	        	};
-	        	for (Session se : getSessions()) {
-					se=checkSession(session, checkMap);
-					if(se!=null){
-		        		jsonObject.put("userName", "admin");
-		        		 sendMessage(se,jsonObject.toString());
-		        	}
-				}   
+	        	}; 
+	        	JmsService.SendJson(jsonObject.getString("toUserid"), jsonObject) ;
 		     
 	        }  
 	      

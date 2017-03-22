@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ include file="/webcom/taglibs.jsp" %> 
+<%@ include file="/webcom/taglibs.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -227,7 +227,6 @@
                     function (json) {
                         if (json.state == 0) {
                             rid = json.value;
-                            alert(rid);
                             Init();
                         }
                     }, "json");
@@ -239,15 +238,12 @@
             var msg = {
                 "content": $('#msg').val(),
                 "fromUserid": fromid,
-                "fromNickname":'${fromNickname}',
-                "picurl":'${headimgurl}',
                 "toUserid": '${id}' + ",",
                 "rid": rid,
                 "custid": '${custid}'
             };
             if (content.length > 0) {
-            	socket.send(JSON.stringify(msg));
-               //MsgService.sendMessage(msg);
+                MsgService.sendMessage(msg);
                 var html = $('#ajaxdiv').html();
                 html += '<div class="col-10 pt-15 pull-right clear">'
                 + '<div class="col-10 position-r right-1">'
@@ -297,7 +293,7 @@
                 dwr.engine.setNotifyServerOnPageUnload(true)
                 var custid = '${custid}';
                 var lscode = '${lscode}';
-               // MsgService.onPageLoad(custid, lscode, rid);
+                MsgService.onPageLoad(custid, lscode, rid);
             }
         }
         function scrollmsg() {
@@ -350,8 +346,7 @@
                        }else if(json.state==2){ 
                          sendmsg(); 
                        }else if(json.state==3){ 
-                    	   sendmsg(); 
-                         //$('#pay_tc').show();
+                         $('#pay_tc').show();
                        } 
                     }, "json");
         }
@@ -520,66 +515,6 @@
             minHeight:35
         });
 </script>
-<script src="${ctx}/app/js/alert_show.js"></script>
-<script >
-
-var socket = new WebSocket("ws://localhost:8080/CcjhNosql/websocket");  
-socket.onopen = function() { 
-		     $.post('${ctx}/user/remind!getUserid.action?custid=${custid}&lscode=${lscode}', null, function(json) {
-		       if(json.state==0){ 
-		    		var msg = {
-		    				"init" : "init",
-		    				"uid" : json.value,
-		    				"custid" : "${custid}",
-		    				"rid":rid
-		    			};
-		    		socket.send(JSON.stringify(msg)); 
-		       }else{ 
-		       } 
-		     }, "json"); 
-	
-};
-
-socket.onclose = function(evt) { 
-}
-socket.onerror = function(evt) { 
-} 
-document.onkeydown = function(event){
-	var e = event || window.event || arguments.callee.caller.arguments[0];
-	if(e && e.keyCode == 13){ // enter 键
-		emit();
-	}
-};
-function encodeScript(data) {
-	if(null == data || "" == data) {
-		return "";
-	}
-	return data.replace("<", "&lt;").replace(">", "&gt;");
-}
-socket.onmessage = function(evt) {
-	 var data = JSON.parse(evt.data);
-	 if(data.custid=="${custid}"&&data.rid==rid){
-		 var message = decodeURI(decodeURI(data.title));
-	     // var text = dwr.util.getValue("info");
-	     var xszf = $('#ajaxdiv').html();
-	     xszf += '<div class="col-10 pt-15 clear">'
-	     + '<div class="col-2">'
-	     + '<div class="pr-10">'
-	     + '<div class=" maring-a clear img-wh35 img-bj  zi-bai txt-c" style="background-image:url(${filehttp}/' + data.picurl + ');"></div>'
-	     + '</div></div>'
-	     + '<div class="col-10 position-r">'
-	     + '<div class="position-a lt-left"></div>'
-	     + '<div class="div-group-10 bg-bai zi-hui-wx border-radius5 position-r pull-left">'
-	     + '<div>' + data.content + '</div>'
-	     + '</div></div></div>';
-	     $('#ajaxdiv').html(xszf);
-	     scrollmsg();
-	 }
-	
-};  
-</script>
-
-
 <script>
 
     if ('${rid}' == '') {

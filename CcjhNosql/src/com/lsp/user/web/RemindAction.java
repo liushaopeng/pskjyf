@@ -151,5 +151,17 @@ public class RemindAction extends GeneralAction<WxUser>{
 		String json = JSONArray.fromObject(submap).toString(); 
 		Struts2Utils.renderJson(json.substring(1, json.length() - 1), new String[0]);
 	} 
+	/**
+	 * 添加未读消息
+	 */
+	public  void   AddUnread(){  
+		getLscode(); 
+		String rid=Struts2Utils.getParameter("rid"); 
+		Map<String, Object> submap = new HashMap<String, Object>();
+		JmsService.AddUnread(fromUserid, rid);
+		submap.put("state",0); 
+		String json = JSONArray.fromObject(submap).toString(); 
+		Struts2Utils.renderJson(json.substring(1, json.length() - 1), new String[0]);
+	} 
 	 
 }
