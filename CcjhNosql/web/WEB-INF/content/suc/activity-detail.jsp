@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head> 
     <%@include file="/webcom/meta.jsp" %>
     <%@include file="/webcom/bracket.jsp" %>
     <%@include file="/webcom/jquery.validate_js.jsp" %>
