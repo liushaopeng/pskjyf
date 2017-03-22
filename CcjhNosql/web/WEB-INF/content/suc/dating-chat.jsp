@@ -15,13 +15,8 @@
     <!-- Resource style -->
     <script src="${ctx }/app/js/jquery-1.8.3.js"></script>
     <link href="${ctx}/app/css/YLui.css" rel="stylesheet" type="text/css"/>
-    <link href="${ctx}/app/css/font-awesome.min.css" rel="stylesheet"/>
-    <script type="text/javascript" src="${ctx}/dwr/engine.js"></script>
-    <script type="text/javascript" src="${ctx}/dwr/util.js"></script>
-    <script type="text/javascript" src="${ctx}/dwr/interface/MsgService.js"></script>
-    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-
-    <script type="text/javascript" src="${ctx}/mvccol/js/dwr_error.js"></script>
+    <link href="${ctx}/app/css/font-awesome.min.css" rel="stylesheet"/> 
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script> 
     
     <script src="${ctx}/app/js/iosOverlay.js"></script>
     <script src="${ctx}/app/js/spin.min.js"></script>
