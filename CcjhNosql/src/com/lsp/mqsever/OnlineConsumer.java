@@ -123,19 +123,7 @@ public class OnlineConsumer implements MessageListener {
 					mess.setToUserid(toUserid);
 					mess.setUrl(url);
 					mongoDbUtil.insertUpdate(PubConstants.ANDROID_MESSAGE, mess);
-				}
-				
-				//验证客服
-				for (String string : toUserid.split(",")) {
-						if(StringUtils.isNotEmpty(string)){ 
-							 DBObject  kf= mongoDbUtil.findOneById(PubConstants.SUC_DATINGSERVICETRUMPET, string);
-							 if(kf!=null){ 
-								 DatingServiceTrumpet  service=(DatingServiceTrumpet) UniObject.DBObjectToObject(kf, DatingServiceTrumpet.class);
-								 service.setEndupdate(new Date());
-								 mongoDbUtil.insertUpdate(PubConstants.SUC_DATINGSERVICETRUMPET, service);
-							 }
-						}
-				 }
+				}  
 				//更新会话 
 				DBObject  db=mongoDbUtil.findOneById(PubConstants.ANDROID_REPLY, Long.parseLong(rid));
 				 
@@ -148,13 +136,18 @@ public class OnlineConsumer implements MessageListener {
 				} 
 				
 				for (String string :id.split(",")) {
-					if (StringUtils.isNotEmpty(string)) {
+					if (StringUtils.isNotEmpty(string)) { 
 						HashMap<String, Object>whereMap1=new HashMap<>();
 						whereMap1.put("no", string);
 						DBObject dbObject1 =mongoDbUtil.findOne(PubConstants.DATA_WXUSER, whereMap1);
 						String toId=dbObject1.get("_id").toString();
-						if (dbObject1!=null) {  
-							if(WebsoketListen.SessionidMap.get(toId)!=null){ 
+						//验证客服 
+						DBObject  kf= mongoDbUtil.findOneById(PubConstants.SUC_DATINGSERVICETRUMPET, toId);
+						if(kf!=null){ 
+							DatingServiceTrumpet  service=(DatingServiceTrumpet) UniObject.DBObjectToObject(kf, DatingServiceTrumpet.class);
+							service.setEndupdate(new Date());
+							mongoDbUtil.insertUpdate(PubConstants.SUC_DATINGSERVICETRUMPET, service);
+							if(WebsoketListen.SessionidMap.get(service.getParent())!=null){
 								JSONObject  jsonObject=new JSONObject(); 
 								Iterator it = msg.keys();
 					 	        while (it.hasNext()) { 
@@ -163,7 +156,7 @@ public class OnlineConsumer implements MessageListener {
 					                	 jsonObject.put(key,msg.get(key)); 
 					                 } 
 					             }  
-								ChatServer.sendMessages(WebsoketListen.SessionMap.get(WebsoketListen.SessionidMap.get(toId)),jsonObject.toString());
+								ChatServer.sendMessages(WebsoketListen.SessionMap.get(WebsoketListen.SessionidMap.get(service.getParent())),jsonObject.toString());
 								 
 							}else{
 								//添加到未读信息
@@ -182,10 +175,44 @@ public class OnlineConsumer implements MessageListener {
 									rep.setWid(Long.parseLong(rid)); 	
 								} 
 								mongoDbUtil.insertUpdate(PubConstants.ANDROID_REPLYUNFIND, rep); 
-							} 
-							 	
-							
-						}
+							}
+							 
+						}else{ 
+							if (dbObject1!=null) {  
+								if(WebsoketListen.SessionidMap.get(toId)!=null){ 
+									JSONObject  jsonObject=new JSONObject(); 
+									Iterator it = msg.keys();
+						 	        while (it.hasNext()) { 
+						                 String key = (String) it.next();
+						                 if(!key.equals("type")){
+						                	 jsonObject.put(key,msg.get(key)); 
+						                 } 
+						             }  
+									ChatServer.sendMessages(WebsoketListen.SessionMap.get(WebsoketListen.SessionidMap.get(toId)),jsonObject.toString());
+									 
+								}else{
+									//添加到未读信息
+									DBObject db1=mongoDbUtil.findOneById(PubConstants.ANDROID_REPLYUNFIND,rid+"-"+toId);
+									ReplyUnFind rep=null;
+									if(db1!=null){
+										rep=(ReplyUnFind) UniObject.DBObjectToObject(db1, ReplyUnFind.class);
+									    rep.setCount(rep.getCount()+1);
+									    rep.setFromUserid(toId);
+									    rep.setWid(Long.parseLong(rid)); 
+									}else{
+										rep=new ReplyUnFind();
+										rep.set_id(rid+"-"+toId);
+										rep.setCount(1);
+										rep.setFromUserid(toId);
+										rep.setWid(Long.parseLong(rid)); 	
+									} 
+									mongoDbUtil.insertUpdate(PubConstants.ANDROID_REPLYUNFIND, rep); 
+								} 
+								 	
+								
+							}
+						} 
+					
 					}
 					
 				} 

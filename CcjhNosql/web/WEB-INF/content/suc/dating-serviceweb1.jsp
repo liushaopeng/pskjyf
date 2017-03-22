@@ -87,7 +87,6 @@
         var no='';
         var tid='';
         var headimgurl='';
-        var nickname='';
         var issend = true;
         var fypage =0; 
         function ajaxjz() {//加载 
@@ -104,7 +103,7 @@
                             var v = json.list; 
                             for (var i = 0; i < v.length; i++) {
                             if(v[i].obj!=null&&v[i].obj.no!=null){
-                              xszf+='<div class=" overflow-hidden div-group-10 border-bottom-d9d9d9" onclick="getReplay(this,\''+v[i].obj.no+'\',\''+v[i].obj.headimgurl+'\',\''+v[i].obj.nickname+'\')">'
+                              xszf+='<div class=" overflow-hidden div-group-10 border-bottom-d9d9d9" onclick="getReplay(this,\''+v[i].obj.no+'\',\''+v[i].obj.headimgurl+'\')">'
                                   +'<div class="img-wh40 position-r">'
                                   +'<img src="${filehttp}/'+v[i].obj.headimgurl+'" class="width-10">';
                                   if(v[i].uncount>0){
@@ -122,7 +121,7 @@
                         
                     }, "json")
         }
-        function getReplay(v,id,picurl,name){
+        function getReplay(v,id,picurl){
          $('#ajaxService').find('.div-group-10').removeClass('bg-bai');
          $(v).addClass('bg-bai');
          repfypage=0;
@@ -130,7 +129,6 @@
          ajaxReplay(id);
          no=id;
          headimgurl=picurl;
-         nickname=name;
          
         }
         var  repissend=true;
@@ -240,15 +238,12 @@
             var msg = {
                 "content": $('#msg').val(),
                 "fromUserid":no,
-                "fromNickname":nickname,
-                "picurl":headimgurl,
                 "toUserid": tid + ",",
                 "rid": rid,
-                "custid":'${custid}', 
+                "custid":'${custid}'
             };
             if (content.length > 0) {
-               // MsgService.sendMessage(msg);
-               socket.send(JSON.stringify(msg));
+                MsgService.sendMessage(msg);
                 var html = $('#ajaxMsg').html();
                 html += '<div class="width-10 pr-5 pull-right clear">'
                 + '<div class="hang50 line-height50 txt-c zi-hui-wx">'
@@ -312,9 +307,9 @@
                     function (json) {  
                      if(json.state==0){  
                         $('#btsend').attr('onClick', 'sendmsg()');
-                       // dwr.engine.setActiveReverseAjax(true);
-                        //dwr.engine.setNotifyServerOnPageUnload(true);
-                        //MsgService.onPageLoads('${custid}', json.value, rid,'${lscode}'); 
+                        dwr.engine.setActiveReverseAjax(true);
+                        dwr.engine.setNotifyServerOnPageUnload(true);
+                        MsgService.onPageLoads('${custid}', json.value, rid,'${lscode}'); 
                        } 
                     }, "json");
                
@@ -546,83 +541,6 @@
     </div>
     
  <%@include file="/webcom/cut-img1.jsp" %>
- 
- <script src="${ctx}/app/js/alert_show.js"></script>
-<script >
-
-var socket = new WebSocket("ws://localhost:8080/CcjhNosql/websocket");  
-socket.onopen = function() { 
-		     $.post('${ctx}/user/remind!getUserid.action?custid=${custid}&lscode=${lscode}', null, function(json) {
-		       if(json.state==0){ 
-		    		var msg = {
-		    				"init" : "init",
-		    				"uid" : json.value,
-		    				"custid" : "${custid}",
-		    				"rid":rid
-		    			};
-		    		socket.send(JSON.stringify(msg)); 
-		       }else{ 
-		       } 
-		     }, "json"); 
-	
-};
-
-socket.onclose = function(evt) { 
-}
-socket.onerror = function(evt) { 
-} 
-document.onkeydown = function(event){
-	var e = event || window.event || arguments.callee.caller.arguments[0];
-	if(e && e.keyCode == 13){ // enter 键
-		emit();
-	}
-};
-function encodeScript(data) {
-	if(null == data || "" == data) {
-		return "";
-	}
-	return data.replace("<", "&lt;").replace(">", "&gt;");
-}
-socket.onmessage = function(evt) {
-	 var data = JSON.parse(evt.data);
-	 if(data.custid=="${custid}"&&data.rid==rid){
-		 remidMp3();
-		 if(data.toUserid.indexOf(no)){
-			 if(data.rid==rid){
-				 var time = new Date().Format("yyyy-MM-dd hh:mm:ss"); 
-		         var xszf = $('#ajaxMsg').html();
-		         xszf += '<div class="width-10 pl-5 clear">'
-		         +'<div class="hang50 line-height50 txt-c zi-hui-wx">'
-		         +'<font  size="1">' +time+ '</font></div>'
-		         +'<div class="width-1 pull-left">'
-		         +'<div class="pr-10">'
-		         +' <div class=" maring-a clear img-wh35 img-bj zi-bai txt-c border-radius3" style="background-image:url(${filehttp}/' + data.picurl + ');">'
-		         +'</div></div></div>'
-		         +'<div class="width-8 pull-left position-r">'
-		         +'<div class="position-a lt-left"></div>'
-		         +'<div class="div-group-10 bg-bai zi-6 border-radius5 position-r pull-left txt-l">'
-		         +'<div>' + data.content + '</div>'
-		         +'</div></div></div>'; 
-		         $('#ajaxMsg').html(xszf);
-		         scrollmsg();             
-			 }else{
-				 $("body").showTxt("show",{text:"您有一条来自"+data.fromNickname+"新消息"});
-				 repfypage=0;
-		         $('#ajaxReplay').html('');
-		         ajaxReplay(no); 
-			 }
-			
-		 }else{
-			 $("body").showTxt("show",{text:"您有一条来自"+data.fromNickname+"新消息"});
-			 fypage=0;
-	         $('#ajaxService').html('');
-			 ajaxjz();
-		 }
-		
-	 }
-	
-};  
-</script>
 <!--MUIjs-->
 <script src="${ctx}/mvccol/mui-js/mui.min.js"></script>
 <script src="${ctx}/mvccol/mui-js/mui.picker.min.js"></script>
