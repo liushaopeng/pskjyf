@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ include file="/webcom/limit.jsp" %>
 <%@ include file="/webcom/taglibs.jsp" %>  
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -268,7 +269,7 @@
 </main>
 <div class="clear hang50"></div>
 <%@ include file="/webcom/dating-foot.jsp" %>
-
+<%@ include file="/webcom/websocket.jsp" %> 
  
 
 <!--MUIjs-->

@@ -13,11 +13,7 @@
     <title>客服</title>
     <script src="${ctx}/app/js/jquery-1.8.3.js"></script>
     <link href="${ctx}/app/css/YLui.css" rel="stylesheet" type="text/css"/>
-    <link href="${ctx}/app/css/font-awesome.min.css" rel="stylesheet"/>
-     <script type="text/javascript" src="${ctx}/dwr/engine.js"></script>
-    <script type="text/javascript" src="${ctx}/dwr/util.js"></script>
-    <script type="text/javascript" src="${ctx}/dwr/interface/MsgService.js"></script>  
-    <script type="text/javascript" src="${ctx}/mvccol/js/dwr_error.js"></script>
+    <link href="${ctx}/app/css/font-awesome.min.css" rel="stylesheet"/> 
     
      <!--标准mui.css-->
     <link rel="stylesheet" href="${ctx}/mvccol/mui-css/mui.min.css"/>
@@ -189,13 +185,13 @@
               fid:no
             };
             msgissend = false;   
-            $.post('${ctx}/android/reply!ajaxdetail.action?custid=${custid}&lscode=${lscode}&fypage=' + msgfypage, submitData,
+            $.post('${ctx}/android/reply!ajaxdetailkf.action?custid=${custid}&lscode=${lscode}&fypage=' + msgfypage, submitData,
                     function (json) { 
                         var xszf =$('#ajaxMsg').html(); 
                         if (json.state == '0') {
                             var v = json.list;
                                for (var i = v.length - 1; i >= 0; i--) {
-                                if (v[i].location == "left") {
+                                if (v[i].location == "right") {
                                     xszf+='<div class="width-10 pl-5 clear">'
                                         +'<div class="hang50 line-height50 txt-c zi-hui-wx">'
                                         +'<font size="1">'+Date.prototype.format(v[i].createdate)+'</font>'
@@ -393,9 +389,9 @@
                }, "json");
         }
         
-         dwr.engine.setActiveReverseAjax(true);
-         dwr.engine.setNotifyServerOnPageUnload(true);
-         MsgService.onPageLoads('${custid}','','0','${lscode}'); 
+         //dwr.engine.setActiveReverseAjax(true);
+         //dwr.engine.setNotifyServerOnPageUnload(true);
+         //MsgService.onPageLoads('${custid}','','0','${lscode}'); 
     </script>
     
 </head>
@@ -550,7 +546,7 @@
  <script src="${ctx}/app/js/alert_show.js"></script>
 <script >
 
-var socket = new WebSocket("ws://localhost:8080/CcjhNosql/websocket");  
+var socket = new WebSocket("ws://www.pskjyf.com/websocket");  
 socket.onopen = function() { 
 		     $.post('${ctx}/user/remind!getUserid.action?custid=${custid}&lscode=${lscode}', null, function(json) {
 		       if(json.state==0){ 
@@ -585,9 +581,9 @@ function encodeScript(data) {
 }
 socket.onmessage = function(evt) {
 	 var data = JSON.parse(evt.data);
-	 if(data.custid=="${custid}"&&data.rid==rid){
-		 remidMp3();
-		 if(data.toUserid.indexOf(no)){
+	 if(true){
+		 remidMp3(); 
+		 if(data.toUserid.indexOf(no)>=0&&no!=""){ 
 			 if(data.rid==rid){
 				 var time = new Date().Format("yyyy-MM-dd hh:mm:ss"); 
 		         var xszf = $('#ajaxMsg').html();
@@ -605,18 +601,31 @@ socket.onmessage = function(evt) {
 		         +'</div></div></div>'; 
 		         $('#ajaxMsg').html(xszf);
 		         scrollmsg();             
-			 }else{
-				 $("body").showTxt("show",{text:"您有一条来自"+data.fromNickname+"新消息"});
-				 repfypage=0;
-		         $('#ajaxReplay').html('');
-		         ajaxReplay(no); 
+			 }else if(rid!=""){
+				 $.post('${ctx}/user/remind!AddAllUnread.action?custid=${custid}&lscode=${lscode}&rid='+data.rid, {ids:data.toUserid}, function(json) {
+				       if(json.state==0){ 
+				    	   $("body").showTxt("show",{text:"您有一条来自"+data.fromNickname+"新消息"});
+							 repfypage=0;
+					         $('#ajaxReplay').html('');
+					         ajaxReplay(no); 
+				    	   
+				       }else{ 
+				       } 
+				     }, "json");  
+				
 			 }
 			
 		 }else{
-			 $("body").showTxt("show",{text:"您有一条来自"+data.fromNickname+"新消息"});
-			 fypage=0;
-	         $('#ajaxService').html('');
-			 ajaxjz();
+			 $.post('${ctx}/user/remind!AddAllUnread.action?custid=${custid}&lscode=${lscode}&rid='+data.rid, {ids:data.toUserid}, function(json) {
+			       if(json.state==0){ 
+			    	   $("body").showTxt("show",{text:"您有一条来自"+data.fromNickname+"新消息"});
+						 fypage=0;
+				         $('#ajaxService').html('');
+						 ajaxjz(); 
+			       }else{ 
+			       } 
+			     }, "json");  
+			
 		 }
 		
 	 }

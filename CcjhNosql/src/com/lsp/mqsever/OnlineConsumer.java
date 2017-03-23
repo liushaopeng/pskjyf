@@ -140,14 +140,14 @@ public class OnlineConsumer implements MessageListener {
 						HashMap<String, Object>whereMap1=new HashMap<>();
 						whereMap1.put("no", string);
 						DBObject dbObject1 =mongoDbUtil.findOne(PubConstants.DATA_WXUSER, whereMap1);
-						String toId=dbObject1.get("_id").toString();
-						//验证客服 
+						String toId=dbObject1.get("_id").toString(); 
+						//验证客服  
 						DBObject  kf= mongoDbUtil.findOneById(PubConstants.SUC_DATINGSERVICETRUMPET, toId);
-						if(kf!=null){ 
+						if(kf!=null){  
 							DatingServiceTrumpet  service=(DatingServiceTrumpet) UniObject.DBObjectToObject(kf, DatingServiceTrumpet.class);
 							service.setEndupdate(new Date());
 							mongoDbUtil.insertUpdate(PubConstants.SUC_DATINGSERVICETRUMPET, service);
-							if(WebsoketListen.SessionidMap.get(service.getParent())!=null){
+							if(WebsoketListen.SessionidMap.get(service.getParent())!=null){ 
 								JSONObject  jsonObject=new JSONObject(); 
 								Iterator it = msg.keys();
 					 	        while (it.hasNext()) { 

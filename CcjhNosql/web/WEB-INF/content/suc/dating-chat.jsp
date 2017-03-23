@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ include file="/webcom/limit.jsp" %>
 <%@ include file="/webcom/taglibs.jsp" %> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -221,8 +222,7 @@
             $.post('${ctx}/android/reply!ajaxreplyadd.action?custid=${custid}&lscode=${lscode}', submitData,
                     function (json) {
                         if (json.state == 0) {
-                            rid = json.value;
-                            alert(rid);
+                            rid = json.value; 
                             Init();
                         }
                     }, "json");
@@ -288,8 +288,8 @@
                 ajaxjz();
                 delunfind(rid);
                 $('#btsend').attr('onClick', 'checkMsg()');
-                dwr.engine.setActiveReverseAjax(true);
-                dwr.engine.setNotifyServerOnPageUnload(true)
+                //dwr.engine.setActiveReverseAjax(true);
+                //dwr.engine.setNotifyServerOnPageUnload(true)
                 var custid = '${custid}';
                 var lscode = '${lscode}';
                // MsgService.onPageLoad(custid, lscode, rid);
@@ -421,7 +421,7 @@
         }
     </script>
 </head>
-<body class="bg-hui" onload="dwr.engine.setActiveReverseAjax(true);">
+<body class="bg-hui">
 <main class="cmp640">
     <div id="info" style="top: 0;z-index: 5;position: fixed;width: 100%;max-width: 640px;min-width: 320px;margin: 0px auto"></div>
     <div style="height: 70px"></div>
@@ -518,7 +518,7 @@
 <script src="${ctx}/app/js/alert_show.js"></script>
 <script >
 
-var socket = new WebSocket("ws://localhost:8080/CcjhNosql/websocket");  
+var socket = new WebSocket("ws://www.pskjyf.com/websocket");  
 socket.onopen = function() { 
 		     $.post('${ctx}/user/remind!getUserid.action?custid=${custid}&lscode=${lscode}', null, function(json) {
 		       if(json.state==0){ 

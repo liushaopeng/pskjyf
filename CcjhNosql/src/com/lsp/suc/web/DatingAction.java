@@ -1891,8 +1891,22 @@ public class DatingAction extends GeneralAction<DatingInfo> {
 				  WxUser  wx=new WxUser();
 				  wx.set_id(db.get("_id").toString());
 				  wx.setNo(db.get("no").toString());
-				  wx.setHeadimgurl(db.get("headimgurl").toString());
-				  wx.setNickname(db.get("nickname").toString());
+				  if(db.get("headimgurl")!=null){
+					  wx.setHeadimgurl(db.get("headimgurl").toString()); 
+				  }
+				  if (db.get("nickname")!=null) {
+					  wx.setNickname(db.get("nickname").toString());
+				  }
+				  if(db.get("sex")!=null){
+					  wx.setSex(db.get("sex").toString());
+				  }
+				  if (db.get("city")!=null) {
+						wx.setCity(db.get("city").toString());
+				  }
+				  if (db.get("province")!=null) {
+						wx.setProvince(db.get("province").toString());
+				  } 
+				  wx.setCustid(db.get("custid").toString()+",");
 				  wx.setCreatedate(new Date());
 				  baseDao.insert(PubConstants.DATA_WXUSER, wx);
 				  DBObject  servi=baseDao.getMessage(PubConstants.SUC_DATINGSERVICETRUMPET, id);
@@ -2076,8 +2090,10 @@ public class DatingAction extends GeneralAction<DatingInfo> {
 						dbObject.put("uncount", getunfind(dbObject.get("_id").toString(),fromUserid));
 					}else{
 						DBObject user=wwzService.getWXuserVipNo(ids);
-						dbObject.put("headimgurl", user.get("headimgurl"));
-						dbObject.put("nickname", user.get("nickname"));
+						if(user!=null){
+							dbObject.put("headimgurl", user.get("headimgurl"));
+							dbObject.put("nickname", user.get("nickname"));
+						} 
 						dbObject.put("endupdate",RelativeDate.format(DateFormat.getFormat(dbObject.get("endupdate").toString()), new Date()));
 						dbObject.put("uncount", getunfind(dbObject.get("_id").toString(),fromUserid));
 					}
@@ -2488,6 +2504,6 @@ public class DatingAction extends GeneralAction<DatingInfo> {
 		   return null;
     	
        }
-       
+     
 	 
 }

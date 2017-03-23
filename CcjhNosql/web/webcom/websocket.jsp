@@ -2,7 +2,7 @@
 <script src="${ctx}/app/js/alert_show.js"></script>
 <script >
 
-var socket = new WebSocket("ws://localhost:8080/CcjhNosql/websocket");  
+var socket = new WebSocket("ws://www.pskjyf.com/websocket");  
 socket.onopen = function() { 
 		     $.post('${ctx}/user/remind!getUserid.action?custid=${custid}&lscode=${lscode}', null, function(json) {
 		       if(json.state==0){ 

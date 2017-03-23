@@ -221,6 +221,44 @@ ApplicationContextAware {
 		Struts2Utils.renderJson(json.substring(1, json.length() - 1), new String[0]);
 	} 
 	/**
+	 * 获取客服会话
+	 */
+	public  void   ajaxdetailkf(){
+		getLscode();
+		Map<String, Object> submap = new HashMap<String, Object>();
+		String id=Struts2Utils.getParameter("id");
+		String fid=Struts2Utils.getParameter("fid");
+		if(StringUtils.isNotEmpty(fid)){
+			fid=wwzservice.getfromUseridVipNo(fid);
+			if(StringUtils.isNotEmpty(id)){
+				  HashMap<String, Object>whereMap=new HashMap<>();
+				    HashMap<String, Object>sortMap=new HashMap<>();
+				    sortMap.put("createdate",-1); 
+				    whereMap.put("rid",id);
+				    if(StringUtils.isNotEmpty(Struts2Utils.getParameter("fypage"))){
+				    	fypage=Integer.parseInt(Struts2Utils.getParameter("fypage"));
+				    	
+				    }
+				    List<DBObject>list=basedao.getList(PubConstants.ANDROID_MESSAGE,whereMap,fypage,15,sortMap);
+				     
+				    if(list.size()>0){
+				    	submap.put("state", 0);
+				    	submap.put("list", list);
+				    	for (DBObject dbObject : list) {
+							if(dbObject.get("fromUserid").toString().equals(fid)){
+								dbObject.put("location","left"); 
+							}else{
+								dbObject.put("location","right");
+							}
+						}
+				    }
+			} 
+		}
+		 
+		String json = JSONArray.fromObject(submap).toString(); 
+		Struts2Utils.renderJson(json.substring(1, json.length() - 1), new String[0]);
+	} 
+	/**
 	 * 会话页面
 	 */
 	public  String   detail(){
