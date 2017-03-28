@@ -149,11 +149,11 @@
 
     <img src="${ctx}/img/dating/yuanlai1.jpg" class="width-10">
   
-    <div class="hang90 overflow-hidden bg-bai width-10 position-r line-bottom-92" id="star2">
+    <div class="hang90 overflow-hidden bg-bai width-10 position-r line-bottom-92 display-none" id="star2">
         <div class="pull-left bg-hui-tx txt-c img-wh70 position-a p-top-left-10 position-r border-radius50">
             <i class="fa fa-mobile fa-4x zi-bai line-height70"></i>
         </div>
-        <div class="pt-15 pr-10 width-10 pl-90 display-none" >
+        <div class="pt-15 pr-10 width-10 pl-90" >
             <div class="col-8 hang20 line-height20 zi-hei-tq">
                 <div class="sl weight500 size14">手机认证</div>
                 <div class="hang20 line-height20 zi-hui-wx size12 weight500 sl">
