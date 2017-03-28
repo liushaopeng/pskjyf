@@ -251,7 +251,7 @@
                    <i id="count"></i>获得<i class="zi-fa82a5">VIP1天</i>
                 </div>
             </div>
-            <div class="col-4 sl pt-15" onclick="show_tc('每邀请到5位伙伴平台赠送6小时会员奖励上线15人')">
+            <div class="col-4 sl pt-15" onclick="show_tc('每邀请到5位伙伴平台赠送6小时会员奖励上限15人')">
                 <div class="hang30 line-height30 width-9 size12 txt-c pull-right bg-fa82a5 zi-bai border-radius50px weight500">
                     查看详情
                 </div>
