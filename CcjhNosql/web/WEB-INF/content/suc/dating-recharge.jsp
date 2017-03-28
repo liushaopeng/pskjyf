@@ -245,7 +245,7 @@
             </div>
 
            <div class="div-group-10 zi-hui-wx">
-                <div class="hang25 line-height25 sl"><i class="zi-fa82a5 pr-5 weight500">1.</i>和美女聊天时会消耗缘币，80缘币/条。</div>
+                <div class="hang25 line-height25 sl"><i class="zi-fa82a5 pr-5 weight500">1.</i>和美女聊天时会消耗缘币，1缘币/条。</div>
           <div class="hang25 line-height25 sl"><i class="zi-fa82a5 pr-5 weight500">2.</i>充值VIP会员后可无限畅聊。</div>
           </div>
             <div class="hang40 line-height40 pl-10 bg-f7f7f7 zi-hui-tq mb-10 display-none">
@@ -301,9 +301,8 @@
 
             <div class="div-group-10 zi-hui-wx">
                 <div class="hang25 line-height25 sl"><i class="zi-fa82a5 pr-5 weight500">1.</i>可与所有女用户聊天，人数无限制。</div>
-                <div class="hang25 line-height25 sl"><i class="zi-fa82a5 pr-5 weight500">2.</i>聊天80缘币/条降至仅1缘币/条。</div>
-                <div class="hang25 line-height25 sl"><i class="zi-fa82a5 pr-5 weight500">3.</i>查看美女相册。</div>
-                <div class="hang25 line-height25 sl"><i class="zi-fa82a5 pr-5 weight500">4.</i>查看美女公开的联系方式。</div>
+                <div class="hang25 line-height25 sl"><i class="zi-fa82a5 pr-5 weight500">2.</i>查看美女相册。</div>
+                <div class="hang25 line-height25 sl"><i class="zi-fa82a5 pr-5 weight500">3.</i>查看美女公开的联系方式。</div>
             </div>
             <div class="hang40 line-height40 pl-10 bg-f7f7f7 zi-hui-tq mb-10 display-none">
                 已充值VIP用户
