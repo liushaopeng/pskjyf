@@ -153,7 +153,7 @@
         <div class="pull-left bg-hui-tx txt-c img-wh70 position-a p-top-left-10 position-r border-radius50">
             <i class="fa fa-mobile fa-4x zi-bai line-height70"></i>
         </div>
-        <div class="pt-15 pr-10 width-10 pl-90" >
+        <div class="pt-15 pr-10 width-10 pl-90 display-none" >
             <div class="col-8 hang20 line-height20 zi-hei-tq">
                 <div class="sl weight500 size14">手机认证</div>
                 <div class="hang20 line-height20 zi-hui-wx size12 weight500 sl">

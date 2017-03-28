@@ -191,7 +191,7 @@
 <body class="lock">
 <!--标题放置处-->
 <div class="hang40 line-height40 pl-10 pr-10 zi-bai line-bottom cmp640" style="background-color: #fd6c8e">
-    <div class="col-3 zi-bai">
+    <div class="col-3 zi-bai"onclick="self.location=document.referrer;">
         <i class="fa fa-chevron-left pr-5"></i>返回
     </div>
     <div class="col-6">
@@ -220,16 +220,16 @@
             <div class="pl-10 pr-10">
                 <div class="col-6  gold ">
                     <div class="width-9_5 txt-c line-lu div-group-5"  price="0.05">
-                        <div class="hang30 line-height30 weight500 zi-hei-tq"><font size="3">5000缘币</font></div>
-                        <div class="hang30 line-height30 weight500 zi-fa82a5"><font size="3">￥50元</font></div>
-                        <div class="hang30 line-height30 weight500 zi-fa82a5"><font size="2">可与MM发消息</font></div>
+                        <div class="hang30 line-height30 weight500 zi-hei-tq"><font size="3">50缘币</font></div>
+                        <div class="hang30 line-height30 weight500 zi-fa82a5"><font size="3">￥2元</font></div>
+                        <div class="hang30 line-height30 weight500 zi-fa82a5"><font size="2">购买消息</font></div>
                     </div>
                 </div>
                 <div class="col-6 gold">
                     <div class="width-9_5 pull-right  txt-c line-lu div-group-5 "  price="0.1">
-                        <div class="hang30 line-height30 weight500 zi-hei-tq"><font size="3">10000缘币</font></div>
-                        <div class="hang30 line-height30 weight500 zi-fa82a5"><font size="3">￥100元</font></div>
-                        <div class="hang30 line-height30 weight500 zi-fa82a5"><font size="2">赠送5000缘币</font></div>
+                        <div class="hang30 line-height30 weight500 zi-hei-tq"><font size="3">260缘币</font></div>
+                        <div class="hang30 line-height30 weight500 zi-fa82a5"><font size="3">￥10元</font></div>
+                        <div class="hang30 line-height30 weight500 zi-fa82a5"><font size="2">赠送40缘币</font></div>
                     </div>
                 </div>
             </div>
@@ -300,9 +300,10 @@
             </div>
 
             <div class="div-group-10 zi-hui-wx">
-                <div class="hang25 line-height25 sl"><i class="zi-fa82a5 pr-5 weight500">1.</i>可与所有女用户聊天，人数无限制。</div>
-                <div class="hang25 line-height25 sl"><i class="zi-fa82a5 pr-5 weight500">2.</i>查看美女相册。</div>
-                <div class="hang25 line-height25 sl"><i class="zi-fa82a5 pr-5 weight500">3.</i>查看美女公开的联系方式。</div>
+                <div class="hang25 line-height25 sl"><i class="zi-fa82a5 pr-5 weight500">1.</i>可与所有用户聊天，人数无限制。</div>
+                <div class="hang25 line-height25 sl"><i class="zi-fa82a5 pr-5 weight500">2.</i>查看Ta相册。</div>
+                <div class="hang25 line-height25 sl"><i class="zi-fa82a5 pr-5 weight500">3.</i>查看Ta公开的联系方式。</div>
+                <div class="hang25 line-height25 sl"><i class="zi-fa82a5 pr-5 weight500">4.</i>与Ta聊天不再需要缘币。</div>
             </div>
             <div class="hang40 line-height40 pl-10 bg-f7f7f7 zi-hui-tq mb-10 display-none">
                 已充值VIP用户
