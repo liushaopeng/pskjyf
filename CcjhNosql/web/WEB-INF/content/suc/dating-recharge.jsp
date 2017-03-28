@@ -240,18 +240,19 @@
                     立即支付
                 </div>
             </div>
-            <!--<div class="hang40 line-height40 pl-10 bg-f7f7f7 zi-hui-tq">-->
-               <!--缘币特权-->
-            <!--</div>-->
+       <div class="hang40 line-height40 pl-10 bg-f7f7f7 zi-hui-tq">
+               缘币特权
+            </div>
 
-            <!--<div class="div-group-10 zi-hui-wx">-->
-                <!--<div class="hang25 line-height25 sl"><i class="zi-fa82a5 pr-5 weight500">1.</i>和美女聊天时会消耗缘币，80缘币/条。</div>-->
-            <!--</div>-->
+           <div class="div-group-10 zi-hui-wx">
+                <div class="hang25 line-height25 sl"><i class="zi-fa82a5 pr-5 weight500">1.</i>和美女聊天时会消耗缘币，80缘币/条。</div>
+          <div class="hang25 line-height25 sl"><i class="zi-fa82a5 pr-5 weight500">2.</i>充值VIP会员后可无限畅聊。</div>
+          </div>
             <div class="hang40 line-height40 pl-10 bg-f7f7f7 zi-hui-tq mb-10 display-none">
                 购买缘币用户
             </div>
 
-            <div class="div-group-10 zi-hui-wx hang120">
+            <div class="div-group-10 zi-hui-wx hang120 display-none">
                 <div class="hang25 line-height25 sl"><i class="zi-fa82a5">[用户昵称]</i>8分钟前成功购买10000元缘币，<i
                         class="zi-fa82a5">赠送5000缘币</i></div>
                 <div class="hang25 line-height25 sl"><i class="zi-fa82a5">[用户昵称]</i>8分钟前成功购买5000元缘币</div>
@@ -308,7 +309,7 @@
                 已充值VIP用户
             </div>
 
-            <div class=" zi-hui-wx hang100 overflow-auto pl-10 pr-10">
+            <div class=" zi-hui-wx hang100 overflow-auto pl-10 pr-10 display-none">
                 <div class="hang25 line-height25 sl"><i class="zi-fa82a5">[用户昵称]</i>8分钟前成功购买90天VIP，<i
                         class="zi-fa82a5">赠送10天VIP</i></div>
                 <div class="hang25 line-height25 sl"><i class="zi-fa82a5">[用户昵称]</i>8分钟前成功充值30天VIP</div>
