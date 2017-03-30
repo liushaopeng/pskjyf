@@ -6,13 +6,10 @@ import javax.jms.Destination;
 import javax.jms.TextMessage;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.context.ApplicationContext;
 import org.springframework.jms.JmsException;
-import org.springframework.jms.core.JmsTemplate;
-
+import org.springframework.jms.core.JmsTemplate; 
 import com.lsp.android.entity.Message;
 import com.lsp.android.entity.MessageInfo;
 
@@ -462,6 +459,124 @@ public class JmsService {
 	
 	return true;
   }
-
+  /**
+   * 验证奖励
+   * @param msg
+   * @param type
+   * @return
+   */
+  public  static boolean  Online(String id) {
+	
+		try {  
+			JmsTemplate jmsTemplate = (JmsTemplate) SpringBeanLoader.getBeanMq("jmsTemplate");  
+			Destination destination = (Destination) SpringBeanLoader.getBeanMq("onlineDestination");
+			//向广播队列发送消息发送消息  
+			HashMap<String,String> map=new HashMap<String,String>();
+			map.put("id", id);
+			map.put("type","1");  
+			String json = JSONArray.fromObject(map).toString(); 
+			jmsTemplate.convertAndSend(destination,json.substring(1, json.length() - 1));
+		} catch (JmsException e) {
+			// TODO Auto-generated catch block 
+			e.printStackTrace(); 
+		}  
+	 return true;
+   } 
+  /**
+   * 验证奖励
+   * @param msg
+   * @param type
+   * @return
+   */
+     public  static boolean  Offline(String id) {
+	
+		try {  
+			JmsTemplate jmsTemplate = (JmsTemplate) SpringBeanLoader.getBeanMq("jmsTemplate");  
+			Destination destination = (Destination) SpringBeanLoader.getBeanMq("onlineDestination");
+			//向广播队列发送消息发送消息  
+			HashMap<String,String> map=new HashMap<String,String>();
+			map.put("id", id);
+			map.put("type","0"); 
+			String json = JSONArray.fromObject(map).toString(); 
+			jmsTemplate.convertAndSend(destination,json.substring(1, json.length() - 1));
+		} catch (JmsException e) {
+			// TODO Auto-generated catch block 
+			e.printStackTrace(); 
+		} 
+	  
+	   return true;
+    }
+    /**
+     * 发送消息到指定用户（后台发送）
+     * @param id
+     * @param msg
+     * @return
+     */
+     public  static boolean  SendMsg(String id,String msg) {
+   	
+   	 try {  
+   		JmsTemplate jmsTemplate = (JmsTemplate) SpringBeanLoader.getBeanMq("jmsTemplate");  
+   		Destination destination = (Destination) SpringBeanLoader.getBeanMq("onlineDestination");
+   		//向广播队列发送消息发送消息  
+   		HashMap<String,String> map=new HashMap<String,String>();
+   		map.put("id", id);
+   		map.put("type","2");
+   		map.put("msg",msg);
+   		String json = JSONArray.fromObject(map).toString(); 
+   		jmsTemplate.convertAndSend(destination,json.substring(1, json.length() - 1));
+   	  } catch (JmsException e) {
+   			// TODO Auto-generated catch block 
+   			e.printStackTrace(); 
+   	 }  
+   	   return true;
+    }
+     /**
+      * 发送消息到指定用户（用户发送）
+      * @param id
+      * @param msg
+      * @return
+      */
+     public  static boolean  SendJson(String id,JSONObject msg) {
+           	
+       try {  
+       		JmsTemplate jmsTemplate = (JmsTemplate) SpringBeanLoader.getBeanMq("jmsTemplate");  
+       		Destination destination = (Destination) SpringBeanLoader.getBeanMq("onlineDestination");
+       		//向广播队列发送消息发送消息  
+       		HashMap<String,String> map=new HashMap<String,String>();
+       		map.put("id", id);
+       		map.put("type","3");
+       		map.put("msg",msg.toString());
+       		String json = JSONArray.fromObject(map).toString(); 
+       		jmsTemplate.convertAndSend(destination,json.substring(1, json.length() - 1));
+       		} catch (JmsException e) {
+       			// TODO Auto-generated catch block 
+       		e.printStackTrace(); 
+       	}  
+       	 return true;
+     }       
+     /**
+      * 添加到未读消息
+      * @param id（用户ID）
+      * @param rid（会话ID）
+      * @return
+      */
+     public  static boolean  AddUnread(String id,String rid) {
+           	
+       try {  
+       		JmsTemplate jmsTemplate = (JmsTemplate) SpringBeanLoader.getBeanMq("jmsTemplate");  
+       		Destination destination = (Destination) SpringBeanLoader.getBeanMq("onlineDestination");
+       		//向广播队列发送消息发送消息  
+       		HashMap<String,String> map=new HashMap<String,String>();
+       		map.put("id", id);
+       		map.put("type","4");
+       		map.put("rid",rid);
+       		String json = JSONArray.fromObject(map).toString(); 
+       		jmsTemplate.convertAndSend(destination,json.substring(1, json.length() - 1));
+       		} catch (JmsException e) {
+       			// TODO Auto-generated catch block 
+       		e.printStackTrace(); 
+       	}  
+       	 return true;
+     }       
 
 }

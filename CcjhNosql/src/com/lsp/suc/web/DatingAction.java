@@ -1034,12 +1034,12 @@ public class DatingAction extends GeneralAction<DatingInfo> {
 	}
 	public  void  delReply(){
 		HashMap<String, Object>whereMap=new HashMap<>();
-		baseDao.delete(PubConstants.SUC_DATINGSERVICETRUMPET);
+		//baseDao.delete(PubConstants.SUC_DATINGSERVICETRUMPET);
 		//baseDao.delete(PubConstants.SUC_DATINGSTATISTICAL, whereMap);
 		//baseDao.delete(PubConstants.SUC_DATINGREWARD, whereMap); 
 		//baseDao.delete(PubConstants.SUC_DATING);
 		//baseDao.delete(PubConstants.SUC_DATINGPHOTO);
-		//baseDao.delete(PubConstants.ANDROID_REPLY);
+		baseDao.delete(PubConstants.ANDROID_REPLY);
 		//baseDao.delete(PubConstants.ANDROID_MESSAGE);
 	}
 	/**
@@ -1084,7 +1084,9 @@ public class DatingAction extends GeneralAction<DatingInfo> {
 			whereMap.put("no",id);
 			DBObject  db=baseDao.getMessage(PubConstants.SUC_DATING, whereMap);
 			Struts2Utils.getRequest().setAttribute("nickname",db.get("nickname"));
-			Struts2Utils.getRequest().setAttribute("headimgurl",wwzService.getWxUser(fromUserid).get("headimgurl"));
+			DBObject fromUser=wwzService.getWxUser(fromUserid);
+			Struts2Utils.getRequest().setAttribute("headimgurl",fromUser.get("headimgurl"));
+			Struts2Utils.getRequest().setAttribute("fromNickname",fromUser.get("nickname"));
 			Struts2Utils.getRequest().setAttribute("id",id); 
 		}
 		
@@ -1133,8 +1135,10 @@ public class DatingAction extends GeneralAction<DatingInfo> {
 				HashMap<String,Object>whereMap=new HashMap<>();
 				whereMap.put("no",db.get("ids").toString().replace(no, "").replace(",", ""));
 				DBObject  dat=baseDao.getMessage(PubConstants.SUC_DATING, whereMap);
-				Struts2Utils.getRequest().setAttribute("nickname",dat.get("nickname"));
-				Struts2Utils.getRequest().setAttribute("headimgurl",wwzService.getWxUser(fromUserid).get("headimgurl"));
+				Struts2Utils.getRequest().setAttribute("nickname",dat.get("nickname")); ;
+				DBObject fromUser=wwzService.getWxUser(fromUserid);
+				Struts2Utils.getRequest().setAttribute("headimgurl",fromUser.get("headimgurl"));
+				Struts2Utils.getRequest().setAttribute("fromNickname",fromUser.get("nickname"));
 				Struts2Utils.getRequest().setAttribute("rid",rid); 
 				Struts2Utils.getRequest().setAttribute("id",db.get("ids").toString().replace(no, "").replace(",", "")); 
 			}
@@ -1887,8 +1891,22 @@ public class DatingAction extends GeneralAction<DatingInfo> {
 				  WxUser  wx=new WxUser();
 				  wx.set_id(db.get("_id").toString());
 				  wx.setNo(db.get("no").toString());
-				  wx.setHeadimgurl(db.get("headimgurl").toString());
-				  wx.setNickname(db.get("nickname").toString());
+				  if(db.get("headimgurl")!=null){
+					  wx.setHeadimgurl(db.get("headimgurl").toString()); 
+				  }
+				  if (db.get("nickname")!=null) {
+					  wx.setNickname(db.get("nickname").toString());
+				  }
+				  if(db.get("sex")!=null){
+					  wx.setSex(db.get("sex").toString());
+				  }
+				  if (db.get("city")!=null) {
+						wx.setCity(db.get("city").toString());
+				  }
+				  if (db.get("province")!=null) {
+						wx.setProvince(db.get("province").toString());
+				  } 
+				  wx.setCustid(db.get("custid").toString()+",");
 				  wx.setCreatedate(new Date());
 				  baseDao.insert(PubConstants.DATA_WXUSER, wx);
 				  DBObject  servi=baseDao.getMessage(PubConstants.SUC_DATINGSERVICETRUMPET, id);
@@ -2072,8 +2090,10 @@ public class DatingAction extends GeneralAction<DatingInfo> {
 						dbObject.put("uncount", getunfind(dbObject.get("_id").toString(),fromUserid));
 					}else{
 						DBObject user=wwzService.getWXuserVipNo(ids);
-						dbObject.put("headimgurl", user.get("headimgurl"));
-						dbObject.put("nickname", user.get("nickname"));
+						if(user!=null){
+							dbObject.put("headimgurl", user.get("headimgurl"));
+							dbObject.put("nickname", user.get("nickname"));
+						} 
 						dbObject.put("endupdate",RelativeDate.format(DateFormat.getFormat(dbObject.get("endupdate").toString()), new Date()));
 						dbObject.put("uncount", getunfind(dbObject.get("_id").toString(),fromUserid));
 					}
@@ -2484,6 +2504,6 @@ public class DatingAction extends GeneralAction<DatingInfo> {
 		   return null;
     	
        }
-       
+     
 	 
 }

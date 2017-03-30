@@ -24,6 +24,7 @@ import com.lsp.pub.db.MongoSequence;
 import com.lsp.pub.entity.GetAllFunc;
 import com.lsp.pub.entity.PubConstants;
 import com.lsp.pub.entity.WxToken;
+import com.lsp.pub.util.JmsService;
 import com.lsp.pub.util.SpringSecurityUtils;
 import com.lsp.pub.util.Struts2Utils;
 import com.lsp.pub.util.SysConfig;
@@ -39,6 +40,7 @@ import com.lsp.websocket.ChatServer;
 import com.lsp.websocket.service.WebsoketListen;
 import com.lsp.weixin.entity.WxUser;
 import com.lsp.weixin.entity.WxUserToken;
+import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 /**
@@ -86,11 +88,20 @@ public class FromuserAction extends GeneralAction<WxUser>{
 				whereMap.put("nickname", pattern);
 				Struts2Utils.getRequest().setAttribute("nickname",  nickname);
 			}
-			String  online=Struts2Utils.getParameter("online");
-			if(StringUtils.isNotEmpty(online))
-			{ 
-				whereMap.put("online", Integer.parseInt(online));
-				Struts2Utils.getRequest().setAttribute("online",  online);
+			String  isline=Struts2Utils.getParameter("isline");
+			if(StringUtils.isNotEmpty(isline))
+			{  
+				if(Integer.parseInt(isline)==1){
+					whereMap.put("online", Integer.parseInt(isline));
+				}else if (Integer.parseInt(isline)==0) {
+					BasicDBList   dblist=new BasicDBList(); 
+					dblist.add(new BasicDBObject("online",null));
+					dblist.add(new BasicDBObject("online",0));
+					//or判断
+					whereMap.put("$or", dblist); 
+				}
+				
+				Struts2Utils.getRequest().setAttribute("isline",  isline);
 			}
 		    sortMap.put("createdate", Integer.valueOf(-1));
 			if(StringUtils.isNotEmpty(Struts2Utils.getParameter("fypage"))){
@@ -508,13 +519,9 @@ public class FromuserAction extends GeneralAction<WxUser>{
 		Struts2Utils.renderJson(json.substring(1, json.length() - 1), new String[0]);
 	}
 	public String test(){
+		getLscode();
+		Struts2Utils.getRequest().setAttribute("custid",custid);
 		return "test";
-	}
-	public void  send(){
-		JSONObject  obj=new JSONObject();
-		obj.put("userName","rrrrr");
-		obj.put("message","gestwetwetwet");
-		ChatServer.sendMessages(WebsoketListen.SessionMap.get(WebsoketListen.SessionidMap.get("123456789")),obj.toString());
-	}
+	} 
 	 
 }

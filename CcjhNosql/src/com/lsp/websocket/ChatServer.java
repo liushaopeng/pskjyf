@@ -13,6 +13,7 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import com.lsp.pub.util.JmsService;
 import com.lsp.websocket.interceptor.WebsocketInterceptor;
 import com.lsp.websocket.service.WebsoketListen;
 
@@ -54,14 +55,8 @@ public class ChatServer implements WebsoketListen,WebsocketInterceptor{
 	        		for (String key : jsonObject.getString("check").split(",")) {
 	        			checkMap.put(key, jsonObject.get(key));
 					}
-	        	};
-	        	for (Session se : getSessions()) {
-					se=checkSession(session, checkMap);
-					if(se!=null){
-		        		jsonObject.put("userName", "admin");
-		        		 sendMessage(se,jsonObject.toString());
-		        	}
-				}   
+	        	}; 
+	        	JmsService.SendJson(jsonObject.getString("toUserid"), jsonObject) ;
 		     
 	        }  
 	      
@@ -85,10 +80,12 @@ public class ChatServer implements WebsoketListen,WebsocketInterceptor{
 		}
 
 		@Override
-		public void sessionDestroyed(Session session) {
+		public void sessionDestroyed(Session session) { 
+			JmsService.Offline(UidMap.get(session.getId()));
 			SessionMap.remove(session.getId());
 			SessionidMap.remove(UidMap.get(session.getId()));
-			UidMap.remove(session.getId()); 	
+			UidMap.remove(session.getId()); 
+			
 		}
 
 		@Override
@@ -101,6 +98,7 @@ public class ChatServer implements WebsoketListen,WebsocketInterceptor{
 			// TODO Auto-generated method stub
 			SessionidMap.put(uid, session.getId());
 			UidMap.put(session.getId(),uid);
+			JmsService.Online(uid); 
 		}
 
 		@Override

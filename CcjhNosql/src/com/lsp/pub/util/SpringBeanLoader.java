@@ -24,7 +24,8 @@ public class SpringBeanLoader
 		  context.getBean("listenerQueuePermessage"); 
 		  context.getBean("listenerQueueRedmessage"); 
 		  context.getBean("listenerQueueRepmessage"); 
-		  context.getBean("listenerQueueCheckmessage"); 
+		  context.getBean("listenerQueueCheckmessage");
+		  context.getBean("listenerQueueOnlinemessage"); 
 	  } 
     return context.getBean(bean名称);
   } 
