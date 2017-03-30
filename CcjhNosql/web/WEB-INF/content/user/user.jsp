@@ -20,6 +20,7 @@
             $('#password').val('');
             $('#nickname').val('');
             $('#toUser').val('');
+            $('#area').val('');
             $('#inszc').modal({
                 show: true
             });
@@ -36,7 +37,9 @@
                         $('#toUser').val(json.toUser);
                         $('#nickname').val(json.nickname);
                         $('#roleid').val(json.roleid);
-                        $('#type').val(json.type);
+                        $('#type').val(json.type); 
+                        $('#province').val(json.province);
+                        $('#city').val(json.city);
                         var funcs = json.funclist;
                         $('.ch_type').each(function () {
                             $(this).removeClass("gx-xz-dj");
@@ -60,6 +63,8 @@
                 toUser: $('#toUser').val(),
                 roleid: $('#roleid').val(),
                 type: $('#type').val(),
+                province: $('#province').val(),
+                city: $('#city').val(),
                 nickname: $('#nickname').val(),
                 mb: $('#mb').val(),
             };
@@ -282,6 +287,8 @@
                                 </select>
                                 <label class="error" for="roleid"></label>
                             </div>
+                           
+                        </div>
                         </div>
                         <div class="col-sm-2">
                             <div class="form-group-20">
@@ -294,7 +301,20 @@
                                 <label class="error" for="type"></label>
                             </div>
                         </div>
-                    </div>
+                        <div class="col-sm-2">
+                            <div class="form-group-20">
+                                <label class="control-label">省份:</label>
+                                <input type="text" id="province" name="province"
+                                       class="form-control" placeholder="请输入"/>
+                       </div>
+                        </div> 
+                         <div class="col-sm-2">
+                            <div class="form-group-20">
+                                <label class="control-label">区县:</label>
+                                <input type="text" id="city" name="city"
+                                       class="form-control" placeholder="请输入"/>
+                       </div>
+                      </div>   
                     <div class="row"> 
                         <div class="col-md-12">
                             <label class="control-label pr-10" style="padding-bottom:10px;!important;">个人中心菜单配置:</label>

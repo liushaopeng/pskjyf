@@ -34,6 +34,9 @@ public class CustomerUser extends User
   private int type;
   private int css;
   private Map<String, String> currentCompanyInfo;
+  private String area;
+  private String province;
+  private String city;
 
   public String getTelPhone()
   {
@@ -174,5 +177,23 @@ public class CustomerUser extends User
   public void setCustid(String custid) {
 	this.custid = custid;
   }
+  public String getArea() {
+	return area;
+  }
+  public void setArea(String area) {
+	this.area = area;
+  }
+public String getProvince() {
+	return province;
+}
+public void setProvince(String province) {
+	this.province = province;
+}
+public String getCity() {
+	return city;
+}
+public void setCity(String city) {
+	this.city = city;
+}
    
 }

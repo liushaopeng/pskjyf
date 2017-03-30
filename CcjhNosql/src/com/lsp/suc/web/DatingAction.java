@@ -18,8 +18,9 @@ import java.util.TreeMap;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
-import net.sf.json.JSONArray; 
- 
+import net.sf.json.JSONArray;
+import sun.reflect.generics.tree.VoidDescriptor;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
@@ -385,6 +386,7 @@ public class DatingAction extends GeneralAction<DatingInfo> {
 			HashMap<String, Object>sortMap=new HashMap<String, Object>();
 			sortMap.put("createdate", -1);
 			//whereMap.put("custid", custid);
+			 
 			String sex=Struts2Utils.getParameter("sex");
 			if(StringUtils.isNotEmpty(sex)){
 				whereMap.put("sex",Integer.parseInt(sex));
@@ -392,6 +394,12 @@ public class DatingAction extends GeneralAction<DatingInfo> {
 			String  city=Struts2Utils.getParameter("city");
 			if(StringUtils.isNotEmpty(city)){
 				whereMap.put("city",city);
+			}else {
+				DBObject db=wwzService.getCustUser(custid);
+
+				Pattern pattern = Pattern.compile("^.*" + db.get("area").toString() + ".*$",
+						Pattern.CASE_INSENSITIVE);
+				whereMap.put("city",pattern); 
 			}
 			String  province=Struts2Utils.getParameter("province");
 			if(StringUtils.isNotEmpty(province)){
@@ -598,7 +606,14 @@ public class DatingAction extends GeneralAction<DatingInfo> {
 					
 				}else{
 					db.put("member",0);
-				}  
+				}
+				DBObject dats=baseDao.getMessage(PubConstants.SUC_DATINGSERVICETRUMPET, id);
+				if(dats!=null){
+					DBObject usercust=wwzService.getCustUser(custid);
+					db.put("province", usercust.get("province"));
+					db.put("city", usercust.get("city"));
+				}
+				
 				Struts2Utils.getRequest().setAttribute("entity", db);
 				HashMap<String, Object>whereMap=new HashMap<>();
 				whereMap.put("fromUserid",id);
@@ -2504,6 +2519,89 @@ public class DatingAction extends GeneralAction<DatingInfo> {
 		   return null;
     	
        }
+       public void upuser(){
+    	   String area=Struts2Utils.getParameter("area");
+    	   String province=Struts2Utils.getParameter("province");
+    	   HashMap<String,Object>whereMap=new HashMap<>();
+    	   whereMap.put("sex",1);  
+   		   Pattern pattern = Pattern.compile("^" +area + ".*$",
+   					Pattern.CASE_INSENSITIVE);
+   		   whereMap.put("city", pattern);
+   		   List<DBObject>list=baseDao.getList(PubConstants.SUC_DATING, whereMap,null);
+   		   int  count=list.size(); 
+   		   if (count<50) {
+   			whereMap.clear();
+   			whereMap.put("sex",1);
+   			pattern = Pattern.compile("^((?!" +area + ").)*$",
+   					Pattern.CASE_INSENSITIVE);
+   		    whereMap.put("city", pattern);
+   			   list=baseDao.getList(PubConstants.SUC_DATING, whereMap,null); 
+   			   for (DBObject dbObject : list) {
+				if(dbObject.get("city").toString().indexOf(area)<0){
+					DatingInfo datingInfo=(DatingInfo) UniObject.DBObjectToObject(dbObject, DatingInfo.class);
+					datingInfo.setCity(area);
+					datingInfo.setProvince(province);
+					baseDao.insert(PubConstants.SUC_DATING, datingInfo);
+					count++;
+					if (count==50) {
+						break;
+					}
+				}
+			}
+		   }
+   		  whereMap.clear();  
+   		  whereMap.put("sex",2);  
+  		   pattern = Pattern.compile("^" +area + ".*$",
+  					Pattern.CASE_INSENSITIVE);
+  		   whereMap.put("city", pattern);
+  		   list=baseDao.getList(PubConstants.SUC_DATING, whereMap,null);
+  		   count=list.size(); 
+  		   if (count<150) {
+  			whereMap.clear();
+  			whereMap.put("sex",2);
+  			pattern = Pattern.compile("^((?!" +area + ").)*$",
+   					Pattern.CASE_INSENSITIVE);
+  		    whereMap.put("city", pattern);
+  			   list=baseDao.getList(PubConstants.SUC_DATING, whereMap,null);
+  			   for (DBObject dbObject : list) {
+				if(dbObject.get("city").toString().indexOf(area)<0){
+					DatingInfo datingInfo=(DatingInfo) UniObject.DBObjectToObject(dbObject, DatingInfo.class);
+					datingInfo.setCity(area);
+					datingInfo.setProvince(province);
+					baseDao.insert(PubConstants.SUC_DATING, datingInfo);
+					count++;
+					if (count==150) {
+						break;
+					}
+				}
+			}
+		 }
+       }
+       
+       public void addmm() {
+    	   String fromid=Struts2Utils.getParameter("fromid");
+    	   fromid=wwzService.getfromUseridVipNo(fromid);
+    	   String count=Struts2Utils.getParameter("count");
+    	   String custid=Struts2Utils.getParameter("custid");
+    	   int  c=0;
+		 List<DBObject>list=baseDao.getList(PubConstants.SUC_DATING, null, null);
+		 for (DBObject dbObject : list) {
+			DBObject dbObject2=baseDao.getMessage(PubConstants.SUC_DATINGSERVICETRUMPET,dbObject.get("_id").toString());
+			if (dbObject2==null) {
+				  DatingServiceTrumpet  dat=new DatingServiceTrumpet();
+				  dat.set_id(dbObject.get("_id").toString());
+				  dat.setFromUserid(dbObject.get("_id").toString());
+				  dat.setCustid(custid);
+				  dat.setParent(fromid);
+				  dat.setCreatedate(new Date());
+				  baseDao.insert(PubConstants.SUC_DATINGSERVICETRUMPET, dat);
+				  c++;
+				  if(c==Integer.parseInt(count)){
+					  break;
+				  }
+			}
+		}
+	}
      
 	 
 }

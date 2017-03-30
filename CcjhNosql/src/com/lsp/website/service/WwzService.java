@@ -546,6 +546,22 @@ public class WwzService {
 		
 	}
 	/**
+	 * 获取管理员
+	 * @param custid
+	 * @return
+	 */
+	public  DBObject   getCustUser(String custid){
+		if (StringUtils.isEmpty(custid)) {
+			return null;
+		} 
+		DBObject  db=baseDao.getMessage(PubConstants.USER_INFO, custid); 
+		if(db!=null){
+			return db;
+		}
+		return null;
+		
+	}
+	/**
 	 * 获取父账号的custid
 	 * @param custid
 	 * @return

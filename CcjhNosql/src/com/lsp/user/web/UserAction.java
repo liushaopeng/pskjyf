@@ -237,6 +237,9 @@ public class UserAction extends GeneralAction<UserInfo>
 			String  type=Struts2Utils.getParameter("type");
 			String  funcs=Struts2Utils.getParameter("funcs");
 			String  fxmb=Struts2Utils.getParameter("mb");
+			String  area=Struts2Utils.getParameter("area");
+			String  province=Struts2Utils.getParameter("province");
+			String  city=Struts2Utils.getParameter("city");
 			if(StringUtils.isEmpty(id)){
 				id=UUID.randomUUID().toString();
 			}
@@ -247,6 +250,9 @@ public class UserAction extends GeneralAction<UserInfo>
 			user.setToUser(toUser);
 			user.setNickname(nickname);
 			user.setCustid(SpringSecurityUtils.getCurrentUser().getId());
+			user.setArea(area);
+			user.setProvince(province);
+			user.setCity(city);
 			if(StringUtils.isNotEmpty(roleid)){
 				user.setRoleid(Long.parseLong(roleid));	
 			}

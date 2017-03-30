@@ -73,6 +73,9 @@ public class UserDetailsServiceImpl
     userdetail.setType(user.getType());
     userdetail.setCss(user.getCss());
     userdetail.setCustid(user.getCustid());
+    userdetail.setArea(user.getArea());
+    userdetail.setProvince(user.getProvince());
+    userdetail.setCity(user.getCity());
 
     if (userdetail.getComid()!=null) {
       HashMap<String, Object> sortMap =new HashMap<String, Object>();

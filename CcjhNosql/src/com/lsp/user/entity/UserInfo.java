@@ -56,6 +56,9 @@ public class UserInfo extends ReflectionDBObject {
 	private int css;
 	private List<DBObject> funclist;
 	private int mb;
+	private String area;
+	private String province;
+	private String city;
 
 	public Long getOrgid() {
 		return this.orgid;
@@ -423,6 +426,30 @@ public class UserInfo extends ReflectionDBObject {
 
 	public void setMb(int mb) {
 		this.mb = mb;
+	}
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
+
+	public String getProvince() {
+		return province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
 	}
 	
 
