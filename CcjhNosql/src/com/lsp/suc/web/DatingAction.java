@@ -1709,6 +1709,7 @@ public class DatingAction extends GeneralAction<DatingInfo> {
 			  whereMap.put("no",id);  
 			  backMap.put("nickname", 1);
 			  backMap.put("headimgurl", 1);
+			  backMap.put("province", 1);
 			  backMap.put("city", 1);
 			  backMap.put("age", 1);
 			  backMap.put("no", 1);
@@ -1717,6 +1718,13 @@ public class DatingAction extends GeneralAction<DatingInfo> {
 			  DBObject db=baseDao.getMessage(PubConstants.SUC_DATING, whereMap,backMap);
 			  if(db!=null){
 				  sub_map.put("state", 0);
+				  DBObject dats=baseDao.getMessage(PubConstants.SUC_DATINGSERVICETRUMPET, db.get("_id").toString());
+					if(dats!=null){
+						DBObject usercust=wwzService.getCustUser(custid);
+						db.put("province", usercust.get("province"));
+						db.put("city", usercust.get("city"));
+					}
+				  
 				  sub_map.put("value",db);
 			  }
 		  }  

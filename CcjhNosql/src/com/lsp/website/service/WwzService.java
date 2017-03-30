@@ -1136,7 +1136,7 @@ public class WwzService {
 			return code.getCode();
 		}else{
 			Authcode  obj=(Authcode) UniObject.DBObjectToObject(db, Authcode.class);
-			if(DateUtil.getTimeDifference(DateUtil.getBeforeTenMinutes(), obj.getActivitydate())>=0){
+			if(DateUtil.getTimeDifference(DateUtil.getBeforeAnHours(), obj.getActivitydate())>=0){
 				//验证码失效 
 				return updatecode(db.get("_id").toString());
 			}else{
@@ -1169,7 +1169,7 @@ public class WwzService {
 		DBObject  db=baseDao.getMessage(PubConstants.USER_AUTHCODE, whereMap); 
 		if(db!=null){
 			Authcode  obj=(Authcode) UniObject.DBObjectToObject(db, Authcode.class);
-			if(DateUtil.getTimeDifference(DateUtil.getBeforeTenMinutes(), obj.getActivitydate())>=0){
+			if(DateUtil.getTimeDifference(DateUtil.getBeforeAnHours(), obj.getActivitydate())>=0){
 				//验证码失效 
 				updatecode(db.get("_id").toString());
 			}else{

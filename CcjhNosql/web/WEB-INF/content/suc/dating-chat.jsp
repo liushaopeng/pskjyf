@@ -110,7 +110,7 @@
                                 +'<div class="pt-10 pr-10 width-10 pl-70">'
                                 +'<font size="2">'
                                 +'<div class="hang25 line-height25 zi-6 weight500">'
-                                +'<div class="col-9 sl">'+obj.age+'岁，'+obj.city+'</div>'
+                                +'<div class="col-9 sl">'+obj.age+'岁，'+obj.province+' '+obj.city+'</div>'
                                 +'</div></font>'
                                 +'<font size="2">'
                                 +'<div class="hang25 line-height25 zi-hui-wx sl weight500">';
