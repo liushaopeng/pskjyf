@@ -358,12 +358,12 @@
                 </div>
                 <div class="width-10 pt-15">
                     <div class="button_group1" onclick="window.location.href='${ctx}/suc/dating!chat.action?custid=${custid}&lscode=${lscode}&id=${entity.no}'">
-                        <div class="width-9_5 maring-a border-radius3 bottom-738ffa zi-bai txt-c hang35 line-height30">
+                        <div class="width-9_5 maring-a border-radius3 bottom-738ffa zi-bai txt-c hang35 line-height35">
                             给她打个招呼
                         </div>
                     </div> 
                     <div class="button_group1" onclick="window.location.href='${ctx}/suc/dating!recharge.action?custid=${custid}&lscode=${lscode}'">
-                        <div class="width-9_5 maring-a border-radius3 bottom-fa82a5 zi-bai txt-c hang35 line-height30">
+                        <div class="width-9_5 maring-a border-radius3 bottom-fa82a5 zi-bai txt-c hang35 line-height35">
                             开通VIP
                         </div>
                     </div>

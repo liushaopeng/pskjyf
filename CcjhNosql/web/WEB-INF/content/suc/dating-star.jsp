@@ -160,7 +160,7 @@
                     安全保障 来信即知
                 </div>
                 <div class="hang20 line-height20 zi-6 size12 weight500 sl">
-                    可获得：<i class="zi-fa82a5">VIP1天</i>
+                    可获得：<i class="zi-fa82a5">6小时</i>
                 </div>
             </div>
             <div class="col-4 sl pt-15">
@@ -182,7 +182,7 @@
                     显示自我 获得青睐
                 </div>
                 <div class="hang20 line-height20 zi-6 size12 weight500 sl">
-                    可获得：<i class="zi-fa82a5">VIP1天</i>
+                    可获得：<i class="zi-fa82a5">6小时</i>
                 </div>
             </div>
             <div class="col-4 sl pt-15" onclick="window.location.href='${ctx}/suc/dating!photo.action?custid=${custid}&lscode=${lscode}&datingid=${datingid}'">
@@ -204,7 +204,7 @@
                     诚信资料 缘分不断
                 </div>
                 <div class="hang20 line-height20 zi-6 size12 weight500 sl">
-                    可获得：<i class="zi-fa82a5">VIP1天</i>
+                    可获得：<i class="zi-fa82a5">6小时</i>
                 </div>
             </div>
             <div class="col-4 sl pt-15" onclick="window.location.href='${ctx}/suc/dating!webadd.action?custid=${custid}&lscode=${lscode}&datingid=${datingid}'">
@@ -226,7 +226,7 @@
                     分享既是得到 每三天一次
                 </div>
                 <div class="hang20 line-height20 zi-6 size12 weight500 sl">
-                    可获得：<i class="zi-fa82a5">VIP1天</i>
+                    可获得：<i class="zi-fa82a5">6小时</i>
                 </div>
             </div>
             <div class="col-4 sl pt-15" onclick="show_tc('您只要分享平台任何页面到朋友圈就可完成此任务，此任务每三天一次')">
@@ -248,10 +248,10 @@
                     好事大家知 免费得会员
                 </div>
                 <div class="hang20 line-height20 zi-6 size12 weight500 sl">
-                   <i id="count"></i>获得<i class="zi-fa82a5">VIP1天</i>
+                   <i id="count"></i>
                 </div>
             </div>
-            <div class="col-4 sl pt-15" onclick="show_tc('每邀请到5位伙伴平台赠送6小时会员奖励上限15人')">
+            <div class="col-4 sl pt-15" onclick="show_tc('奖励分三个阶段：①累计邀请到5人奖励6小时； ②累计邀请到10人奖励7小时；③累计邀请到15人奖励10小时；总计奖励：23小时')">
                 <div class="hang30 line-height30 width-9 size12 txt-c pull-right bg-fa82a5 zi-bai border-radius50px weight500">
                     查看详情
                 </div>
