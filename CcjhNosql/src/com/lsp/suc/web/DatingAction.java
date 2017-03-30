@@ -397,7 +397,7 @@ public class DatingAction extends GeneralAction<DatingInfo> {
 			}else {
 				DBObject db=wwzService.getCustUser(custid);
 
-				Pattern pattern = Pattern.compile("^.*" + db.get("area").toString() + ".*$",
+				Pattern pattern = Pattern.compile("^.*" + db.get("city").toString() + ".*$",
 						Pattern.CASE_INSENSITIVE);
 				whereMap.put("city",pattern); 
 			}
