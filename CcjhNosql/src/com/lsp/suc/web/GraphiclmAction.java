@@ -262,6 +262,19 @@ public class GraphiclmAction extends GeneralAction<GraphiclmInfo>{
 		return "detail";
 	}
 	/**
+	 * 图文详情
+	 * @return
+	 */
+	public  String   detailcss(){ 
+		String id=Struts2Utils.getParameter("id"); 
+		DBObject  db=basedao.getMessage(PubConstants.GRAPHIC_INFO, Long.parseLong(id)); 
+		Struts2Utils.getRequest().setAttribute("entity",db);
+		if(db.get("mb")!=null){
+			return "detail"+db.get("mb");
+		}
+		return "detail";
+	}
+	/**
 	 * ajax
 	 */
 	public  void   ajaxweb(){

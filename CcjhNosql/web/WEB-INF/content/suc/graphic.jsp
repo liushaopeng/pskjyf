@@ -109,7 +109,9 @@ function share(url) {
                                         
                                       <li><a href="javascript:del('${bean._id}');">
                                       		<i class="fa fa-trash-o "></i>&nbsp;&nbsp;&nbsp;&nbsp;删除</a></li>
-                                       
+                                       <li><a href="${ctx}/suc/graphiclm!detailcss.action?id=${bean._id}" target="_black">
+                                      		<i class="fa fa-pencil "></i>&nbsp;&nbsp;&nbsp;&nbsp;查看</a></li>
+                                         
                                   </ul>
                               </div>
                           </td>

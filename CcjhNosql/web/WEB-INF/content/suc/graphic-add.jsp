@@ -11,9 +11,7 @@
     <link rel="stylesheet" href="${contextPath}/bracket/css/jquery.tagsinput.css"/>
     <script src="${contextPath}/UserInterface/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
 
-    <script type="text/javascript" charset="utf-8" src="${ctx }/ueditor/ueditor.config.js"></script>
-    <script type="text/javascript" charset="utf-8" src="${ctx }/ueditor/ueditor.all.min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="${ctx }/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <script type="text/javascript" src="${ctx}/ckeditor/ckeditor.js"></script> 
     <link href="${ctx}/app/css/YLui.css" rel="stylesheet" type="text/css"/>
     <link href="${contextPath}/app/css/font-awesome.min.css" rel="stylesheet">
     <script type="text/javascript">
@@ -23,9 +21,6 @@
             var validator = $("#custinfoForm").validate({
                 rules: {
                     title: {
-                        required: true
-                    },
-                    type: {
                         required: true
                     }, 
                     sort: {
@@ -187,7 +182,7 @@
                     <!--下部编辑器-->
                     <div class="pt-10 clear">
                         <div class="div-group-10 border-radius5 bg-bai">
-                            <textarea style="display:none" name="context" id="context">${context}</textarea>
+                            <textarea  name="context" id="context" class="ckeditor" rows="10" cols="38">${context}</textarea>
                             <script id="editor" type="text/plain" style="width:100%;height:300px;">${context}</script>
                         </div>
                         <a href="javascript:checksubmit()">
@@ -209,19 +204,20 @@
 <%@include file="/webcom/cut-img1.jsp" %>
 
 <script type="text/javascript">
+var editor=CKEDITOR.replace('context');
  if('${entity.type}'!=null&&'${entity.type}'!=''){
    $('#type').val('${entity.type}');
  }
    
     //实例化编辑器
     //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
-    var ue = UE.getEditor('editor');
-    ue.ready(function () {
-        UE.getEditor('editor').setHeight(300);
-    });
+   // var ue = UE.getEditor('editor');
+    //ue.ready(function () {
+      //  UE.getEditor('editor').setHeight(300);
+   // });
 
-    function checksubmit() {
-        $("#context").val(ue.getContent());
+    function checksubmit() { 
+        $("#context").val(editor.getData());
         $('#custinfoForm').submit();
     }
 </script>
