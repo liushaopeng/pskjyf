@@ -24,6 +24,7 @@ import com.lsp.pub.entity.GetAllFunc;
 import com.lsp.pub.entity.PubConstants;
 import com.lsp.pub.entity.WxToken;
 import com.lsp.pub.util.BaseDecimal;
+import com.lsp.pub.util.CodeImageUtil;
 import com.lsp.pub.util.CommonUtil;
 import com.lsp.pub.util.DateFormat;
 import com.lsp.pub.util.DateUtil;
@@ -43,7 +44,8 @@ import com.lsp.shop.entiy.OrderForm;
 import com.lsp.suc.entity.BbsInfo; 
 import com.lsp.suc.entity.Bbscomments;
 import com.lsp.suc.entity.Bbspraise;
-import com.lsp.suc.entity.Bbsreading;  
+import com.lsp.suc.entity.Bbsreading;
+import com.lsp.suc.entity.CompanyInfo;
 import com.lsp.suc.entity.Exceptional;
 import com.lsp.website.service.WwzService;
 import com.lsp.weixin.entity.Experience;
@@ -84,31 +86,19 @@ public class BbsAction extends GeneralAction<BbsInfo> {
 		custid=SpringSecurityUtils.getCurrentUser().getId(); 
 		sortMap.put("createdate", -1); 
 		whereMap.put("custid", custid);
-		String title=Struts2Utils.getParameter("title");
-		if(StringUtils.isNotEmpty(title)){
-			Pattern pattern = Pattern.compile("^.*" + title + ".*$",
+		String name=Struts2Utils.getParameter("name");
+		if(StringUtils.isNotEmpty(name)){
+			Pattern pattern = Pattern.compile("^.*" + name + ".*$",
 					Pattern.CASE_INSENSITIVE);
-			whereMap.put("title", pattern);
-			Struts2Utils.getRequest().setAttribute("title",  title);
+			whereMap.put("content", pattern);
+			Struts2Utils.getRequest().setAttribute("name",  name);
 		}
 	 
 		if(StringUtils.isNotEmpty(Struts2Utils.getParameter("fypage"))){
 			fypage=Integer.parseInt(Struts2Utils.getParameter("fypage"));
 		}
 		
-		List<DBObject> list=baseDao.getList(PubConstants.BBS_INFO,whereMap,fypage,10,sortMap,backMap);
-		for (DBObject dbObject : list) {
-			 HashMap<String, Object>wxuerwhereMap=new HashMap<String, Object>();
-			 if(dbObject.get("fromUserid")!=null){
-				 wxuerwhereMap.put("_id",dbObject.get("fromUserid").toString()); 
-			 }else{
-				 wxuerwhereMap.put("_id",dbObject.get("fromUserid"));
-			 } 
-			
-			 DBObject  wxuer=wwzService.getWxUser(wxuerwhereMap);
-			 dbObject.put("nickname", wxuer.get("nickname"));
-		}
-		
+		List<DBObject> list=baseDao.getList(PubConstants.BBS_INFO,whereMap,fypage,10,sortMap,backMap); 
 		fycount=baseDao.getCount(PubConstants.BBS_INFO,whereMap);
 		Struts2Utils.getRequest().setAttribute("bbsList", list);
 		Struts2Utils.getRequest().setAttribute("custid", custid);
@@ -985,19 +975,42 @@ public class BbsAction extends GeneralAction<BbsInfo> {
 	@Override
 	public String input() throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		HashMap<String,Object>whereMap=new HashMap<String, Object>();
+		HashMap<String,Object>sortMap=new HashMap<String, Object>();
+		whereMap.put("custid",SpringSecurityUtils.getCurrentUser().getId());
+		sortMap.put("sort",-1);
+		List<DBObject>typelist=baseDao.getList(PubConstants.BBSTYPE_INFO, whereMap, sortMap);
+		Struts2Utils.getRequest().setAttribute("bbstype",typelist);
+		
+		return "add";
 	}
 
 	@Override
 	public String update() throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		HashMap<String,Object>whereMap=new HashMap<String, Object>();
+		HashMap<String,Object>sortMap=new HashMap<String, Object>();
+		whereMap.put("custid",SpringSecurityUtils.getCurrentUser().getId());
+		sortMap.put("sort",-1);
+		List<DBObject>typelist=baseDao.getList(PubConstants.BBSTYPE_INFO, whereMap, sortMap);
+		Struts2Utils.getRequest().setAttribute("bbstype",typelist);
+		Struts2Utils.getRequest().setAttribute("entity",baseDao.getMessage(PubConstants.BBS_INFO,_id));
+		return "add";
 	}
 
 	@Override
 	public String save() throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		if(_id == null){
+			_id=mongoSequence.currval(PubConstants.BBS_INFO); 
+		}		
+		entity.set_id(_id);
+		custid=SpringSecurityUtils.getCurrentUser().getId();
+		entity.setCustid(custid);
+		entity.setNikename("管理员");
+		entity.setCreatedate(new Date()); 
+		baseDao.insert(PubConstants.BBS_INFO,entity);
+		return RELOAD;
 	}
 
 	@Override
@@ -1029,15 +1042,23 @@ public class BbsAction extends GeneralAction<BbsInfo> {
 	@Override
 	protected void prepareModel() throws Exception {
 		// TODO Auto-generated method stub
+		if (_id != null) {
+			//有custId查出来 用户信息
+			entity = (BbsInfo)UniObject.DBObjectToObject(baseDao.getMessage(PubConstants.BBS_INFO,_id),BbsInfo.class);
+		} else {
+			entity = new BbsInfo();
+		}
 		
 	}
 
 	@Override
 	public BbsInfo getModel() {
 		// TODO Auto-generated method stub
-		return null;
+		return entity;
 	}
-	
+	public void set_id(Long _id) {
+		this._id = _id;
+	} 
 	/**
 	 * 微信支付
 	 * @throws Exception

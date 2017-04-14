@@ -14,6 +14,7 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 
+import com.lsp.pub.util.SysConfig;
 import com.opensymphony.xwork2.ActionSupport;
 /**
  * Ckeditor文件上传
@@ -95,7 +96,7 @@ public class CkeditorAction extends ActionSupport{
 	          
 	          
 	        InputStream is = new FileInputStream(upload);  
-	        String uploadPath = "D:/Program Files (x86)/apache-tomcat-8.5.12/webapps/upload";  
+	        String uploadPath = SysConfig.getProperty("imgpath");  
 	        String fileName = java.util.UUID.randomUUID().toString();  //采用时间+UUID的方式随即命名  
 	        fileName += expandedName;  
 	        File toFile = new File(uploadPath, fileName);  
@@ -110,7 +111,7 @@ public class CkeditorAction extends ActionSupport{
 	          
 	        // 返回“图像”选项卡并显示图片  
 	        out.println("<script type=\"text/javascript\">");    
-	        out.println("window.parent.CKEDITOR.tools.callFunction(" + callback + ",'" + "http://192.168.1.110:8080/upload/" + fileName + "','')");    
+	        out.println("window.parent.CKEDITOR.tools.callFunction(" + callback + ",'" + SysConfig.getProperty("filehttp") + fileName + "','')");    
 	        out.println("</script>");  
 	          
 	        return null;  

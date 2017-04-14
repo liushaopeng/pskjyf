@@ -10,10 +10,7 @@
     <script src="${contextPath}/bracket/js/jquery.tagsinput.min.js"></script>
     <link rel="stylesheet" href="${contextPath}/bracket/css/jquery.tagsinput.css"/>
     <script src="${contextPath}/UserInterface/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
-    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=okxlYE9HTRadFAnCltenxU6G"></script>
-    <script type="text/javascript" charset="utf-8" src="${ctx }/ueditor/ueditor.config.js"></script>
-    <script type="text/javascript" charset="utf-8" src="${ctx }/ueditor/ueditor.all.min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="${ctx }/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <script type="text/javascript" src="${ctx}/ckeditor/ckeditor.js"></script> 
     <link href="${ctx}/app/css/YLui.css" rel="stylesheet" type="text/css"/>
     <link href="${contextPath}/app/css/font-awesome.min.css" rel="stylesheet">
     <script type="text/javascript">
@@ -34,6 +31,9 @@
                         isFloat: true
                     },
                     mb: {
+                        required: true
+                    },
+                    type: {
                         required: true
                     },
                     enddate:{
@@ -241,11 +241,10 @@
                                         展示时间（开始）
                                     </div>
                                     <div class="line-bottom line-right line-left1 hang40 overflow-hidden">
-                                        <input class="width-10 size14 zi-hui hang40 pt-10 pl-10 pr-10 weight100"
+                                        <input class="width-10 size14 zi-hui hang40 pl-10 pr-10 weight100"
                                                type="text"
                                                placeholder="点击输入日期"
-                                               value="<fmt:formatDate pattern='yyyy-MM-dd' value='${startdate}'/>"
-                                               onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"
+                                               value="<fmt:formatDate pattern='yyyy-MM-dd' value='${startdate}'/>" 
                                                readonly="readonly"
                                                name="startdate"
                                                id="startdate">
@@ -261,7 +260,7 @@
                                                type="text"
                                                placeholder="点击输入日期"
                                                value="<fmt:formatDate pattern='yyyy-MM-dd' value='${enddate}'/>"
-                                               onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"
+                                               
                                                readonly="readonly"
                                                name="enddate"
                                                id="enddate">
@@ -269,12 +268,13 @@
                                 </div>
 
                                 <div class="col-2 pr-10">
-                                    <div class="size14 weight500 line-bottom pt-10 pb-10" style="padding-left: 2px;">
+                                    <div class="size14 weight500 pt-10 pb-10" style="padding-left: 2px;">
                                         商家类别
                                     </div>
 
-                                    <div class="line-bottom line-right line-left1 hang40 overflow-hidden">
-                                        <select id="type" name="type" class="width-10 hang40" data-placeholder="请选择">
+                                    <div class=" overflow-hidden">
+                                        <select id="type" name="type" class="width-10 select2" data-placeholder="请选择">
+                                             <option value="">请选择</option>
                                             <c:forEach items="${hylist}" var="bean" varStatus="status">
                                                 <option value="${bean.coding}">${bean.title}</option>
                                             </c:forEach>
@@ -283,11 +283,11 @@
                                     </div>
                                 </div>
                                 <div class="col-2">
-                                    <div class="size14 weight500 line-bottom pt-10 pb-10" style="padding-left: 2px;">
+                                    <div class="size14 weight500 pt-10 pb-10" style="padding-left: 2px;">
                                         模板
                                     </div>
-                                    <div class="line-bottom line-right line-left1 hang40 overflow-hidden">
-                                        <select id="mb" name="mb" class="hang40 width-10" data-placeholder="请选择" onchange="chagemb()">
+                                    <div class="overflow-hidden">
+                                        <select id="mb" name="mb" class="width-10 select2" data-placeholder="请选择" onchange="chagemb()">
                                             <option value="0">默认模板</option>
                                             <option value="1">高级模板</option>
                                             <option value="2">全屏模板</option>
@@ -438,8 +438,8 @@
 
                     <!--下部编辑器-->
                     <div class="pt-10 clear">
-                        <div class="div-group-10 border-radius5 bg-bai" id="bjq">
-                            <textarea style="display:none" name="context" id="context">${context}</textarea>
+                        <div class="div-group-10 border-radius5 bg-bai">
+                            <textarea  name="context" id="context" class="ckeditor" rows="10" cols="38">${context}</textarea>
                             <script id="editor" type="text/plain" style="width:100%;height:300px;">${context}</script>
                         </div>
                         <a href="javascript:checksubmit()">
@@ -493,7 +493,7 @@
 
                     <div class="panel-footer">
                         <div class="row">
-                            <div class="col-sm-12 col-sm-offset-3">
+                            <div class="col-sm-6 col-sm-offset-3">
                                 <button class="btn btn-primary dropdown-toggle col-sm-12" data-dismiss="modal" aria-hidden="true">确&nbsp;&nbsp;定</button>
                             </div>
                         </div>
@@ -518,16 +518,14 @@
     $("#lx").val("${lx}");
     $("#type").val("${entity.type}");
 
-    //实例化编辑器
-    //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
-    var ue = UE.getEditor('editor');
-
-    ue.ready(function () {
-        UE.getEditor('editor').setHeight(300);
+    jQuery(".select2").select2({
+        width: '100%'
     });
-
+    jQuery('#enddate').datepicker(); 
+    jQuery('#startdate').datepicker(); 
+    var editor=CKEDITOR.replace('context');
     function checksubmit() {
-        $("#context").val(ue.getContent());
+        $("#context").val(editor.getData());
         var key = '';
         $("#keywords").find('input').each(function () {
             if ($(this).val() != '') {

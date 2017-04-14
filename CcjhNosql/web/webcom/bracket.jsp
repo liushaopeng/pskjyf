@@ -26,9 +26,11 @@
 <script src="${ctx}/bracket/js/retina.min.js"></script>
 <script src="${ctx}/bracket/js/jquery.cookies.js"></script> 
 <script src="${ctx}/bracket/js/jquery-ui-1.10.3.min.js"></script>
+<script src="${ctx}/bracket/js/jquery-ui-datepicker.zh-CN.js"></script>
 <script src="${ctx}/bracket/js/jquery.ui.touch-punch.min.js"></script>
 <script src="${ctx}/bracket/js/jquery.datatables.min.js"></script> 
 <script src="${ctx}/bracket/js/custom.js"></script>
+<script src="${ctx}/bracket/js/bootstrap-timepicker.min.js"></script>
 <script src="${ctx}/bracket/js/select2.min.js"></script>
 <script>
     function ps_hide(v) { 

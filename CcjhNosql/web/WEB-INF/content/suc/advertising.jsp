@@ -99,7 +99,7 @@ var submitData = {
       <div class="row">
 		<div class="col-md-12">
             <div class="table-responsive">
-                <table class="table table-striped table-primary table-action mb30" >
+                <table class="table table-striped table-primary table-action mb30 table-bordered" >
                     <thead>
                       <tr> 
                         <th class="th2 table-action">图片</th>

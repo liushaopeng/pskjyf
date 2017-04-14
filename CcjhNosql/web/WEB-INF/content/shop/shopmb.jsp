@@ -131,7 +131,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="table-responsive">
-                            <table class="table table-striped table-action table-primary mb30">
+                            <table class="table table-striped table-action table-primary mb30 table-bordered">
                                 <thead>
                                 <tr>
                                     <th class="table-action">ID</th>
@@ -234,29 +234,28 @@
                             <div class="mb-20">
                                 <label class="control-label">店铺名称：</label>
                                 <input type="text" id="name" name="name"
-                                       class="form-control" placeholder="请输入"/>
+                                       class="form-control hang40" placeholder="请输入"/>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="mb-20">
                                 <label class="control-label">包邮价格：</label>
                                 <input type="text" id="byprice" name="byprice"
-                                       class="form-control" placeholder="请输入"/>
+                                       class="form-control hang40" placeholder="请输入"/>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="mb-20">
                                 <label class="control-label">分享说明: </label>
                                 <input type="text" id="summary" name="summary"
-                                       class="form-control" placeholder="请输入"/>
+                                       class="form-control hang40" placeholder="请输入"/>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="mb-20">
                                 <label class="control-label">模板：</label>
-                                <select id="mb" name="mb" class="select2 form-control"
-                                        style="line-height: 28px!important;height: 42px!important;"
-                                        required data-placeholder="请选择">
+                                <select id="mb" name="mb" class="select2 hang40"
+                                        data-placeholder="请选择">
                                     <option value="0">图标两行</option>
                                     <option value="1">图标一行</option>
                                     <option value="2">图片两行</option>
@@ -271,15 +270,14 @@
                             <div class="mb-20">
                                 <label class="control-label">排序：</label>
                                 <input type="text" id="sort" name="sort"
-                                       class="form-control" placeholder="请输入"/>
+                                       class="form-control hang40" placeholder="请输入"/>
                             </div>
                         </div>
                        <div class="col-sm-6">
                             <div class="mb-20">
                                 <label class="control-label">类型：</label>
-                                <select id="type" name="type" class="select2 form-control"
-                                        style="line-height: 28px!important;height: 42px!important;"
-                                        required data-placeholder="请选择">
+                                <select id="type" name="type" class="select2 hang40"
+                                         data-placeholder="请选择">
                                     <option value="0">普通网店</option>
                                     <option value="1">积分商城</option>
                                     <option value="2">商家店铺</option> 
@@ -291,15 +289,14 @@
                             <div class="mb-20">
                                 <label class="control-label">搜索条颜色:</label>
                                 <input type="text" id="searchcolor" name="searchcolor"
-                                       class="form-control color" placeholder="请输入"/>
+                                       class="form-control color hang40" placeholder="请输入"/>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="mb-20">
                                 <label class="control-label">积分返还比例：</label>
-                                <select id="jfbl" name="jfbl" class="select2 form-control"
-                                        style="line-height: 28px!important;height: 42px!important;"
-                                        required data-placeholder="请选择">
+                                <select id="jfbl" name="jfbl" class="select2 hang40" 
+                                        data-placeholder="请选择">
                                     <option value="0">不开通</option>
                                     <option value="1">1:1</option>
                                     <option value="10">1:10</option>
@@ -313,7 +310,7 @@
                             <label class="control-label">分享图片：</label>
                             <div>
                                 <div class="col-sm-9 mb-20" style="padding:0px;">
-                                    <input type="text" id="logo" name="logo" class=" form-control"/>
+                                    <input type="text" id="logo" name="logo" class=" form-control hang40"/>
                                 </div>
                                 <div class="col-sm-3 mb-20" style="padding:0px;position: relative;"
                                      onclick="pz('logo','200','200',false)">
@@ -338,5 +335,10 @@
 
 <%@include file="/webcom/cut-img.jsp" %>
 <%@ include file="/webcom/preview.jsp" %>
+<script type="text/javascript">
+jQuery(".select2").select2({
+    width: '100%'
+});
+</script>
 </body>
 </html>

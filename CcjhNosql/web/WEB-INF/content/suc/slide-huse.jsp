@@ -78,16 +78,7 @@ function page_submit(num){
     <div class="pageheader">
 
       <h2><i class="fa fa-user"></i>微网站 <span>幻灯片管理</span></h2>
-
-      <div class="breadcrumb-wrapper1">
-        <div class="input-group ">
-            <div style="border-radius:3px; height:40px;padding-left:10px;" class="btn-primary">
-                <a href="javascript:add();"style="color: #ffffff;line-height:25px;">
-                    添加幻灯片&nbsp;<i class="fa fa-plus"style="line-height:30px;font-size: 14px;"></i>
-                </a>
-            </div>
-         </div>
-      </div>
+ 
     </div>
    <div class="panelss ">
    <div class="panel-body fu10">
@@ -98,6 +89,12 @@ function page_submit(num){
             </div>
 
             <a href="javascript:page_submit(-1);" class="btn btn-primary">搜&nbsp;&nbsp;索</a>
+              <div class="form-group col-sm-1d pull-right"> 
+                         <button onclick="add()" type="button" class="btn btn-primary dropdown-toggle form-group pull-right" data-toggle="dropdown">
+                                                                                     添加幻灯片<i  class="fa fa-align-center"></i>
+                         </button>
+                      
+              </div> 
 
         </div>
     </div><!-- panel-body -->
@@ -107,7 +104,7 @@ function page_submit(num){
       <div class="row">
 		<div class="col-md-12">
             <div class="table-responsive">
-                <table class="table table-striped table-action table-primary mb30" >
+                <table class="table table-striped table-action table-primary mb30  table-bordered" >
                     <thead>
                       <tr>
                       	<th class="th1 table-action">序号</th>

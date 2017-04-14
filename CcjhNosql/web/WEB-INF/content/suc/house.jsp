@@ -58,6 +58,7 @@
                 $("#fypage").val(num);
             }
             $("#custinfoForm").submit();
+             
         }
         function share(url) {
             window.open("${contextPath}/weixin/share.action?method=" + encodeURIComponent(url));
@@ -89,6 +90,7 @@
             });
         }
     </script>
+    
 </head>
 <body>
 <section>
@@ -97,13 +99,47 @@
         <%@include file="/webcom/header-headerbar.jsp" %>
         <form id="custinfoForm" name="custinfoForm" method="post" action="${contextPath}/suc/house.action">
             <div class="pageheader">
-                <h2><i class="fa fa-user"></i>素材管理 <span>黄页管理</span></h2>
-                <div class="breadcrumb-wrapper1">
-                    <div class="input-group ">
-                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                            菜单 <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu pull-right" role="menu">
+                <h2><i class="fa fa-qrcode"></i>功能管理<span>城市黄页</span></h2>
+                
+            </div>
+            <div class="panelss ">
+                <div class="panel-body fu10">
+                    <div class="row-pad-5">
+                        <div class="form-group col-sm-1d">
+                            <input type="text" name="name" value="${name }" placeholder="名称" class="form-control"/>
+                        </div>
+                        <div class="form-group col-sm-1d">
+                            <input type="text" name="keyword" value="${keyword }" placeholder="关键字"
+                                   class="form-control"/>
+                        </div>
+                        <div class="form-group col-sm-1d">
+                            <select id="hy" name="hy" class="select2" data-placeholder="请选择">
+                                <option value="">请选择</option>
+                                <c:forEach items="${hylist}" var="bean">
+                                    <option value="${bean.coding}">${bean.title}</option>
+                                </c:forEach>
+
+                            </select> 
+                        </div>
+                        <div class="form-group col-sm-1d">
+                            <select id="selxs" name="selxs" class="select2" data-placeholder="请选择">
+                                 <option value="">请选择</option>
+                                 <option value="0">审核通过</option>
+                                 <option value="1">审核不合格</option>
+                                 <option value="2">待审核</option>
+                                 
+                            </select>  
+                        </div>
+                        <div class="form-group col-sm-1d">
+                            <input type="text" id="sel_enddate" name="sel_enddate" readonly="readonly" value="${sel_enddate }" placeholder="到期日期"
+                                   class="form-control"/>
+                        </div> 
+                        <a href="javascript:page_submit(-1);" class="btn btn-primary">搜&nbsp;&nbsp;索</a>
+                        <div class="form-group col-sm-1d pull-right"> 
+                         <button type="button" class="btn btn-primary dropdown-toggle form-group pull-right" data-toggle="dropdown">
+                                                                                    菜单 <i  class="fa fa-align-center"></i>
+                         </button>
+                         <ul class="dropdown-menu pull-right" role="menu">
                             <li><a href="${ctx}/suc/house!input.action?fypage=${fypage}"><i class="fa fa-plus"></i>&nbsp;&nbsp;&nbsp;&nbsp;新增黄页</a>
 
                             </li>
@@ -117,47 +153,18 @@
                             </li>
                             <li><a href="javascript:qrcode('${ctxurl}/suc/house!web.action?custid=${custid}')"><i
                                     class="fa fa-eye"></i>&nbsp;&nbsp;&nbsp;&nbsp;预览</a></li>
-                        </ul>
+                        </ul> 
+                      </div> 
                     </div>
-                </div>
-            </div>
-            <div class="panelss ">
-                <div class="panel-body fu10">
-                    <div class="row-pad-5">
-                        <div class="form-group col-sm-1d">
-                            <input type="text" name="name" value="${name }" placeholder="名称" class="form-control"/>
-                        </div>
-                        <div class="form-group col-sm-1d">
-                            <input type="text" name="keyword" value="${keyword }" placeholder="关键字"
-                                   class="form-control"/>
-                        </div>
-                        <div class="form-group col-sm-1d">
-                            <select id="hy" name="hy" class="form-control mb15" data-placeholder="请选择">
-                                <c:forEach items="${hylist}" var="bean">
-                                    <option value="${bean.coding}">${bean.title}</option>
-                                </c:forEach>
-
-                            </select>
-                        </div>
-                        <div class="form-group col-sm-1d">
-                            <s:select id="selxs" cssClass="form-control" name="selxs"
-                                      list="#{'':'请选择','0':'审核通过','1':'审核不合格','2':'待审核'}" listKey="key"
-                                      listValue="value"/>
-                        </div>
-                        <div class="form-group col-sm-1d">
-                            <input type="text" name="sel_enddate" value="${sel_enddate }" placeholder="到期日期"
-                                   onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="form-control"/>
-                        </div>
-                        <a href="javascript:page_submit(-1);" class="btn btn-primary">搜&nbsp;&nbsp;索</a>
-                    </div>
+                    
                 </div>
             </div>
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="table-responsive">
-                            <table class="table table-primary table-action mb30">
-                                <thead>
+                            <table class="table table-primary table-action mb30 table-bordered">
+                                <thead >
                                 <tr>
                                     <th class="table-action">序号</th>
                                     <th class="table-action">标题</th>
@@ -264,16 +271,14 @@
                                        class="form-control" placeholder="请输入"/>
                             </div>
                         </div> 
-                        <div class="col-sm-4">
-                            <div class="mb-20">
+                        <div class="col-sm-4 "> 
                                 <label class="control-label">类型:</label>
-                                <select id="type" name="type" class="select2 form-control hang40" style="line-height: 28px!important;"
-                                        required data-placeholder="请选择">
+                                <select id="type" name="type" class="select2" 
+                                         data-placeholder="请选择">
                                     <c:forEach items="${hylist}" var="bean">
                                         <option value="${bean.coding}">${bean.title}</option>
                                     </c:forEach>
-                                </select> 
-                            </div>
+                                </select>  
                         </div>
                     </div>
                     <div class="div-group-10 line-top" style="padding-left: 40px; padding-right: 40px;">
@@ -289,6 +294,10 @@
 <%@include file="/webcom/cut-img.jsp" %>
 <%@ include file="/webcom/preview.jsp" %>
 <script>
+jQuery(".select2").select2({
+    width: '100%'
+});
+jQuery('#sel_enddate').datepicker(); 
     $('#selxs').val('${selxs}');
     $('#hy').val('${hy}');
 </script>

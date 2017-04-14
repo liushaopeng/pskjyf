@@ -42,17 +42,15 @@
                                        class="form-control" placeholder="请输入"/>
                             </div>
                         </div>
-                        <div class="col-sm-6">
-                            <div class="mb-20">
+                        <div class="col-sm-6"> 
                                 <label class="control-label">分享模板:</label>
-                                <select id="fxmb" name="fxmb" class="select2 form-control hang40" style="line-height: 28px!important;"
-                                        required data-placeholder="请选择">
+                                <select id="fxmb" name="fxmb" class="select2"
+                                        data-placeholder="请选择">
                                     <option value="0">默认模板</option>
                                     <option value="1">模板1</option>
                                     <option value="2">模板2</option>
                                     <option value="3">模板3</option>
-                                </select> 
-                            </div>
+                                </select>  
                         </div>
                          <div class="col-sm-12">
                                 <label class="control-label">分享图片：</label>

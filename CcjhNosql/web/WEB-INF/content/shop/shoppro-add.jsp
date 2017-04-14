@@ -10,10 +10,7 @@
     <script src="${contextPath}/bracket/js/jquery.tagsinput.min.js"></script>
     <link rel="stylesheet" href="${contextPath}/bracket/css/jquery.tagsinput.css"/>
     <script src="${contextPath}/UserInterface/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
-
-    <script type="text/javascript" charset="utf-8" src="${ctx }/ueditor/ueditor.config.js"></script>
-    <script type="text/javascript" charset="utf-8" src="${ctx }/ueditor/ueditor.all.min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="${ctx }/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <script type="text/javascript" src="${ctx}/ckeditor/ckeditor.js"></script> 
     <link href="${ctx}/app/css/YLui.css" rel="stylesheet" type="text/css"/>
     <link href="${contextPath}/app/css/font-awesome.min.css" rel="stylesheet">
     <script type="text/javascript">
@@ -189,11 +186,11 @@
                                     </div>
                                 </div>
                                 <div class="col-2 pl-10">
-                                    <div class="size14 line-bottom weight500 pt-10 pb-10" style="padding-left: 2px;">
+                                    <div class="size14 weight500 pt-10 pb-10" style="padding-left: 2px;">
                                         商品分类
                                     </div>
-                                    <div class="line-bottom line-right line-left1 hang40 overflow-hidden">
-                                        <select id="hylx" name="hylx" class="width-10 hang40" data-placeholder="请选择">
+                                    <div class="overflow-hidden">
+                                        <select id="hylx" name="hylx" class="select2" data-placeholder="请选择">
                                             <c:forEach items="${typelist}" var="bean" varStatus="status">
                                                 <option value="${bean.type}">${bean.name}</option>
                                             </c:forEach>
@@ -202,11 +199,11 @@
                                     </div>
                                 </div>
                                 <div class="col-2 pl-10">
-                                    <div class="size14 line-bottom weight500 pt-10 pb-10" style="padding-left: 2px;">
+                                    <div class="size14  weight500 pt-10 pb-10" style="padding-left: 2px;">
                                         模板
                                     </div>
-                                    <div class="line-bottom line-right line-left1 hang40 overflow-hidden">
-                                        <select id="mb" name="mb" class="width-10 hang40" data-placeholder="请选择">
+                                    <div class="overflow-hidden">
+                                        <select id="mb" name="mb" class="select2" data-placeholder="请选择">
                                             <option value="0">默认模板</option>
                                         </select>
                                     </div>
@@ -302,11 +299,11 @@
                                     </div>
                                 </div>
                                 <div class="col-2 pl-10">
-                                    <div class="size14 line-bottom weight500 pt-10 pb-10" style="padding-left: 2px;">
+                                    <div class="size14  weight500 pt-10 pb-10" style="padding-left: 2px;">
                                         每人可购买的次数
                                     </div>
-                                    <div class="line-bottom line-right line-left1 hang40 overflow-hidden">
-                                        <select id="gmcs" name="gmcs" class="width-10 hang40" data-placeholder="请选择">
+                                    <div class="overflow-hidden">
+                                        <select id="gmcs" name="gmcs" class="select2" data-placeholder="请选择">
                                             <option value="0">无限制</option>
                                             <option value="1">一次</option>
                                             <option value="2">二次</option>
@@ -315,11 +312,11 @@
                                     </div>
                                 </div>
                                 <div class="col-2">
-                                    <div class="line-bottom size14 weight500 pt-10 pb-10" style="padding-left: 2px;">
+                                    <div class=" size14 weight500 pt-10 pb-10" style="padding-left: 2px;">
                                         折扣选择
                                     </div>
-                                    <div class="line-bottom line-right line-left1 hang40 overflow-hidden">
-                                        <select id="bq" name="bq" class="width-10 hang40" data-placeholder="请选择"
+                                    <div class="overflow-hidden">
+                                        <select id="bq" name="bq" class="select2" data-placeholder="请选择"
                                                 onchange="changebq()">
                                             <c:if test="${empty isjf}">
                                              <option value="0">无</option>
@@ -376,12 +373,12 @@
                                     </div>
                                 </div>
                                 <div class="col-2 pl-10">
-                                    <div class="size14 line-bottom weight500 pt-10 pb-10"
+                                    <div class="size14 weight500 pt-10 pb-10"
                                          style="padding-left: 2px;">
                                         是否显示
                                     </div>
-                                    <div class="line-bottom line-right line-left1 hang40 overflow-hidden">
-                                        <select id="isxs" name="isxs" class="hang40 width-10"
+                                    <div class="overflow-hidden">
+                                        <select id="isxs" name="isxs" class="select2"
                                                 data-placeholder="请选择">
                                             <option value="0">显示</option>
                                             <option value="1">隐藏</option>
@@ -405,14 +402,14 @@
                                 </c:if>
                                
                                 <div class="col-2 pl-10 tgrs">
-                                    <div class="size14 weight500 line-bottom pt-10 pb-10"
+                                    <div class="size14 weight500  pt-10 pb-10"
                                          style="padding-left: 2px;">
                                         参团人数
                                     </div>
-                                    <div class="line-bottom line-right line-left1 hang40 overflow-hidden">
-                                        <select id="pcount" name="pcount" class="hang40 width-10"
+                                    <div class="overflow-hidden">
+                                        <select id="pcount" name="pcount" class="select2"
                                                 data-placeholder="请选择">
-                                            <option value="">选请择</option>
+                                            <option value="0">选请择</option>
                                             <option value="2">2人</option>
                                             <option value="5">5人</option>
                                             <option value="10">10人</option>
@@ -465,7 +462,7 @@
                     <!--下部编辑器-->
                     <div class="pt-10 clear">
                         <div class="div-group-10 border-radius5 bg-bai">
-                            <textarea style="display:none" name="context" id="context">${context}</textarea>
+                            <textarea  name="context" id="context" class="ckeditor" rows="10" cols="38">${context}</textarea>
                             <script id="editor" type="text/plain" style="width:100%;height:300px;">${context}</script>
                         </div>
                         <a href="javascript:checksubmit()">
@@ -497,13 +494,13 @@
     setcke();
     //实例化编辑器
     //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
-    var ue = UE.getEditor('editor');
-    ue.ready(function () {
-        UE.getEditor('editor').setHeight(300);
-    });
+    jQuery(".select2").select2({
+    width: '100%'
+   });
+   var editor=CKEDITOR.replace('context');
 
     function checksubmit() {
-        $("#context").val(ue.getContent());
+        $("#context").val(editor.getData());
         $('#custinfoForm').submit();
     }
 </script>

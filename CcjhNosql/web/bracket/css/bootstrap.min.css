@@ -1321,12 +1321,12 @@ mark, .mark {
     color: #777
 }
 
-.text-primary {
-    color: #005eac
+.text-primary { 
+    color: #1CAF9A; 
 }
 
 a.text-primary:hover {
-    color: #3071a9
+    color: #1CAF9A;
 }
 
 .text-success {
@@ -1362,12 +1362,12 @@ a.text-danger:hover {
 }
 
 .bg-primary {
-    color: #fff;
-    background-color: #005eac
+    color: #fff; 
+    background-color: #1CAF9A; 
 }
 
-a.bg-primary:hover {
-    background-color: #3071a9
+a.bg-primary:hover { 
+    background-color: #1CAF9A; 
 }
 
 .bg-success {
@@ -3146,14 +3146,14 @@ textarea.input-lg, select[multiple].input-lg {
 
 .btn-primary {
     color: #fff;
-    background-color: #005eac;
-    border-color: #357ebd
+    background-color: #1CAF9A;
+    border-color: #17a08c;
 }
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
     color: #fff;
-    background-color: #3071a9;
-    border-color: #285e8e
+    background-color: #1CAF9A;
+    border-color: #17a08c;
 }
 
 .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
@@ -3161,25 +3161,25 @@ textarea.input-lg, select[multiple].input-lg {
 }
 
 .btn-primary.disabled, .btn-primary[disabled], fieldset[disabled] .btn-primary, .btn-primary.disabled:hover, .btn-primary[disabled]:hover, fieldset[disabled] .btn-primary:hover, .btn-primary.disabled:focus, .btn-primary[disabled]:focus, fieldset[disabled] .btn-primary:focus, .btn-primary.disabled:active, .btn-primary[disabled]:active, fieldset[disabled] .btn-primary:active, .btn-primary.disabled.active, .btn-primary[disabled].active, fieldset[disabled] .btn-primary.active {
-    background-color: #005eac;
-    border-color: #357ebd
+    background-color: #1CAF9A;
+    border-color: #17a08c;
 }
 
 .btn-primary .badge {
-    color: #005eac;
+    color: #1CAF9A;
     background-color: #fff
 }
 
 .btn-success {
     color: #fff;
-    background-color: #90B721;
-    border-color: #7d9926
+    background-color: #1CAF9A;
+    border-color: #17a08c;
 }
 
 .btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success.active, .open > .dropdown-toggle.btn-success {
     color: #fff;
-    background-color: #7d9926;
-    border-color: #66771f;
+    background-color: #1CAF9A;
+    border-color: #17a08c;
 }
 
 .btn-success:active, .btn-success.active, .open > .dropdown-toggle.btn-success {
@@ -3187,8 +3187,8 @@ textarea.input-lg, select[multiple].input-lg {
 }
 
 .btn-success.disabled, .btn-success[disabled], fieldset[disabled] .btn-success, .btn-success.disabled:hover, .btn-success[disabled]:hover, fieldset[disabled] .btn-success:hover, .btn-success.disabled:focus, .btn-success[disabled]:focus, fieldset[disabled] .btn-success:focus, .btn-success.disabled:active, .btn-success[disabled]:active, fieldset[disabled] .btn-success:active, .btn-success.disabled.active, .btn-success[disabled].active, fieldset[disabled] .btn-success.active {
-    background-color: #90B721;
-    border-color: #7d9926;
+     background-color: #1CAF9A;
+    border-color: #17a08c;
 }
 
 .btn-success .badge {
@@ -4825,12 +4825,12 @@ a.label:hover, a.label:focus {
     background-color: #5e5e5e
 }
 
-.label-primary {
-    background-color: #005eac
+.label-primary { 
+    background-color: #1CAF9A; 
 }
 
-.label-primary[href]:hover, .label-primary[href]:focus {
-    background-color: #3071a9
+.label-primary[href]:hover, .label-primary[href]:focus { 
+    background-color: #1CAF9A; 
 }
 
 .label-success {
@@ -5604,27 +5604,28 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:hover, a.list-g
     border-bottom-color: #ddd
 }
 
-.panel-primary {
-    border-color: #005eac
+.panel-primary { 
+    background-color: #1CAF9A; 
 }
 
 .panel-primary > .panel-heading {
     color: #fff;
-    background-color: #005eac;
-    border-color: #005eac
+    background-color: #1CAF9A;
+    border-color: #17a08c;
 }
 
-.panel-primary > .panel-heading + .panel-collapse > .panel-body {
-    border-top-color: #005eac
+.panel-primary > .panel-heading + .panel-collapse > .panel-body { 
+    background-color: #1CAF9A; 
 }
 
 .panel-primary > .panel-heading .badge {
-    color: #005eac;
+    color: #1CAF9A;
     background-color: #fff
 }
 
 .panel-primary > .panel-footer + .panel-collapse > .panel-body {
-    border-bottom-color: #005eac
+    border-bottom-color: #1CAF9A
+    
 }
 
 .panel-red {

@@ -11,7 +11,7 @@ CKEDITOR.editorConfig = function( config ) {
 	config.forcePasteAsPlainText =false //不去除
 	config.pasteFromWordIgnoreFontFace = false; //默认为忽略格式
 	config.pasteFromWordRemoveStyle = false;
-	config.filebrowserUploadUrl="http://192.168.1.110:8080/CcjhNosql/pub/ckeditor.action";
+	config.filebrowserUploadUrl="http://www.pskjyf.com/pub/ckeditor.action";
 	CKEDITOR.on('dialogDefinition', function(ev) {
         // Take the dialog name and its definition from the event data
         var dialogName = ev.data.name;

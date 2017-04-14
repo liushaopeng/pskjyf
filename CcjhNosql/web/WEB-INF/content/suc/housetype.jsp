@@ -86,15 +86,7 @@
 
                 <h2><i class="fa fa-user"></i>微网站 <span>黄页分类</span></h2>
 
-                <div class="breadcrumb-wrapper1">
-                    <div class="input-group ">
-                        <div style="border-radius:3px; height:40px;padding-left:10px;" class="btn-primary">
-                            <a href="javascript:add();" style="color: #ffffff;line-height:25px;">
-                                添加分类&nbsp;<i class="fa fa-plus" style="line-height:30px;font-size: 14px;"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
             <div class="panelss ">
                 <div class="panel-body fu10">
@@ -104,6 +96,12 @@
                         </div>
 
                         <a href="javascript:page_submit(-1);" class="btn btn-primary">搜&nbsp;&nbsp;索</a>
+                          <div class="form-group col-sm-1d pull-right"> 
+                         <button type="button" onclick="add()" class="btn btn-primary dropdown-toggle form-group pull-right" data-toggle="dropdown">
+                                                                                    分类添加 <i  class="fa fa-plus"></i>
+                         </button>
+                         
+                      </div> 
 
                     </div>
                 </div>
@@ -115,7 +113,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="table-responsive">
-                            <table class="table table-striped table-primary table-action mb30">
+                            <table class="table table-striped table-primary table-action mb30 table-bordered">
                                 <thead>
                                 <tr>
                                     <th class="th1 table-action">序号</th>

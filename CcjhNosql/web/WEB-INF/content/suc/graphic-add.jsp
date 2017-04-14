@@ -128,13 +128,15 @@
                                                placeholder="名称">
                                     </div>
                                 </div>
+                   
                                 <div class="col-2 pl-10">
-                                    <div class="size14 line-bottom weight500 pt-10 pb-10" style="padding-left: 2px;">
+                                    <div class="size14 weight500 pt-10 pb-10" style="padding-left: 2px;">
                                         模板
                                     </div>
-                                    <div class="line-bottom line-right line-left1 hang40 overflow-hidden">
-                                        <select id="mb" name="mb" class="width-10 hang40" data-placeholder="请选择"> 
-                                              <option value="0">默认</option> 
+                                    <div class="overflow-hidden">
+                                        <select id="mb" name="mb" class="width-10  select2" data-placeholder="默认"> 
+                                              <option value="0">默认</option>
+                                              <option value="1">模板一</option>  
                                         </select>
                                     </div>
                                 </div>
@@ -162,12 +164,12 @@
                                     </div>
                                 </div> 
                                  <div class="col-2 pl-10">
-                                    <div class="size14 line-bottom weight500 pt-10 pb-10" style="padding-left: 2px;">
+                                    <div class="size14  weight500 pt-10 pb-10" style="padding-left: 2px;">
                                         类别
                                     </div>
-                                    <div class="line-bottom line-right line-left1 hang40 overflow-hidden">
-                                        <select id="type" name="type" class="width-10 hang40" data-placeholder="请选择"> 
-                                              <c:forEach items="${typelist}" var="bean">
+                                    <div class="overflow-hidden">
+                                        <select id="type" name="type" class="width-10 select2" data-placeholder="请选择"> 
+                                              <c:forEach items="${typelist}" var="bean"> 
                                                <option value="${bean._id}">${bean.title}</option> 
                                               </c:forEach>
                                         </select>
@@ -204,6 +206,10 @@
 <%@include file="/webcom/cut-img1.jsp" %>
 
 <script type="text/javascript">
+//Select2
+jQuery(".select2").select2({
+    width: '100%'
+});
 var editor=CKEDITOR.replace('context');
  if('${entity.type}'!=null&&'${entity.type}'!=''){
    $('#type').val('${entity.type}');

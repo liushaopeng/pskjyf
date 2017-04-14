@@ -201,16 +201,16 @@ h4, .h4 {
 }
 
 .btn-success {
-   background-color: #90B721;
-   border-color: #7d9926;
+   background-color: #1CAF9A;
+   border-color: #17a08c;
 }
 
 .btn-success:hover,
 .btn-success:active,
 .btn-success.active,
 .open .dropdown-toggle.btn-success {
-   background-color: #7d9926;
-   border-color: #66771f;
+    background-color: #1CAF9A;
+    border-color: #17a08c;
 }
 
 .btn-white {
