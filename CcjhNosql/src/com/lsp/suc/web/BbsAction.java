@@ -16,6 +16,7 @@ import net.sf.json.JSONArray;
 
 import org.apache.commons.lang3.StringUtils; 
 import org.apache.struts2.convention.annotation.Namespace;
+import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results; 
 import org.springframework.beans.factory.annotation.Autowired; 
 import com.lsp.pub.dao.BaseDao;
@@ -23,14 +24,11 @@ import com.lsp.pub.db.MongoSequence;
 import com.lsp.pub.entity.GetAllFunc;
 import com.lsp.pub.entity.PubConstants;
 import com.lsp.pub.entity.WxToken;
-import com.lsp.pub.util.BaseDecimal;
-import com.lsp.pub.util.CodeImageUtil;
+import com.lsp.pub.util.BaseDecimal; 
 import com.lsp.pub.util.CommonUtil;
 import com.lsp.pub.util.DateFormat;
 import com.lsp.pub.util.DateUtil;
-import com.lsp.pub.util.DictionaryUtil;
-import com.lsp.pub.util.JmsService;
-import com.lsp.pub.util.LevelUtitls; 
+import com.lsp.pub.util.DictionaryUtil; 
 import com.lsp.pub.util.PayCommonUtil;
 import com.lsp.pub.util.SpringSecurityUtils;
 import com.lsp.pub.util.Struts2Utils;
@@ -44,23 +42,21 @@ import com.lsp.shop.entiy.OrderForm;
 import com.lsp.suc.entity.BbsInfo; 
 import com.lsp.suc.entity.Bbscomments;
 import com.lsp.suc.entity.Bbspraise;
-import com.lsp.suc.entity.Bbsreading;
-import com.lsp.suc.entity.CompanyInfo;
+import com.lsp.suc.entity.Bbsreading; 
 import com.lsp.suc.entity.Exceptional;
-import com.lsp.website.service.WwzService;
-import com.lsp.weixin.entity.Experience;
-import com.lsp.weixin.entity.WxPayConfig;
-import com.lsp.weixin.entity.WxUser; 
+import com.lsp.website.service.WwzService; 
+import com.lsp.weixin.entity.WxPayConfig; 
  
 import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject; 
+import com.mongodb.DBObject;
+import com.sun.org.apache.bcel.internal.generic.NEW; 
 /**
  * 论坛
  * @author lsp
  *　我们使用下面的比较操作符"$gt" 、"$gte"、 "$lt"、 "$lte"(分别对应">"、 ">=" 、"<" 、"<=")  $nin  不包含  $in 包含，$ne不等于
  */
 @Namespace("/suc")
-@Results({@org.apache.struts2.convention.annotation.Result(name="reload", location="bbs.action",params={"fypage", "%{fypage}"}, type="redirect")})
+@Results({@Result(name= BbsAction.RELOAD, location="bbs.action",params={"fypage", "%{fypage}"}, type="redirect")})
 public class BbsAction extends GeneralAction<BbsInfo> {
 	private static final long serialVersionUID = -6201497505112403306L;
 	@Autowired
@@ -79,7 +75,7 @@ public class BbsAction extends GeneralAction<BbsInfo> {
 	}
 
 	@Override
-	public String execute() throws Exception {
+	public String execute() throws Exception { 
 		HashMap<String, Object> sortMap =new HashMap<String, Object>();
 		HashMap<String, Object> whereMap =new HashMap<String, Object>();
 		HashMap<String, Object> backMap =new HashMap<String, Object>(); 
@@ -112,7 +108,7 @@ public class BbsAction extends GeneralAction<BbsInfo> {
 	 * 
 	 * @return
 	 */
-	public String index() { 
+	public String index() {   
 		getLscode();
 		wwzService.flow(custid, "bbs"); 
 		Struts2Utils.getRequest().setAttribute("custid", custid);
@@ -124,6 +120,7 @@ public class BbsAction extends GeneralAction<BbsInfo> {
 		Struts2Utils.getRequest().setAttribute("token",WeiXinUtil.getSignature(token,Struts2Utils.getRequest()));
 		token=WeiXinUtil.getSignature(token,Struts2Utils.getRequest());  
 		String  url=SysConfig.getProperty("ip")+"/suc/bbs!index.action?custid="+custid+"&fid="+Struts2Utils.getParameter("fid");  
+		 
 		if(StringUtils.isEmpty(fromUserid)){ 
 			String inspection="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+token.getAppid()+"&redirect_uri="+URLEncoder.encode(url)+"&response_type=code&scope=snsapi_base&state=c1c2j3h4#wechat_redirect";
 			Struts2Utils.getRequest().setAttribute("inspection",inspection);  
@@ -164,8 +161,7 @@ public class BbsAction extends GeneralAction<BbsInfo> {
 		Struts2Utils.getRequest().setAttribute("bbsll",bbsll);
 		Struts2Utils.getRequest().setAttribute("bbscount",bbscount);
 		Struts2Utils.getRequest().setAttribute("share", share);
-		Struts2Utils.getRequest().setAttribute("slide", wwzService.getslide(custid, "bbs"));
-		 
+		Struts2Utils.getRequest().setAttribute("slide", wwzService.getslide(custid, "bbs")); 
 		if(share!=null&&share.get("fxmb")!=null){
 			return "index"+share.get("fxmb").toString();
 		} 
@@ -300,8 +296,9 @@ public class BbsAction extends GeneralAction<BbsInfo> {
 			 BasicDBObject dateCondition = new BasicDBObject(); 
 				dateCondition.append("$ne",1);
 				whereMap.put("stick", dateCondition);
+				
 			}
-           
+			whereMap.put("adminstate",new BasicDBObject("$ne",1));
 			// 加载帖子内容
 			fypage = Integer.parseInt(Struts2Utils.getParameter("fypage"));
 			List<DBObject> bbslist = baseDao.getList(PubConstants.BBS_INFO,
@@ -446,8 +443,7 @@ public class BbsAction extends GeneralAction<BbsInfo> {
 				String  bbsstick=Struts2Utils.getParameter("bbsstick");
 				if(StringUtils.isNotEmpty(bbsstick)&&Integer.parseInt(bbsstick)!=0&&StringUtils.isNotEmpty(time)&&Integer.parseInt(time)!=0){
 					
-					boolean bl=wwzService.stick(fromUserid, custid, id, bbsstick,time,user);
-					System.out.println(bl);
+					boolean bl=wwzService.stick(fromUserid, custid, id, bbsstick,time,user); 
 					if(bl){ 
 					   submap.put("bbsstick", "ok");	
 					}
@@ -652,9 +648,12 @@ public class BbsAction extends GeneralAction<BbsInfo> {
 			Struts2Utils.getRequest().setAttribute("title", "详情");
 			  
 			DBObject  share=baseDao.getMessage(PubConstants.WEIXIN_SHAREFX, custid+"-bbs_share"); 
-			 
-			share.put("fxsummary", db.get("content")); 
-			share.put("fxurl",url);
+			if (db.get("adminstate")!=null&&db.get("adminstate").toString().equals("1")) {
+				share.put("fxsummary", db.get("title")); 
+			}else{
+				share.put("fxsummary", db.get("content")); 
+			}  
+			share.put("fxurl",url); 
 			Struts2Utils.getRequest().setAttribute("share", share);
 			if(share!=null&&share.get("fxmb")!=null){ 
 			
@@ -997,7 +996,7 @@ public class BbsAction extends GeneralAction<BbsInfo> {
 		Struts2Utils.getRequest().setAttribute("entity",baseDao.getMessage(PubConstants.BBS_INFO,_id));
 		return "add";
 	}
-
+    
 	@Override
 	public String save() throws Exception {
 		// TODO Auto-generated method stub
@@ -1006,8 +1005,13 @@ public class BbsAction extends GeneralAction<BbsInfo> {
 		}		
 		entity.set_id(_id);
 		custid=SpringSecurityUtils.getCurrentUser().getId();
+		entity.setContent(Struts2Utils.getParameter("content"));
+		entity.setFromUserid("1");
+		entity.setTitle(Struts2Utils.getParameter("title"));
+		entity.setType(Struts2Utils.getParameter("type"));
 		entity.setCustid(custid);
 		entity.setNikename("管理员");
+		entity.setAdminstate(1);
 		entity.setCreatedate(new Date()); 
 		baseDao.insert(PubConstants.BBS_INFO,entity);
 		return RELOAD;
@@ -1039,23 +1043,7 @@ public class BbsAction extends GeneralAction<BbsInfo> {
 		return RELOAD;
 	}
 
-	@Override
-	protected void prepareModel() throws Exception {
-		// TODO Auto-generated method stub
-		if (_id != null) {
-			//有custId查出来 用户信息
-			entity = (BbsInfo)UniObject.DBObjectToObject(baseDao.getMessage(PubConstants.BBS_INFO,_id),BbsInfo.class);
-		} else {
-			entity = new BbsInfo();
-		}
-		
-	}
 
-	@Override
-	public BbsInfo getModel() {
-		// TODO Auto-generated method stub
-		return entity;
-	}
 	public void set_id(Long _id) {
 		this._id = _id;
 	} 
@@ -1266,6 +1254,18 @@ public class BbsAction extends GeneralAction<BbsInfo> {
 		} 
 		String json = JSONArray.fromObject(submap).toString(); 
 		Struts2Utils.renderJson(json.substring(1, json.length() - 1), new String[0]);
+	}
+
+	@Override
+	public BbsInfo getModel() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected void prepareModel() throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	 

@@ -102,7 +102,7 @@
                                     <tr>
                                         <td><img src="${filehttp}/${bean.headimgurl}" height="25px"/></td>
                                         <td>${bean.nikename}</td>
-                                        <td><div style="width:500px; white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">${bean.content}</div></td>
+                                        <td><div style="width:500px;height:30px; white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">${bean.content}</div></td>
                                         <td><fmt:formatDate pattern='yyyy-MM-dd HH:mm' value='${bean.createdate}'/></td>
                                         <td class="table-action">
                                             <div class="btn-group1">
@@ -110,8 +110,10 @@
                                                     <i class="fa fa-cog"></i>
                                                 </a>
                                                 <ul role="menu" class="dropdown-menu pull-right">
+                                                    <c:if test="${bean.adminstate==1}">
                                                     <li><a href="${ctx}/suc/bbs!update.action?_id=${bean._id}">
                                                         <i class="fa fa-pencil "></i>&nbsp;&nbsp;&nbsp;&nbsp;修改</a></li>
+                                                    </c:if> 
                                                     <li><a href="javascript:del('${bean._id}');">
                                                         <i class="fa fa-trash-o "></i>&nbsp;&nbsp;&nbsp;&nbsp;删除</a></li>
                                                     <li><a href="javascript:qrcode('${ctxurl}/suc/bbs!bbsDetails.action?custid=${custid}&bmtid=${bean._id}')" ><i class="fa fa-eye"></i>&nbsp;&nbsp;&nbsp;预览</a></li>

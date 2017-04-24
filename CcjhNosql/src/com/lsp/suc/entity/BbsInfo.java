@@ -53,7 +53,10 @@ public class BbsInfo extends ReflectionDBObject{
 		 */
 		private  int    stick;
 		private  String  mp4url;
-		
+		/**
+		 * 1为管理员
+		 */
+		private  int  adminstate; 
 		public String getHumor() {
 			return humor;
 		}
@@ -169,6 +172,13 @@ public class BbsInfo extends ReflectionDBObject{
 		public void setMp4url(String mp4url) {
 			this.mp4url = mp4url;
 		}
+		public int getAdminstate() {
+			return adminstate;
+		}
+		public void setAdminstate(int adminstate) {
+			this.adminstate = adminstate;
+		}
+		 
 		 
 		
 }

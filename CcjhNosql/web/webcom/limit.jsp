@@ -5,9 +5,9 @@
   var useragent = navigator.userAgent;
    if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') { 
         // 以下代码是用javascript强行关闭当前页面
-        var opened = window.open('about:blank', '_self');
-        opened.opener = null;
-        opened.close(); 
+       var opened = window.open('about:blank', '_self');
+       opened.opener = null;
+       opened.close(); 
        
     }
 </script> 

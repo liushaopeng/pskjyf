@@ -305,7 +305,9 @@ public class PubConstants
   public static String SHOP_SHOPMSG="shop_shopmsg";//店铺消息
   public static String SHOP_SHOPCUSTSERVICE="shop_shopcustservice";//店铺客服
   public static String SUC_SIGNINDRAW="suc_signindraw";//签到摇奖
-  public static String SUC_SIGNINDRAWTJ="suc_signindrawtj";//签到摇奖统计 
+  public static String SUC_SIGNINDRAWTJ="suc_signindrawtj";//签到摇奖统计
+  
+  public static String SUC_LAWYERINFO="suc_lawyerinfo";//律师实体
   
   
 }

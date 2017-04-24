@@ -155,7 +155,9 @@
         .line-bottom-c3c3c6 {
             border-bottom: 1px solid #c3c3c6;
         }
-
+     .img-100 img {
+            width: 100%;
+        }
 
     </style>
     <script>
@@ -482,8 +484,7 @@
                 var xszf = '';
                 if (fag) {
                     xszf = $('#ajaxdiv').html();
-                }
-
+                }  
                 if (json.state == 0) {
                     var v = json.list;
                     for (var i = 0; i < v.length; i++) {
@@ -621,9 +622,11 @@
                 <font size="2">
                     <div class="pull-left pr-5 pt-2">${entity.nikename}</div>
                     <div class="pull-left pr-5">
+                     <c:if test="${empty entity.adminstate}">
                         <div class="pl-5 pr-5 weight100 zi-bai btn-lan-tq"
                              style="height:14px; line-height:17px; margin-top:1px;border-radius:2px;">
-                            <font size="1">
+                            
+                              <font size="1">
                                 <c:if test="${not empty entity.level}">
                                     <i class="pr-5">LV</i><i>${entity.level}</i>
                                 </c:if>
@@ -631,8 +634,26 @@
                                     <i class="pr-5">LV</i><i>0</i>
                                 </c:if>
 
-                            </font>
-                        </div>
+                             </font>
+                           
+                           </div>
+                     </c:if>
+                     <c:if test="${entity.adminstate==0}">
+                        <div class="pl-5 pr-5 weight100 zi-bai btn-lan-tq"
+                             style="height:14px; line-height:17px; margin-top:1px;border-radius:2px;">
+                            
+                              <font size="1">
+                                <c:if test="${not empty entity.level}">
+                                    <i class="pr-5">LV</i><i>${entity.level}</i>
+                                </c:if>
+                                <c:if test="${empty entity.level}">
+                                    <i class="pr-5">LV</i><i>0</i>
+                                </c:if>
+
+                             </font>
+                           
+                           </div>
+                     </c:if>
                     </div>
                     <c:if test="${entity.stick==1}">
                         <div class="pull-left pr-5">
@@ -684,15 +705,25 @@
                      style="background-image: url(${filehttp}/${entity.headimgurl})"></div>
             </c:if>
             <c:if test="${empty entity.headimgurl }">
+                  <c:if test="${entity.adminstate==1}">
+                <div class="img-wh40 img-bj maring-a border-radius3"
+                     style="background-image: url(${ctx}/img/admin.jpg)"></div>
+               </c:if>
+               <c:if test="${entity.adminstate==0}">
                 <div class="img-wh40 img-bj maring-a border-radius3"
                      style="background-image: url(${ctx}/mvccol/img/user/weizhuce.jpg)"></div>
+               </c:if>
+               <c:if test="${empty entity.adminstate}">
+                <div class="img-wh40 img-bj maring-a border-radius3"
+                     style="background-image: url(${ctx}/mvccol/img/user/weizhuce.jpg)"></div>
+               </c:if>
             </c:if>
         </div>
 
     </div>
     <div class="clear pl-5 pr-5 pt-15">
         <div class="size12 weight500 zi-hei-tq width-10 qjhh" style="line-height: 20px;">
-            <font size="2" class="context">
+            <font size="2" class="context img-100">
                 ${entity.content}
             </font>
         </div>
@@ -1267,10 +1298,11 @@
 
 </script>
 <script type="text/javascript">
-
-    $(".context").each(function () {
-        $(this).html(replace_em($(this).html()));
-    });
+    if("${entity.adminstate}"!=1){
+    	$(".context").each(function () {
+            $(this).html(replace_em($(this).html()));
+        });
+    } 
     ajaxjz(false);
     $(window).scroll(function () {
 

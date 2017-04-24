@@ -1,1 +1,6 @@
+/META-INF/
+/applicationContext-mq.xml
+/applicationContext-quartz.xml
+/applicationContext-security.xml
+/applicationContext.xml
 /com/

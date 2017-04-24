@@ -183,13 +183,19 @@
                         + '<div class=" overflow-hidden pull-left" style="padding-left: 50px;">'
                         + '<div class="weight500 pt-10 sl pull-left zi-lan-tq">'
                         + '<font size="2"><div class="pull-left pr-5 pt-2">' + v[i].nikename + '</div>'
-                        + '<div class="pull-left pr-5 pt-2">'
-                        + '<div class="pl-5 pr-5 weight100 zi-bai btn-lan-tq" style="height:14px; line-height:17px; margin-top:1px;border-radius:2px;">';
-                        if (v[i].level != null) {
-                            xszf += '<font size="1"><i class="pr-5">LV</i><i>' + v[i].level + '</i></font></div></div>';
-                        } else {
-                            xszf += '<font size="1"><i class="pr-5">LV</i><i>0</i></font></div></div>';
-                        }
+                        + '<div class="pull-left pr-5 pt-2">';
+                        if(v[i].adminstate==0||v[i].adminstate==null){
+                        	xszf+='<div class="pl-5 pr-5 weight100 zi-bai btn-lan-tq" style="height:14px; line-height:17px; margin-top:1px;border-radius:2px;">';
+                             
+                        	 if (v[i].level != null) {
+                                 xszf += '<font size="1"><i class="pr-5">LV</i><i>' + v[i].level + '</i></font></div></div>';
+                             } else {
+                                 xszf += '<font size="1"><i class="pr-5">LV</i><i>0</i></font></div></div>';
+                             }
+                        
+                        	
+                        } 
+                      
                         if(v[i].activity ==1){
                         xszf += '<div class="pull-left pr-5 pt-2">'
                              +'<div class="pl-5 pr-5 weight100 zi-bai btn-hong" style="height:14px; line-height:17px; margin-top:1px;border-radius:2px;">'
@@ -215,7 +221,11 @@
                         if (v[i].headimgurl != null) {
                             xszf += '<div class="img-wh40 img-bj maring-a border-radius3" style="background-image: url(${filehttp}/' + v[i].headimgurl + ')"></div>'
                         } else {
-                            xszf += '<div class="img-wh40 img-bj maring-a border-radius3" style="background-image: url(${ctx}/mvccol/img/user/weizhuce.jpg)"></div>'
+                        	if(v[i].adminstate==1){
+                       		 xszf += '<div class="img-wh40 img-bj maring-a border-radius3" style="background-image: url(${ctx}/img/admin.jpg)"></div>'
+                       	 }else{
+                       		 xszf += '<div class="img-wh40 img-bj maring-a border-radius3" style="background-image: url(${ctx}/mvccol/img/user/weizhuce.jpg)"></div>'
+                       	 }
                         }
                         xszf += '</div><div class="clear pt-15" onclick="details(' + v[i]._id + ',\'' + v[i].fromUserid + '\')">';
                         xszf += '<div class="weight500 width-10 qjhh zi-6 hang-sl-4" style="line-height:20px;">'

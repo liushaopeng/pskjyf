@@ -71,7 +71,7 @@
             <div class="col-md-12">
                 <form class="form-horizontal" id="custinfoForm" method="post"
                       action="${contextPath}/suc/bbs!save.action?fypage=${fypage}">
-                    <input id="_id" name="_id" value="<s:property value='_id'/>" type="hidden"/> 
+                    <input id="_id" name="_id" value="${entity._id}" type="hidden"/> 
                     <div class="div-group-10 overflow-hidden">
                         <!--左边项目-->
                         <div class="overflow-hidden">
@@ -85,7 +85,7 @@
                                         <input class="width-10 size14 zi-hui hang40 pl-10 pr-10 weight100"
                                                type="text"
                                                id="title"
-                                               value="<s:property value='title'/>"
+                                               value="${entity.title}"
                                                name="title"
                                                placeholder="标题">
                                     </div>
@@ -119,8 +119,8 @@
                     <!--下部编辑器-->
                     <div class="pt-10 clear">
                         <div class="div-group-10 border-radius5 bg-bai">
-                            <textarea  name="content" id="content" class="ckeditor" rows="10" cols="38">${content}</textarea>
-                            <script id="editor" type="text/plain" style="width:100%;height:300px;">${content}</script>
+                            <textarea  name="content" id="content" class="ckeditor" rows="10" cols="38">${entity.content}</textarea>
+                            <script id="editor" type="text/plain" style="width:100%;height:300px;">${entity.content}</script>
                         </div>
                         <a href="javascript:checksubmit()">
                             <div class="pt-20 pb-20 clear">
