@@ -1,6 +1,5 @@
 package com.lsp.suc.web;
-
-import java.util.Date;
+ 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,15 +17,12 @@ import com.lsp.pub.util.SpringSecurityUtils;
 import com.lsp.pub.util.Struts2Utils;
 import com.lsp.pub.util.UniObject;
 import com.lsp.pub.web.GeneralAction;
-import com.lsp.suc.entity.LawyerBusiness;
-import com.lsp.suc.entity.LawyerInfo;
+import com.lsp.suc.entity.LawyerBusiness; 
 import com.lsp.website.service.WwzService;
-import com.mongodb.DBObject;
-
-import net.sf.json.JSONArray;
+import com.mongodb.DBObject; 
 import net.sf.json.JSONObject; 
 @Namespace("/suc")
-@Results( { @Result(name = lawyerbusAction.RELOAD, location = "lawyerbus.action",params={"fypage", "%{fypage}"}, type = "redirect") })
+@Results( { @Result(name = lawyerbusAction.RELOAD, location = "lawyerbus.action",params={"fypage", "%{fypage}","lid", "%{lid}"}, type = "redirect") })
 public class lawyerbusAction extends GeneralAction<LawyerBusiness>{
  
 	private static final long serialVersionUID = -6784469775589971579L;
@@ -38,9 +34,7 @@ public class lawyerbusAction extends GeneralAction<LawyerBusiness>{
 	@Autowired
 	public void setMongoSequence(MongoSequence mongoSequence) {
 		this.mongoSequence = mongoSequence;
-	}
-	@Autowired
-	private WwzService wwzService; 
+	} 
 	private LawyerBusiness entity=new LawyerBusiness();
 	private Long _id;
 	@Override
@@ -53,11 +47,17 @@ public class lawyerbusAction extends GeneralAction<LawyerBusiness>{
 		if (StringUtils.isNotEmpty(Struts2Utils.getParameter("fypage"))) {
 			fypage=Integer.parseInt(Struts2Utils.getParameter("fypage"));
 		}
-		List<DBObject>list=baseDao.getList(PubConstants.SUC_LAWYERINFO, whereMap,fypage,10,sortMap);
+		if (StringUtils.isNotEmpty(Struts2Utils.getParameter("fypage"))) {
+			whereMap.put("lid", Long.parseLong(Struts2Utils.getParameter("lid")));
+		}else{ 
+			//屏蔽默认数据
+			whereMap.put("lid",null);
+		}  
+		List<DBObject>list=baseDao.getList(PubConstants.SUC_LAWYERBUS, whereMap,fypage,10,sortMap);
 		if (list.size()>0) {
 			Struts2Utils.getRequest().setAttribute("list", list);
 		}
-		fycount=baseDao.getCount(PubConstants.SUC_LAWYERINFO, whereMap);
+		fycount=baseDao.getCount(PubConstants.SUC_LAWYERBUS, whereMap);
 		return SUCCESS; 
 	}
 	
@@ -76,7 +76,7 @@ public class lawyerbusAction extends GeneralAction<LawyerBusiness>{
 	@Override
 	public String update() throws Exception {
 		// TODO Auto-generated method stubr
-		DBObject dbObject=baseDao.getMessage(PubConstants.SUC_LAWYERINFO, _id);
+		DBObject dbObject=baseDao.getMessage(PubConstants.SUC_LAWYERBUS, _id);
 		Struts2Utils.getRequest().setAttribute("entity",dbObject);
 		return RELOAD;
 	}
@@ -85,11 +85,11 @@ public class lawyerbusAction extends GeneralAction<LawyerBusiness>{
 	public String save() throws Exception {
 		// TODO Auto-generated method stub
 		if (_id==null) {
-			_id=mongoSequence.currval(PubConstants.SUC_LAWYERINFO);
+			_id=mongoSequence.currval(PubConstants.SUC_LAWYERBUS);
 		}
 		entity.set_id(_id);
 		entity.setCustid(SpringSecurityUtils.getCurrentUser().getId()); 
-		baseDao.insert(PubConstants.SUC_LAWYERINFO, entity);
+		baseDao.insert(PubConstants.SUC_LAWYERBUS, entity);
 		return RELOAD;
 	}
 
@@ -99,7 +99,7 @@ public class lawyerbusAction extends GeneralAction<LawyerBusiness>{
 		return RELOAD;
 	}
 	public void upd() throws Exception { 
-		DBObject db = baseDao.getMessage(PubConstants.SUC_HOUSETYPE, _id); 
+		DBObject db = baseDao.getMessage(PubConstants.SUC_LAWYERBUS, _id); 
 		String json = JSONObject.fromObject(db).toString();
 		Struts2Utils.renderJson(json, new String[0]);
 	}
@@ -109,51 +109,13 @@ public class lawyerbusAction extends GeneralAction<LawyerBusiness>{
 		// TODO Auto-generated method stub
 		if (_id != null) {
 			//有custId查出来 用户信息
-			entity = (LawyerBusiness)UniObject.DBObjectToObject(baseDao.getMessage(PubConstants.SUC_LAWYERINFO,_id),LawyerInfo.class);
+			entity = (LawyerBusiness)UniObject.DBObjectToObject(baseDao.getMessage(PubConstants.SUC_LAWYERBUS,_id),LawyerBusiness.class);
 		} else {
 			entity = new LawyerBusiness();
 		}
-	}
-	/**
-	 * 获取全部信息 
-	 * @return
-	 */
-	public String web(){
-		return "web"; 
-	}
-	/**
-	 * ajax获取全部数据
-	 */
-	public void  ajaxweb(){
-		getLscode();
-		HashMap<String, Object>whereMap=new HashMap<>();
-		HashMap<String, Object>sortMap=new HashMap<>();
-		Map<String, Object> sub_map = new HashMap<String, Object>();
-		whereMap.put("custid", custid);
-		sortMap.put("createdate",-1);
-		if (StringUtils.isNotEmpty(Struts2Utils.getParameter("fypage"))) {
-			fypage=Integer.parseInt(Struts2Utils.getParameter("fypage"));
-		}
-		List<DBObject>list=baseDao.getList(PubConstants.SUC_LAWYERINFO, whereMap,fypage,10,sortMap);
-		if (list.size()>0) {
-			sub_map.put("state", 0);
-			sub_map.put("list", list);
-		}
-		String json = JSONArray.fromObject(sub_map).toString(); 
-		Struts2Utils.renderJson(json.substring(1, json.length() - 1), new String[0]);
-	}
-	/**
-	 * 获取个人信息
-	 * @return
-	 */
-	public String detail(){
-		String id=Struts2Utils.getParameter("id");
-		if (StringUtils.isNotEmpty(id)) {
-			DBObject dbObject=baseDao.getMessage(PubConstants.SUC_LAWYERINFO,Long.parseLong(id));
-			Struts2Utils.getRequest().setAttribute("entity", dbObject);
-		}
-		return "detail"; 
+	} 
+	public void set_id(Long _id) {
+		this._id = _id;
 	}
 	 
-
 }

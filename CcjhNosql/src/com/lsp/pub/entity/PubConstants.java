@@ -308,6 +308,9 @@ public class PubConstants
   public static String SUC_SIGNINDRAWTJ="suc_signindrawtj";//签到摇奖统计
   
   public static String SUC_LAWYERINFO="suc_lawyerinfo";//律师实体
+  public static String SUC_LAWYERBUS="suc_lawyerbus";//律师服务实体
+  public static String SUC_LAWYERGOD="suc_lawyergod";//律师商品实体
+  public static String SUC_LAWYERORD="suc_lawyerord";//律师订单实体
   
   
 }

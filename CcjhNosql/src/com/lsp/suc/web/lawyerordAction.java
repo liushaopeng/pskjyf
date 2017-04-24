@@ -3,7 +3,6 @@ package com.lsp.suc.web;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.convention.annotation.Namespace;
@@ -26,7 +25,7 @@ import com.mongodb.DBObject;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject; 
 @Namespace("/suc")
-@Results( { @Result(name = lawyerordAction.RELOAD, location = "lawyerord.action",params={"fypage", "%{fypage}"}, type = "redirect") })
+@Results( { @Result(name = lawyerordAction.RELOAD, location = "lawyerord.action",params={"fypage", "%{fypage}","lid", "%{lid}","gid", "%{gid}"}, type = "redirect") })
 public class lawyerordAction extends GeneralAction<LawyerOrder>{
  
 	private static final long serialVersionUID = -6784469775589971579L;
@@ -53,11 +52,17 @@ public class lawyerordAction extends GeneralAction<LawyerOrder>{
 		if (StringUtils.isNotEmpty(Struts2Utils.getParameter("fypage"))) {
 			fypage=Integer.parseInt(Struts2Utils.getParameter("fypage"));
 		}
-		List<DBObject>list=baseDao.getList(PubConstants.SUC_LAWYERINFO, whereMap,fypage,10,sortMap);
+		if (StringUtils.isNotEmpty(Struts2Utils.getParameter("lid"))) {
+			whereMap.put("lid",Long.parseLong(Struts2Utils.getParameter("lid")));
+		}
+		if (StringUtils.isNotEmpty(Struts2Utils.getParameter("gid"))) {
+			whereMap.put("gid",Long.parseLong(Struts2Utils.getParameter("gid")));
+		}
+		List<DBObject>list=baseDao.getList(PubConstants.SUC_LAWYERORD, whereMap,fypage,10,sortMap);
 		if (list.size()>0) {
 			Struts2Utils.getRequest().setAttribute("list", list);
 		}
-		fycount=baseDao.getCount(PubConstants.SUC_LAWYERINFO, whereMap);
+		fycount=baseDao.getCount(PubConstants.SUC_LAWYERORD, whereMap);
 		return SUCCESS; 
 	}
 	
@@ -76,7 +81,7 @@ public class lawyerordAction extends GeneralAction<LawyerOrder>{
 	@Override
 	public String update() throws Exception {
 		// TODO Auto-generated method stubr
-		DBObject dbObject=baseDao.getMessage(PubConstants.SUC_LAWYERINFO, _id);
+		DBObject dbObject=baseDao.getMessage(PubConstants.SUC_LAWYERORD, _id);
 		Struts2Utils.getRequest().setAttribute("entity",dbObject);
 		return RELOAD;
 	}
@@ -85,12 +90,12 @@ public class lawyerordAction extends GeneralAction<LawyerOrder>{
 	public String save() throws Exception {
 		// TODO Auto-generated method stub
 		if (_id==null) {
-			_id=mongoSequence.currval(PubConstants.SUC_LAWYERINFO);
+			_id=mongoSequence.currval(PubConstants.SUC_LAWYERORD);
 		}
 		entity.set_id(_id);
 		entity.setCustid(SpringSecurityUtils.getCurrentUser().getId());
 		entity.setCreatedate(new Date());
-		baseDao.insert(PubConstants.SUC_LAWYERINFO, entity);
+		baseDao.insert(PubConstants.SUC_LAWYERORD, entity);
 		return RELOAD;
 	}
 
@@ -100,7 +105,7 @@ public class lawyerordAction extends GeneralAction<LawyerOrder>{
 		return RELOAD;
 	}
 	public void upd() throws Exception { 
-		DBObject db = baseDao.getMessage(PubConstants.SUC_HOUSETYPE, _id); 
+		DBObject db = baseDao.getMessage(PubConstants.SUC_LAWYERORD, _id); 
 		String json = JSONObject.fromObject(db).toString();
 		Struts2Utils.renderJson(json, new String[0]);
 	}
@@ -110,51 +115,10 @@ public class lawyerordAction extends GeneralAction<LawyerOrder>{
 		// TODO Auto-generated method stub
 		if (_id != null) {
 			//有custId查出来 用户信息
-			entity = (LawyerOrder)UniObject.DBObjectToObject(baseDao.getMessage(PubConstants.SUC_LAWYERINFO,_id),LawyerInfo.class);
+			entity = (LawyerOrder)UniObject.DBObjectToObject(baseDao.getMessage(PubConstants.SUC_LAWYERORD,_id),LawyerOrder.class);
 		} else {
 			entity = new LawyerOrder();
 		}
 	}
-	/**
-	 * 获取全部信息 
-	 * @return
-	 */
-	public String web(){
-		return "web"; 
-	}
-	/**
-	 * ajax获取全部数据
-	 */
-	public void  ajaxweb(){
-		getLscode();
-		HashMap<String, Object>whereMap=new HashMap<>();
-		HashMap<String, Object>sortMap=new HashMap<>();
-		Map<String, Object> sub_map = new HashMap<String, Object>();
-		whereMap.put("custid", custid);
-		sortMap.put("createdate",-1);
-		if (StringUtils.isNotEmpty(Struts2Utils.getParameter("fypage"))) {
-			fypage=Integer.parseInt(Struts2Utils.getParameter("fypage"));
-		}
-		List<DBObject>list=baseDao.getList(PubConstants.SUC_LAWYERINFO, whereMap,fypage,10,sortMap);
-		if (list.size()>0) {
-			sub_map.put("state", 0);
-			sub_map.put("list", list);
-		}
-		String json = JSONArray.fromObject(sub_map).toString(); 
-		Struts2Utils.renderJson(json.substring(1, json.length() - 1), new String[0]);
-	}
-	/**
-	 * 获取个人信息
-	 * @return
-	 */
-	public String detail(){
-		String id=Struts2Utils.getParameter("id");
-		if (StringUtils.isNotEmpty(id)) {
-			DBObject dbObject=baseDao.getMessage(PubConstants.SUC_LAWYERINFO,Long.parseLong(id));
-			Struts2Utils.getRequest().setAttribute("entity", dbObject);
-		}
-		return "detail"; 
-	}
 	 
-
 }

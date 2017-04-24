@@ -72,6 +72,9 @@ public class LawyerAction extends GeneralAction<LawyerInfo>{
 		return "add";
 	}
 
+	public void set_id(Long _id) {
+		this._id = _id;
+	}
 	@Override
 	public String update() throws Exception {
 		// TODO Auto-generated method stubr
@@ -154,6 +157,54 @@ public class LawyerAction extends GeneralAction<LawyerInfo>{
 		}
 		return "detail"; 
 	}
-	 
+	/**
+	 * ajax获取个人服务数据
+	 */
+	public void  ajaxbus(){
+		getLscode();
+		String id=Struts2Utils.getParameter("id");
+		if(StringUtils.isNotEmpty(id)){
+			HashMap<String, Object>whereMap=new HashMap<>();
+			HashMap<String, Object>sortMap=new HashMap<>();
+			Map<String, Object> sub_map = new HashMap<String, Object>();
+			whereMap.put("custid", custid);
+			whereMap.put("lid", Long.parseLong(id));
+			sortMap.put("sort",-1); 
+			List<DBObject>list=baseDao.getList(PubConstants.SUC_LAWYERBUS, whereMap,sortMap);
+			if (list.size()>0) {
+				sub_map.put("state", 0);
+				sub_map.put("list", list);
+			}
+			String json = JSONArray.fromObject(sub_map).toString(); 
+			Struts2Utils.renderJson(json.substring(1, json.length() - 1), new String[0]);
+		}
+		
+	}
+	/**
+	 * ajax获取个人商城数据
+	 */
+	public void  ajaxgod(){
+		getLscode();
+		String id=Struts2Utils.getParameter("id");
+		if(StringUtils.isNotEmpty(id)){
+			HashMap<String, Object>whereMap=new HashMap<>();
+			HashMap<String, Object>sortMap=new HashMap<>();
+			Map<String, Object> sub_map = new HashMap<String, Object>();
+			whereMap.put("custid", custid);
+			whereMap.put("lid", Long.parseLong(id));
+			sortMap.put("createdate",-1);
+			if (StringUtils.isNotEmpty(Struts2Utils.getParameter("fypage"))) {
+				fypage=Integer.parseInt(Struts2Utils.getParameter("fypage"));
+			}
+			List<DBObject>list=baseDao.getList(PubConstants.SUC_LAWYERGOD, whereMap,fypage,10,sortMap);
+			if (list.size()>0) {
+				sub_map.put("state", 0);
+				sub_map.put("list", list);
+			}
+			String json = JSONArray.fromObject(sub_map).toString(); 
+			Struts2Utils.renderJson(json.substring(1, json.length() - 1), new String[0]);
+		}
+		
+	}
 
 }
