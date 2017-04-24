@@ -17,7 +17,8 @@ import com.lsp.pub.entity.PubConstants;
 import com.lsp.pub.util.SpringSecurityUtils;
 import com.lsp.pub.util.Struts2Utils;
 import com.lsp.pub.util.UniObject;
-import com.lsp.pub.web.GeneralAction; 
+import com.lsp.pub.web.GeneralAction;
+import com.lsp.suc.entity.LawyerBusiness;
 import com.lsp.suc.entity.LawyerInfo;
 import com.lsp.website.service.WwzService;
 import com.mongodb.DBObject;
@@ -25,8 +26,8 @@ import com.mongodb.DBObject;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject; 
 @Namespace("/suc")
-@Results( { @Result(name = LawyerAction.RELOAD, location = "lawyerinfo.action",params={"fypage", "%{fypage}"}, type = "redirect") })
-public class LawyerAction extends GeneralAction<LawyerInfo>{
+@Results( { @Result(name = lawyerbusAction.RELOAD, location = "lawyerbus.action",params={"fypage", "%{fypage}"}, type = "redirect") })
+public class lawyerbusAction extends GeneralAction<LawyerBusiness>{
  
 	private static final long serialVersionUID = -6784469775589971579L;
 
@@ -40,7 +41,7 @@ public class LawyerAction extends GeneralAction<LawyerInfo>{
 	}
 	@Autowired
 	private WwzService wwzService; 
-	private LawyerInfo entity=new LawyerInfo();
+	private LawyerBusiness entity=new LawyerBusiness();
 	private Long _id;
 	@Override
 	public String execute() throws Exception {
@@ -61,7 +62,7 @@ public class LawyerAction extends GeneralAction<LawyerInfo>{
 	}
 	
 	@Override
-	public LawyerInfo getModel() {
+	public LawyerBusiness getModel() {
 		// TODO Auto-generated method stub
 		return entity;
 	}
@@ -87,8 +88,7 @@ public class LawyerAction extends GeneralAction<LawyerInfo>{
 			_id=mongoSequence.currval(PubConstants.SUC_LAWYERINFO);
 		}
 		entity.set_id(_id);
-		entity.setCustid(SpringSecurityUtils.getCurrentUser().getId());
-		entity.setCreatedate(new Date());
+		entity.setCustid(SpringSecurityUtils.getCurrentUser().getId()); 
 		baseDao.insert(PubConstants.SUC_LAWYERINFO, entity);
 		return RELOAD;
 	}
@@ -109,9 +109,9 @@ public class LawyerAction extends GeneralAction<LawyerInfo>{
 		// TODO Auto-generated method stub
 		if (_id != null) {
 			//有custId查出来 用户信息
-			entity = (LawyerInfo)UniObject.DBObjectToObject(baseDao.getMessage(PubConstants.SUC_LAWYERINFO,_id),LawyerInfo.class);
+			entity = (LawyerBusiness)UniObject.DBObjectToObject(baseDao.getMessage(PubConstants.SUC_LAWYERINFO,_id),LawyerInfo.class);
 		} else {
-			entity = new LawyerInfo();
+			entity = new LawyerBusiness();
 		}
 	}
 	/**

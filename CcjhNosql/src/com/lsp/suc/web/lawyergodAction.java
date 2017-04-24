@@ -17,7 +17,8 @@ import com.lsp.pub.entity.PubConstants;
 import com.lsp.pub.util.SpringSecurityUtils;
 import com.lsp.pub.util.Struts2Utils;
 import com.lsp.pub.util.UniObject;
-import com.lsp.pub.web.GeneralAction; 
+import com.lsp.pub.web.GeneralAction;
+import com.lsp.suc.entity.LawyerGoods;
 import com.lsp.suc.entity.LawyerInfo;
 import com.lsp.website.service.WwzService;
 import com.mongodb.DBObject;
@@ -25,8 +26,8 @@ import com.mongodb.DBObject;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject; 
 @Namespace("/suc")
-@Results( { @Result(name = LawyerAction.RELOAD, location = "lawyerinfo.action",params={"fypage", "%{fypage}"}, type = "redirect") })
-public class LawyerAction extends GeneralAction<LawyerInfo>{
+@Results( { @Result(name = lawyergodAction.RELOAD, location = "lawyergod.action",params={"fypage", "%{fypage}"}, type = "redirect") })
+public class lawyergodAction extends GeneralAction<LawyerGoods>{
  
 	private static final long serialVersionUID = -6784469775589971579L;
 
@@ -40,7 +41,7 @@ public class LawyerAction extends GeneralAction<LawyerInfo>{
 	}
 	@Autowired
 	private WwzService wwzService; 
-	private LawyerInfo entity=new LawyerInfo();
+	private LawyerGoods entity=new LawyerGoods();
 	private Long _id;
 	@Override
 	public String execute() throws Exception {
@@ -61,7 +62,7 @@ public class LawyerAction extends GeneralAction<LawyerInfo>{
 	}
 	
 	@Override
-	public LawyerInfo getModel() {
+	public LawyerGoods getModel() {
 		// TODO Auto-generated method stub
 		return entity;
 	}
@@ -109,9 +110,9 @@ public class LawyerAction extends GeneralAction<LawyerInfo>{
 		// TODO Auto-generated method stub
 		if (_id != null) {
 			//有custId查出来 用户信息
-			entity = (LawyerInfo)UniObject.DBObjectToObject(baseDao.getMessage(PubConstants.SUC_LAWYERINFO,_id),LawyerInfo.class);
+			entity = (LawyerGoods)UniObject.DBObjectToObject(baseDao.getMessage(PubConstants.SUC_LAWYERINFO,_id),LawyerInfo.class);
 		} else {
-			entity = new LawyerInfo();
+			entity = new LawyerGoods();
 		}
 	}
 	/**
