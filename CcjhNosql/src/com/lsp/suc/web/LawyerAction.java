@@ -150,12 +150,26 @@ public class LawyerAction extends GeneralAction<LawyerInfo>{
 	 * @return
 	 */
 	public String detail(){
+		getLscode();
 		String id=Struts2Utils.getParameter("id");
 		if (StringUtils.isNotEmpty(id)) {
 			DBObject dbObject=baseDao.getMessage(PubConstants.SUC_LAWYERINFO,Long.parseLong(id));
 			Struts2Utils.getRequest().setAttribute("entity", dbObject);
 		}
 		return "detail"; 
+	}
+	/**
+	 * 获取商品信息
+	 * @return
+	 */
+	public String gooddetail(){
+		getLscode();
+		String id=Struts2Utils.getParameter("id");
+		if (StringUtils.isNotEmpty(id)) {
+			DBObject dbObject=baseDao.getMessage(PubConstants.SUC_LAWYERGOD,Long.parseLong(id));
+			Struts2Utils.getRequest().setAttribute("entity", dbObject);
+		}
+		return "gooddetail"; 
 	}
 	/**
 	 * ajax获取个人服务数据
@@ -181,7 +195,7 @@ public class LawyerAction extends GeneralAction<LawyerInfo>{
 		
 	}
 	/**
-	 * ajax获取个人商城数据
+	 * ajax获取个人商品数据
 	 */
 	public void  ajaxgod(){
 		getLscode();
