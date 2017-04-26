@@ -19,6 +19,18 @@ public class LawyerInfo extends ReflectionDBObject{
 	private Date  createdate;
 	private String tel;
 	private String address;
+	/**
+	 * 擅长领域
+	 */
+	private String field;
+	/**
+	 * 机构
+	 */
+	private String institution;
+	/**
+	 * 证书号
+	 */
+	private String cerno;
 	public String getCustid() {
 		return custid;
 	}
@@ -67,5 +79,24 @@ public class LawyerInfo extends ReflectionDBObject{
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	public String getField() {
+		return field;
+	}
+	public void setField(String field) {
+		this.field = field;
+	}
+	public String getInstitution() {
+		return institution;
+	}
+	public void setInstitution(String institution) {
+		this.institution = institution;
+	}
+	public String getCerno() {
+		return cerno;
+	}
+	public void setCerno(String cerno) {
+		this.cerno = cerno;
+	}
+	
 	
 }

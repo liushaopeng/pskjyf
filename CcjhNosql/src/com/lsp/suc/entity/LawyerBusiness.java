@@ -13,6 +13,8 @@ public class LawyerBusiness extends ReflectionDBObject{
 	 private String title;
 	 private Long lid;
 	 private String picurl;
+	 private String ioc;
+	 private Double price;
 	 private int sort;
 	 private String url;
 	 public String getCustid() {
@@ -50,6 +52,18 @@ public class LawyerBusiness extends ReflectionDBObject{
 	 }
 	 public void setLid(Long lid) {
 		this.lid = lid;
+	 }
+	 public String getIoc() {
+		return ioc;
+	 }
+	 public void setIoc(String ioc) {
+	 	this.ioc = ioc;
+	 }
+	 public Double getPrice() {
+		return price;
+	 }
+	 public void setPrice(Double price) {
+		this.price = price;
 	 }
 	 
 }
