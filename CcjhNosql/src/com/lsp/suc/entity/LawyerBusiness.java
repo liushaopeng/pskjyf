@@ -13,7 +13,7 @@ public class LawyerBusiness extends ReflectionDBObject{
 	 private String title;
 	 private Long lid;
 	 private String picurl;
-	 private String ioc;
+	 private String icon;
 	 private Double price;
 	 private int sort;
 	 private String url;
@@ -53,11 +53,12 @@ public class LawyerBusiness extends ReflectionDBObject{
 	 public void setLid(Long lid) {
 		this.lid = lid;
 	 }
-	 public String getIoc() {
-		return ioc;
+	 
+	 public String getIcon() {
+		return icon;
 	 }
-	 public void setIoc(String ioc) {
-	 	this.ioc = ioc;
+	 public void setIcon(String icon) {
+		this.icon = icon;
 	 }
 	 public Double getPrice() {
 		return price;

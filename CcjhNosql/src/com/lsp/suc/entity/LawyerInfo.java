@@ -17,6 +17,7 @@ public class LawyerInfo extends ReflectionDBObject{
 	private String summary;
 	private String content;
 	private Date  createdate;
+	private Date  updatedate;
 	private String tel;
 	private String address;
 	/**
@@ -31,6 +32,10 @@ public class LawyerInfo extends ReflectionDBObject{
 	 * 证书号
 	 */
 	private String cerno;
+	/**
+	 * 0未审核，1审核中，2审核成功，3审核驳回
+	 */
+	private int state;
 	public String getCustid() {
 		return custid;
 	}
@@ -96,6 +101,18 @@ public class LawyerInfo extends ReflectionDBObject{
 	}
 	public void setCerno(String cerno) {
 		this.cerno = cerno;
+	}
+	public int getState() {
+		return state;
+	}
+	public void setState(int state) {
+		this.state = state;
+	}
+	public Date getUpdatedate() {
+		return updatedate;
+	}
+	public void setUpdatedate(Date updatedate) {
+		this.updatedate = updatedate;
 	}
 	
 	

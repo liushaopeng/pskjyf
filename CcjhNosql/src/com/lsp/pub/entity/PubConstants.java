@@ -243,6 +243,7 @@ public class PubConstants
   
   public static String PUB_COLOR="pub_color";//颜色
   public static String PUB_IOC="pub_ioc";//图标
+  public static String PUB_FONT="pub_font";//字体
   public static String SUC_ROLL="suc_roll";//滚动
   public static String SUC_INTEGRALRECORD="suc_integralrecor";//积分统计
   public static String USER_USERLOGINDETAIL="user_userlogindetail";//积分统计

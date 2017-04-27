@@ -14,7 +14,7 @@ public class LawyerOrder extends ReflectionDBObject{
 	 private String custid;
 	 private String fromUserid;
 	 private Long lid;
-	 private Long gid;
+	 private Long bid;
 	 private String title;
 	 private String summary;
 	 private String content;
@@ -38,13 +38,12 @@ public class LawyerOrder extends ReflectionDBObject{
 	 }
 	 public void setLid(Long lid) {
 		this.lid = lid;
+	 } 
+	 public Long getBid() {
+		return bid;
 	 }
-	 
-	 public Long getGid() {
-		return gid;
-	 }
-	 public void setGid(Long gid) {
-		this.gid = gid;
+	 public void setBid(Long bid) {
+		this.bid = bid;
 	 }
 	 public String getTitle() {
 		return title;
