@@ -17,6 +17,8 @@ public class LawyerBusiness extends ReflectionDBObject{
 	 private Double price;
 	 private int sort;
 	 private String url;
+	 private String summary;
+	 private String content;
 	 public String getCustid() {
 		return custid;
 	 }
@@ -66,5 +68,17 @@ public class LawyerBusiness extends ReflectionDBObject{
 	 public void setPrice(Double price) {
 		this.price = price;
 	 }
+	public String getSummary() {
+		return summary;
+	}
+	public void setSummary(String summary) {
+		this.summary = summary;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
 	 
 }

@@ -20,10 +20,7 @@
                 rules: {
                     name: {
                         required: true
-                    },
-                    picurl: {
-                        required: true
-                    },  
+                    } ,
                     sort: {
                         digits: true,
                         required: true
@@ -71,7 +68,29 @@
         function selsb(key, value) {
             $('#css').val(key);
             $('#tubiao').hide();
-        } 
+        }
+        function pz(id, w, h, tag) {
+            $("#clipArea").photoClip({
+                width: w,
+                height: h,
+                file: "#file",
+                view: "#view",
+                ok: "#clipBtn",
+                outputType: "jpg",
+                loadStart: function () {
+                    console.log("照片读取中");
+                },
+                loadComplete: function () {
+                    console.log("照片读取完成");
+                },
+                clipFinish: function (dataURL) {
+                    upimage(dataURL, id, tag);
+                    $('#clipArea').html('');
+                }
+            });
+
+            $('#jqpic').show();
+        }
         function showMap() {
             $('#insMap').modal({
                 show: true
@@ -121,7 +140,7 @@
 
         <div class="pageheader">
 
-            <h2><i class="fa fa-qrcode"></i>律师管理<span>律师添加</span></h2>
+            <h2><i class="fa fa-qrcode"></i>律师管理 <span>律师添加</span></h2>
 
 
         </div>
@@ -131,31 +150,29 @@
                       action="${contextPath}/suc/lawyer!save.action?fypage=${fypage}">
                     <input id="_id" name="_id" value="<s:property value='_id'/>" type="hidden"/>
                     <input type="hidden" id="picurl" value="<s:property value='picurl'/>" name="picurl"/> 
-                    <input  id="createdate" name="createdate" value="<fmt:formatDate pattern='yyyy-MM-dd' value='${createdate}'/>" type="hidden" />
+                    <input  id="createdate" name="createdate" value="<fmt:formatDate pattern='yyyy-MM-dd HH:mm' value='${createdate}'/>" type="hidden" />
                     <div class="div-group-10 overflow-hidden">
                         <!--左边项目-->
                         <div class="overflow-hidden">
                             <div class=" div-group-10 pb-25 bg-bai border-radius5 overflow-hidden">
                                 <div class="clear col-2 overflow-hidden">
                                     <div class="size14 line-bottom weight500 pt-10 pb-10" style="padding-left: 2px;">
-                                                                                                             律师头像
-                                    </div>
+                                        律师头像<i
+                                            class="size12 zi-hui">（仅需一张）</i></div>
                                     <div class="line-bottom line-right line-left1 div-group-5 pt-10 pb-10 overflow-hidden">
                                         <div class="col-6">
                                             <c:if test="${empty entity.picurl}">
                                                 <div class="img-wh60 maring-a border-radius3 line-lu logos">
 
                                                 </div>
-                                            </c:if>
                                         </div>
-                                       
+                                        </c:if>
                                         <c:if test="${not empty entity.picurl}">
                                             <div class="img-wh60 maring-a border-radius3 line-lu logos">
                                                 <img src="${filehttp}/${entity.picurl}" class="img-60">
                                             </div>
-                                        </c:if>
                                     </div>
-                                   
+                                    </c:if>
                                     <div class="col-6">
                                         <a href="javascript:pz('logo','200','200',false,this)">
                                             <div class="img-wh60 maring-a border-radius3 line-lu">
@@ -172,7 +189,7 @@
                             <div class="clear pt-25">
                                 <div class="col-2 pr-10">
                                     <div class="size14 line-bottom weight500 pt-10 pb-10" style="padding-left: 2px;">
-                                      律师姓名
+                                        律师姓名
                                     </div>
                                     <div class="line-bottom line-right line-left1 hang40 overflow-hidden">
                                         <input class="width-10 size14 zi-hui hang40 pl-10 pr-10 weight100"
@@ -185,7 +202,7 @@
                                 </div>
                                 <div class="col-2 pr-10">
                                     <div class="size14 line-bottom weight500 pt-10 pb-10" style="padding-left: 2px;">
-                                       联系电话
+                                        联系电话
                                     </div>
                                     <div class="line-bottom line-right line-left1 hang40">
                                         <input class="width-10 size14 zi-hui hang30 pt-10 pl-10 pr-10 weight100"
@@ -196,12 +213,13 @@
                                                placeholder="联系电话">
                                     </div>
                                 </div>
+                              
                                 <div class="col-2">
                                     <div class="size14 weight500 pt-10 pb-10" style="padding-left: 2px;">
-                                        审核状态
+                                      状态
                                     </div>
                                     <div class="overflow-hidden">
-                                        <select id="state" name="state" class="width-10 select2" data-placeholder="请选择">
+                                        <select id="state" name="state" class="width-10 select2" data-placeholder="未审核" onchange="chagemb()">
                                             <option value="0">未审核</option>
                                             <option value="1">审核中</option>
                                             <option value="2">审核通过</option>
@@ -209,66 +227,51 @@
                                         </select>
                                     </div>
                                 </div>
-                    
-                              
-                            </div>
-
-
-                            <div class="clear pt-25">
-                  
-
-                                <div class="col-3 pl-10">
+                                 <div class="col-2 pl-10">
                                     <div class="size14 line-bottom weight500 pt-10 pb-10" style="padding-left: 2px;">
-                                        详细地址
+                                        从业机构
                                     </div>
                                     <div class="line-bottom line-right line-left1 hang40">
                                         <input class="width-10 size14 zi-hui hang30 pt-10 pl-10 pr-10 weight100"
                                                type="text"
-                                               id="address" value="<s:property value='address'/>" name="address"
-                                               placeholder="地址">
+                                               id="institution"
+                                               value="<s:property value='institution'/>"
+                                               name="institution"
+                                               placeholder="从业机构">
+                                    </div>
+                                </div>
+                                <div class="col-2 pl-10">
+                                    <div class="size14 line-bottom weight500 pt-10 pb-10" style="padding-left: 2px;">
+                                        证书编号
+                                    </div>
+                                    <div class="line-bottom line-right line-left1 hang40">
+                                        <input class="width-10 size14 zi-hui hang30 pt-10 pl-10 pr-10 weight100"
+                                               type="text"
+                                               id="cerno"
+                                               value="<s:property value='cerno'/>"
+                                               name="cerno"
+                                               placeholder="证书编号">
+                                    </div>
+                                </div>
+                                <div class="col-2 pl-10">
+                                    <div class="size14 line-bottom weight500 pt-10 pb-10" style="padding-left: 2px;">
+                                        序号
+                                    </div>
+                                    <div class="line-bottom line-right line-left1 hang40">
+                                        <input class="width-10 size14 zi-hui hang30 pt-10 pl-10 pr-10 weight100"
+                                               type="text"
+                                               id="sort"
+                                               value="<s:property value='sort'/>"
+                                               name="sort"
+                                               placeholder="序号">
                                     </div>
                                 </div>
                             </div>
 
  
 
-
-                            <div class="pt-25 clear bg-bai border-radius5 overflow-hidden">
-                                <div class="col-1">
-                                    <div class="size14 line-bottom weight500 pt-20 pb-10" style="padding-left: 2px;">
-                                        序号
-                                    </div>
-                                    <div class="line-bottom line-right line-left1 hang40">
-                                        <input class="width-10 size14 zi-hui hang30 pt-10 pl-10 pr-10 weight100"
-                                               type="text"
-                                               id="sort" value="<s:property value='sort'/>" name="sort"
-                                               placeholder="请输入序号">
-                                    </div>
-                                </div>
-
-                                <div class="col-3 pl-10">
-                                    <div class="size14 line-bottom weight500 pt-20 pb-10" style="padding-left: 2px;">
-                                        证书编号
-                                    </div>
-                                    <div class="line-bottom line-right line-left1 hang40">
-                                        <input class="width-10 size14 zi-hui hang30 pt-10 pl-10 pr-10 weight100"
-                                               type="text"
-                                               id="cerno" value="<s:property value='cerno'/>" name="cerno" placeholder="证书编号">
-                                    </div>
-                                </div>
-
-                                <div class="col-3 pl-10">
-                                    <div class="size14 line-bottom weight500 pt-20 pb-10" style="padding-left: 2px;">
-                                        从业机构
-                                    </div>
-                                    <div class="line-bottom line-right line-left1 hang40">
-                                        <input class="width-10 size14 zi-hui hang30 pt-10 pl-10 pr-10 weight100"
-                                               type="text"
-                                               id="institution" value="<s:property value='institution'/>" name="institution" placeholder="从业机构">
-                                    </div>
-                                </div>
-
-                                <div class="col-5 pl-10">
+                            <div class="pt-25 clear bg-bai overflow-hidden"> 
+                                <div class="col-12">
                                     <div class="size14 line-bottom weight500 pt-20 pb-10" style="padding-left: 2px;">
                                         分享说明
                                     </div>
@@ -284,8 +287,8 @@
                     </div>
 
                     <!--下部编辑器-->
-                    <div class="pt-10 clear">
-                        <div class="div-group-10 border-radius5 bg-bai">
+                    <div class="pt-10 clear"> 
+                        <div class="div-group-10 border-radius5 bg-bai"> 
                             <textarea  name="content" id="content" class="ckeditor" rows="10" cols="38">${content}</textarea>
                             <script id="editor" type="text/plain" style="width:100%;height:300px;">${content}</script>
                         </div>
@@ -305,13 +308,7 @@
     </div>
     <!-- mainpanel -->
 </section>
-<div class="fullscreen-xz cmp640"
-     style="display: none;width: 400px;height: 100%;position:absolute;left:65%;  overflow: auto;" id="tubiao">
-
-    <%@ include file="/marker/set/dict2.html" %>
-</div>
-
-
+ 
 <div id="insMap" class="modal fade bs-example-modal-static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      data-backdrop="static" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -356,30 +353,15 @@
     </div>
 </div>
 <%@include file="/webcom/cut-img1.jsp" %>
-<script type="text/javascript">
-    init();
-    codeLatLng();
-    setkeywords();
-    $("#mb").val("${mb}");
-    chagemb();
-    $("#lx").val("${lx}");
-    $("#type").val("${entity.type}");
-
+<script type="text/javascript">  
     jQuery(".select2").select2({
         width: '100%'
     });
     jQuery('#enddate').datepicker(); 
     jQuery('#startdate').datepicker(); 
-    var editor=CKEDITOR.replace('context');
+    var editor=CKEDITOR.replace('content');
     function checksubmit() {
-        $("#context").val(editor.getData());
-        var key = '';
-        $("#keywords").find('input').each(function () {
-            if ($(this).val() != '') {
-                key += $(this).val() + ',';
-            }
-        });
-        $('#keyword').val(key + $('#name').val() + ',');
+        $("#content").val(editor.getData()); 
         $('#custinfoForm').submit();
 
     }

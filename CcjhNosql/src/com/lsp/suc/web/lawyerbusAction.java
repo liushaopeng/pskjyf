@@ -47,7 +47,7 @@ public class lawyerbusAction extends GeneralAction<LawyerBusiness>{
 		if (StringUtils.isNotEmpty(Struts2Utils.getParameter("fypage"))) {
 			fypage=Integer.parseInt(Struts2Utils.getParameter("fypage"));
 		}
-		if (StringUtils.isNotEmpty(Struts2Utils.getParameter("fypage"))) {
+		if (StringUtils.isNotEmpty(Struts2Utils.getParameter("lid"))) {
 			whereMap.put("lid", Long.parseLong(Struts2Utils.getParameter("lid")));
 		}else{ 
 			//屏蔽默认数据

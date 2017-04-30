@@ -21,6 +21,18 @@ public class LawyerOrder extends ReflectionDBObject{
 	 private Date createdate;
 	 private Double price;
 	 private int  state;
+	 /**
+	  * 期望结束日期
+	  */
+	 private String enddate;
+	 /**
+	  * 需求
+	  */
+	 private String demand;
+	 /**
+	  * 图片附件，补充资料，以“，”隔开
+	  */
+	 private String attachment;
 	 public String getCustid() {
 		return custid;
 	 }
@@ -81,5 +93,23 @@ public class LawyerOrder extends ReflectionDBObject{
 	 public void setState(int state) {
 		this.state = state;
 	 }
+	public String getEnddate() {
+		return enddate;
+	}
+	public void setEnddate(String enddate) {
+		this.enddate = enddate;
+	}
+	public String getDemand() {
+		return demand;
+	}
+	public void setDemand(String demand) {
+		this.demand = demand;
+	}
+	public String getAttachment() {
+		return attachment;
+	}
+	public void setAttachment(String attachment) {
+		this.attachment = attachment;
+	}
 	 
 }

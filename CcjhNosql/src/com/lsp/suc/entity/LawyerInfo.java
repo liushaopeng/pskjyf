@@ -36,6 +36,7 @@ public class LawyerInfo extends ReflectionDBObject{
 	 * 0未审核，1审核中，2审核成功，3审核驳回
 	 */
 	private int state;
+	private int sort;
 	public String getCustid() {
 		return custid;
 	}
@@ -113,6 +114,12 @@ public class LawyerInfo extends ReflectionDBObject{
 	}
 	public void setUpdatedate(Date updatedate) {
 		this.updatedate = updatedate;
+	}
+	public int getSort() {
+		return sort;
+	}
+	public void setSort(int sort) {
+		this.sort = sort;
 	}
 	
 	

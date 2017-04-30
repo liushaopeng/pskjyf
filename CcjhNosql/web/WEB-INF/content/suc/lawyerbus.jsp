@@ -25,10 +25,11 @@
             $('#title').val('');
             $('#picurl').val('');
             $('#url').val('');
-            $('#logo').val('');
-            $('#mb').val(0);
+            $('#summary').val('');
+            $('#content').val('');
+            $('#price').val(0);
             $('#sort').val(0);
-            $('#coding').val('');
+            $('#icon').val('');
             ps_show('inszc');
         }
 
@@ -40,10 +41,11 @@
                 $('#_id').val(json._id);
                 $('#title').val(json.title);
                 $('#summary').val(json.summary);
-                $('#coding').val(json.coding);
+                $('#price').val(json.price);
                 $('#url').val(json.url);
                 $('#icon').val(json.icon);
                 $('#picurl').val(json.picurl);
+                $('#content').val(json.content);
                 $('#sort').val(json.sort);
 
 
@@ -80,7 +82,7 @@
     <div class="mainpanel">
         <%@include file="/webcom/header-headerbar.jsp" %>
 
-        <form id="custinfoForm" name="custinfoForm" method="post" action="${contextPath}/suc/lawyerbus.action?">
+        <form id="custinfoForm" name="custinfoForm" method="post" action="${contextPath}/suc/lawyerbus.action?lid=${lid}">
 
             <div class="pageheader">
 
@@ -98,7 +100,7 @@
                         <a href="javascript:page_submit(-1);" class="btn btn-primary">搜&nbsp;&nbsp;索</a>
                           <div class="form-group col-sm-1d pull-right"> 
                          <button type="button" onclick="add()" class="btn btn-primary dropdown-toggle form-group pull-right" data-toggle="dropdown">
-                                                                                    分类添加 <i  class="fa fa-plus"></i>
+                                                                                    服务添加 <i  class="fa fa-plus"></i>
                          </button>
                          
                       </div> 
@@ -148,7 +150,6 @@
 
                             </table>
                             <%@include file="/webcom/bracket-page.jsp" %>
-
                         </div>
                     </div>
                 </div>
@@ -191,11 +192,19 @@
                                        class="form-control" placeholder="请输入"/>
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <div class="mb-20">
                                 <label class="control-label">图标</label>
                                 <input type="text" id="icon" name="icon"
                                        class="form-control" placeholder="请输入"/>
+                                 
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="mb-20"> 
+                            <label class="control-label">&nbsp;</label>
+                              <div class="btn btn-primary  hang40" style="margin-left: -17px"  onclick="init_ioc('icon','inszc')">选择
+                              </div>
                             </div>
                         </div>
                         <div class="col-sm-6">
@@ -212,6 +221,20 @@
                                        class="form-control" placeholder="请输入"/>
                             </div>
                         </div> 
+                         <div class="col-sm-6">
+                            <div class="mb-20">
+                                <label class="control-label">描述：</label>
+                                <input type="text" id="summary" name="summary"
+                                       class="form-control" placeholder="请输入"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="mb-20">
+                                <label class="control-label">内容：</label>
+                                <input type="text" id="content" name="content"
+                                       class="form-control" placeholder="请输入"/>
+                            </div>
+                        </div>
                         <div class="col-sm-12">
                             <div class="mb-20">
                                 <label class="control-label">排序：</label>
@@ -231,6 +254,8 @@
 </div>
  
 <%@include file="/webcom/cut-img.jsp" %>
+<%@include file="/webcom/font.jsp" %>
+
 
 </body>
 </html>

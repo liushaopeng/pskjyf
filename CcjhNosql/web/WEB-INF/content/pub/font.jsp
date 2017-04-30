@@ -84,7 +84,7 @@
                                 <thead>
                                 <tr>
                                     <th class="th1 table-action">名称</th>
-                                    <th class="th5 table-action">图标</th>
+                                    <th class="th5 table-action">字体</th>
                                     <th class="th5 table-action">操作</th>
                                 </tr>
                                 </thead>
@@ -92,7 +92,7 @@
                                 <c:forEach items="${list}" var="bean">
                                     <tr>
                                         <td>${bean.title}</td>
-                                        <td><img src="${filehttp}/${bean.value}" height="25px" style="background-color: black;"/></td>
+                                        <td><font class="fa ${bean.value}"></font></td>
                                         <td class="table-action">
                                             <div class="btn-group1">
                                                 <a data-toggle="dropdown" class="dropdown-toggle">

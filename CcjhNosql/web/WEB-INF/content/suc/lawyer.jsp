@@ -52,16 +52,7 @@
                         <div class="form-group col-sm-1d">
                             <input type="text" name="keyword" value="${keyword }" placeholder="关键字"
                                    class="form-control"/>
-                        </div>
-                        <div class="form-group col-sm-1d">
-                            <select id="hy" name="hy" class="select2" data-placeholder="请选择">
-                                <option value="">请选择</option>
-                                <c:forEach items="${hylist}" var="bean">
-                                    <option value="${bean.coding}">${bean.title}</option>
-                                </c:forEach>
-
-                            </select> 
-                        </div>
+                        </div> 
                         <div class="form-group col-sm-1d">
                             <select id="selxs" name="selxs" class="select2" data-placeholder="请选择">
                                  <option value="">请选择</option>
@@ -81,7 +72,7 @@
                                                                                     菜单 <i  class="fa fa-align-center"></i>
                          </button>
                          <ul class="dropdown-menu pull-right" role="menu">
-                            <li><a href="javascript:add()"><i class="fa fa-plus"></i>&nbsp;&nbsp;&nbsp;&nbsp;新增黄页</a>
+                            <li><a href="javascript:add()"><i class="fa fa-plus"></i>&nbsp;&nbsp;&nbsp;&nbsp;新增律师</a>
 
                             </li> 
                             </li>
@@ -106,9 +97,10 @@
                                 <thead >
                                 <tr>
                                     <th class="table-action">序号</th>
-                                    <th class="table-action">姓名</th>
                                     <th class="table-action">头像</th>
-                                    <th class="table-action">时间</th> 
+                                    <th class="table-action">姓名</th> 
+                                    <th class="table-action">入驻时间</th>
+                                    <th class="table-action">状态</th> 
                                     <th class="table-action">操作</th>
                                 </tr>
                                 </thead>
@@ -116,11 +108,13 @@
                                 <c:forEach items="${list}" var="bean">
                                     <tr>
                                         <td>${bean.sort}</td>
+                                         <td><img src="${filehttp}/${bean.picurl}" height="25px"/></td>
                                         <td>
                                             <div style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden; width:100px;margin: auto;">${bean.name}</div>
                                         </td>
-                                        <td><img src="${filehttp}/${bean.picurl}" height="25px"/></td>
-                                        <td><fmt:formatDate pattern='yyyy-MM-dd HH:mm' value='${bean.createdate}'/></td>  
+                                       
+                                        <td><fmt:formatDate pattern='yyyy-MM-dd HH:mm' value='${bean.createdate}'/></td> 
+                                        <td><c:if test="${bean.state==0}">未审核</c:if><c:if test="${bean.state==1}">审核中</c:if><c:if test="${bean.state==2}">审核通过</c:if><c:if test="${bean.state==3}">审核驳回</c:if></td>   
                                         <td class="table-action">
                                             <div class="btn-group1">
                                                 <a data-toggle="dropdown" class="dropdown-toggle">
@@ -128,12 +122,14 @@
                                                 </a>
                                                 <ul role="menu" class="dropdown-menu pull-right">
                                                     <li><a href="${ctx}/suc/lawyer!update.action?_id=${bean._id}">
-                                                        <i class="fa fa-pencil "></i>&nbsp;&nbsp;&nbsp;&nbsp;修改</a></li>
+                                                        <i class="fa fa-pencil "></i>&nbsp;&nbsp;&nbsp;&nbsp;修改</a></li>                                           
                                                     <li><a href="javascript:del('${bean._id}');">
                                                         <i class="fa fa-trash-o "></i>&nbsp;&nbsp;&nbsp;&nbsp;删除</a>
                                                     </li>
+                                                    <li><a href="${ctx}/suc/lawyerbus.action?lid=${bean._id}">
+                                                        <i class="fa fa-pencil "></i>&nbsp;&nbsp;&nbsp;&nbsp;服务管理</a></li>
                                                     <li> 
-                                                        <a href="javascript:qrcode('${ctxurl}/suc/house!webDetail.action?_id=${bean._id }&custid=${custid}')">
+                                                        <a href="javascript:qrcode('${ctxurl}/suc/lawyer!detail.action?id=${bean._id }&custid=${custid}')">
                                                             <i class="fa fa-eye"></i>&nbsp;&nbsp;&nbsp;&nbsp;预览</a>
                                                     </li>
                                                 </ul>

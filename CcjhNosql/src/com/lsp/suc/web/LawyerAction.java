@@ -17,15 +17,17 @@ import com.lsp.pub.entity.PubConstants;
 import com.lsp.pub.util.SpringSecurityUtils;
 import com.lsp.pub.util.Struts2Utils;
 import com.lsp.pub.util.UniObject;
-import com.lsp.pub.web.GeneralAction; 
+import com.lsp.pub.web.GeneralAction;
+import com.lsp.suc.entity.LawyerComment;
 import com.lsp.suc.entity.LawyerInfo;
 import com.lsp.website.service.WwzService;
+import com.lsp.weixin.entity.WxUser;
 import com.mongodb.DBObject;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject; 
 @Namespace("/suc")
-@Results( { @Result(name = LawyerAction.RELOAD, location = "lawyerinfo.action",params={"fypage", "%{fypage}"}, type = "redirect") })
+@Results( { @Result(name = LawyerAction.RELOAD, location = "lawyer.action",params={"fypage", "%{fypage}"}, type = "redirect") })
 public class LawyerAction extends GeneralAction<LawyerInfo>{
  
 	private static final long serialVersionUID = -6784469775589971579L;
@@ -57,6 +59,7 @@ public class LawyerAction extends GeneralAction<LawyerInfo>{
 			Struts2Utils.getRequest().setAttribute("list", list);
 		}
 		fycount=baseDao.getCount(PubConstants.SUC_LAWYERINFO, whereMap);
+		Struts2Utils.getRequest().setAttribute("custid",custid);
 		return SUCCESS; 
 	}
 	
@@ -80,7 +83,7 @@ public class LawyerAction extends GeneralAction<LawyerInfo>{
 		// TODO Auto-generated method stubr
 		DBObject dbObject=baseDao.getMessage(PubConstants.SUC_LAWYERINFO, _id);
 		Struts2Utils.getRequest().setAttribute("entity",dbObject);
-		return RELOAD;
+		return "add";
 	}
 
 	@Override
@@ -88,10 +91,11 @@ public class LawyerAction extends GeneralAction<LawyerInfo>{
 		// TODO Auto-generated method stub
 		if (_id==null) {
 			_id=mongoSequence.currval(PubConstants.SUC_LAWYERINFO);
+			entity.setCreatedate(new Date());
 		}
 		entity.set_id(_id);
-		entity.setCustid(SpringSecurityUtils.getCurrentUser().getId());
-		entity.setCreatedate(new Date());
+		entity.setCustid(SpringSecurityUtils.getCurrentUser().getId()); 
+		entity.setUpdatedate(new Date());
 		baseDao.insert(PubConstants.SUC_LAWYERINFO, entity);
 		return RELOAD;
 	}
@@ -99,6 +103,11 @@ public class LawyerAction extends GeneralAction<LawyerInfo>{
 	@Override
 	public String delete() throws Exception {
 		// TODO Auto-generated method stub
+		String id=SpringSecurityUtils.getCurrentUser().getId();
+		HashMap<String, Object>whereMap=new HashMap<>();
+		whereMap.put("custid", id);
+		whereMap.put("_id", _id);
+		baseDao.delete(PubConstants.SUC_LAWYERINFO, whereMap);
 		return RELOAD;
 	}
 	public void upd() throws Exception { 
@@ -151,7 +160,7 @@ public class LawyerAction extends GeneralAction<LawyerInfo>{
 	 */
 	public String detail(){
 		getLscode();
-		String id=Struts2Utils.getParameter("id");
+		String id=Struts2Utils.getParameter("id"); 
 		if (StringUtils.isNotEmpty(id)) {
 			DBObject dbObject=baseDao.getMessage(PubConstants.SUC_LAWYERINFO,Long.parseLong(id));
 			Struts2Utils.getRequest().setAttribute("entity", dbObject);
@@ -159,17 +168,65 @@ public class LawyerAction extends GeneralAction<LawyerInfo>{
 		return "detail"; 
 	}
 	/**
+	 * 添加评论
+	 * @return
+	 */
+	public String commentadd(){
+		getLscode();
+		String id=Struts2Utils.getParameter("id");
+		Struts2Utils.getRequest().setAttribute("id",id);
+		return "commentadd"; 
+	}
+	/**
+	 * 添加评论
+	 * @return
+	 */
+	public void ajaxcommentadd(){
+		getLscode();
+		String id=Struts2Utils.getParameter("id");
+		Map<String, Object> sub_map = new HashMap<String, Object>();
+		if (StringUtils.isNotEmpty(id)) {
+			String content=Struts2Utils.getParameter("content"); 
+			DBObject user=wwzService.getWxUser(fromUserid);
+			LawyerComment  comment=new LawyerComment();
+			comment.set_id(mongoSequence.currval(PubConstants.SUC_LAWYERCOMMENT));
+			comment.setContent(content); 
+			comment.setCreatedate(new Date());
+			comment.setCustid(custid);
+			comment.setLid(Long.parseLong(id));
+			comment.setFromUserid(fromUserid);
+			comment.setHeadimgurl(user.get("headimgurl").toString());
+			comment.setNickname(user.get("nickname").toString());
+			baseDao.insert(PubConstants.SUC_LAWYERCOMMENT, comment);
+			sub_map.put("state",0);
+		}
+		String json = JSONArray.fromObject(sub_map).toString(); 
+		Struts2Utils.renderJson(json.substring(1, json.length() - 1), new String[0]);
+		
+	}
+	
+	/**
+	 * 评论列表
+	 * @return
+	 */
+	public String commentweb(){
+		getLscode();
+		String id=Struts2Utils.getParameter("id");
+		Struts2Utils.getRequest().setAttribute("id",id);
+		return "commentweb"; 
+	}
+	/**
 	 * 获取商品信息
 	 * @return
 	 */
-	public String gooddetail(){
+	public String busetail(){
 		getLscode();
 		String id=Struts2Utils.getParameter("id");
 		if (StringUtils.isNotEmpty(id)) {
-			DBObject dbObject=baseDao.getMessage(PubConstants.SUC_LAWYERGOD,Long.parseLong(id));
+			DBObject dbObject=baseDao.getMessage(PubConstants.SUC_LAWYERBUS,Long.parseLong(id));
 			Struts2Utils.getRequest().setAttribute("entity", dbObject);
 		}
-		return "gooddetail"; 
+		return "busetail"; 
 	}
 	/**
 	 * ajax获取个人服务数据
@@ -194,10 +251,11 @@ public class LawyerAction extends GeneralAction<LawyerInfo>{
 		}
 		
 	}
+ 
 	/**
-	 * ajax获取个人商品数据
+	 * ajax获取评论列表
 	 */
-	public void  ajaxgod(){
+	public void  ajaxcomment(){
 		getLscode();
 		String id=Struts2Utils.getParameter("id");
 		if(StringUtils.isNotEmpty(id)){
@@ -206,11 +264,11 @@ public class LawyerAction extends GeneralAction<LawyerInfo>{
 			Map<String, Object> sub_map = new HashMap<String, Object>();
 			whereMap.put("custid", custid);
 			whereMap.put("lid", Long.parseLong(id));
-			sortMap.put("createdate",-1);
+			sortMap.put("createdate",-1); 
 			if (StringUtils.isNotEmpty(Struts2Utils.getParameter("fypage"))) {
 				fypage=Integer.parseInt(Struts2Utils.getParameter("fypage"));
 			}
-			List<DBObject>list=baseDao.getList(PubConstants.SUC_LAWYERGOD, whereMap,fypage,10,sortMap);
+			List<DBObject>list=baseDao.getList(PubConstants.SUC_LAWYERCOMMENT, whereMap,fypage,10,sortMap);
 			if (list.size()>0) {
 				sub_map.put("state", 0);
 				sub_map.put("list", list);
@@ -219,6 +277,22 @@ public class LawyerAction extends GeneralAction<LawyerInfo>{
 			Struts2Utils.renderJson(json.substring(1, json.length() - 1), new String[0]);
 		}
 		
+	}
+	/**
+	 * 个人中心
+	 * @return
+	 */
+	public String percenter(){
+		getLscode();  
+		return "percenter"; 
+	}
+	/**
+	 * 订单列表
+	 * @return
+	 */
+	public String order(){
+		getLscode();  
+		return "order"; 
 	}
 
 }
