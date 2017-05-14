@@ -1,4 +1,4 @@
-package com.lsp.clean.entity;
+package com.lsp.hou.entity;
 
 import java.util.Date;
 
@@ -8,7 +8,7 @@ import com.mongodb.ReflectionDBObject;
  * @author lsp
  *
  */
-public class CleanOrder extends ReflectionDBObject{
+public class HousewiferyOrder extends ReflectionDBObject{
 
 	private String custid;
 	/**

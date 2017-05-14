@@ -314,5 +314,7 @@ public class PubConstants
   public static String SUC_LAWYERORD="suc_lawyerord";//律师订单实体
   public static String SUC_LAWYERCOMMENT="suc_lawyercomment";//律师评论
   
+  public static String HOU_HOUSERVE="hou_houserve";//家政服务
+  
   
 }

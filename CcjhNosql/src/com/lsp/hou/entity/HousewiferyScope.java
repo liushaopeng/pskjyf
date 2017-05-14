@@ -1,14 +1,12 @@
-package com.lsp.clean.entity;
-
-import org.aspectj.weaver.AjAttribute.PrivilegedAttribute;
+package com.lsp.hou.entity;
 
 import com.mongodb.ReflectionDBObject;
 /**
- * 服务类型
+ * 服务范围
  * @author lsp
  *
  */
-public class ServeType extends ReflectionDBObject{
+public class HousewiferyScope extends ReflectionDBObject{
 
 	private String custid;
 	private String title;
