@@ -6,15 +6,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta http-equiv="pragma" content="no-cache">
-    <meta http-equiv="cache-control" content="no-cache">
-    <meta http-equiv="expires" content="0">
+    <meta http-equiv="pragma" content="no-cache"/>
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta http-equiv="expires" content="0"/>
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <title>我的订单</title>
-    <script src="js/jquery-1.8.3.js"></script>
-    <link href="css/YLui.css" rel="stylesheet" type="text/css"/>
-    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <script src="${ctx}/app/js/jquery-1.8.3.js"></script>
+    <link href="${ctx}/app/css/YLui.css" rel="stylesheet" type="text/css"/>
+    <link href="${ctx}/app/css/font-awesome.min.css" rel="stylesheet"/>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <style>
         .line-height32 {
             line-height: 32px;

@@ -11,7 +11,7 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired; 
 /***
- * 资源管理
+ * 登录管理
  * @author lsp
  *
  */

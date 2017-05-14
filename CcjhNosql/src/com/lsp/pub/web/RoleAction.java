@@ -78,7 +78,7 @@ public class RoleAction extends GeneralAction<RoleInfo>
    
     List<DBObject> list = this.basedao.getList(PubConstants.ROLE_INFO, whereMap, this.fypage, 10, sortMap);
     for (DBObject dbObject : list) {
-		dbObject.put("nickname", wwzservice.getCustName(dbObject.get("custid").toString()));
+		//dbObject.put("nickname", wwzservice.getCustName(dbObject.get("custid").toString()));
 	}
     Struts2Utils.getRequest().setAttribute("roleList", list);
     Struts2Utils.getRequest().setAttribute("custid",SpringSecurityUtils.getCurrentUser().getId());

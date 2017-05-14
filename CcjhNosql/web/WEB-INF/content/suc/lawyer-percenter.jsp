@@ -6,14 +6,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta http-equiv="pragma" content="no-cache">
-    <meta http-equiv="cache-control" content="no-cache">
-    <meta http-equiv="expires" content="0">
+    <meta http-equiv="pragma" content="no-cache"/>
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta http-equiv="expires" content="0"/>
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <title>我的</title>
-    <link href="css/YLui.css" rel="stylesheet" type="text/css"/>
-    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <script src="${ctx}/app/js/jquery-1.8.3.js"></script>
+    <link href="${ctx}/app/css/YLui.css" rel="stylesheet" type="text/css"/>
+    <link href="${ctx}/app/css/font-awesome.min.css" rel="stylesheet"/>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <style>
 
         .hang45 {
@@ -210,75 +212,12 @@
                     <i class="fa fa-chevron-right hang45"></i>
                 </div>
             </font>
-        </div>
-
-
-        <!--此处放置链接是回到我们总平台的连接-->
-        <div class="clear hang50 line-height50 size12 txt-c zi-hui-tq weight500">
-            技术支持<a onclick="" class="zi-jin">《我们平台名称》</a>
-        </div>
+        </div> 
     </font>
+<%@ include file="/webcom/foot.jsp" %>
 </main>
 <div class="clear hang50"></div>
 <!--底部按钮-->
-<font size="2">
-    <div class=" button_foot bg-bai line-top-92 cmp640">
-        <div class=" button_group1 zi-6">
-            <div class="bottom-bai-ls zi-hui-wx txt-c weight500 line-right_bai hang50">
-                <font size="4">
-                    <div class="hang25 line-height30 fa fa-home"></div>
-                </font>
-                <font size="2">
-                    <div class="hang25 line-height25">
-                        首页
-                    </div>
-                </font>
-            </div>
-        </div>
-
-        <!--咨询是整个平台提供律师也可自己提供给我们素材我们进行审核后上传主要是法律类知识与案例-->
-        <div class=" button_group1 zi-6">
-            <div class="bottom-bai-ls zi-hui-wx txt-c weight500 line-right_bai hang50">
-                <font size="4">
-                    <div class="hang25 line-height30 fa fa-newspaper-o"></div>
-                </font>
-                <font size="2">
-                    <div class="hang25 line-height25">
-                        资讯
-                    </div>
-                </font>
-            </div>
-        </div>
-        <div class=" button_group1 zi-6">
-            <div class="bottom-bai-ls zi-hui-wx txt-c weight500 line-right_bai hang50">
-                <font size="3">
-                    <div class="hang25 line-height30 fa fa-envelope-open-o position-r">
-                        <div class="position-a bg-hong zi-bai border-radius50 img-wh15 sl"
-                             style="top:-3px; right: -10px;line-height: 15px;">
-                            <font size="2">9</font>
-                        </div>
-                    </div>
-                </font>
-                <font size="2">
-                    <div class="hang25 line-height25">
-                        消息
-                    </div>
-                </font>
-            </div>
-        </div>
-        <div class=" button_group1 zi-6">
-            <div class="bottom-bai-ls zi-hui-wx txt-c weight500 line-right_bai hang50">
-                <font size="3">
-                    <div class="hang25 line-height30 fa fa-user"></div>
-                </font>
-                <font size="2">
-                    <div class="hang25 line-height25">
-                        我的
-                    </div>
-                </font>
-            </div>
-        </div>
-    </div>
-</font>
+<%@ include file="/webcom/lawyer-foot.jsp" %>
 </body>
 </html>
