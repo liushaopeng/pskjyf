@@ -10,9 +10,7 @@ import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.fastjson.JSON;
 import com.lsp.hou.entity.HousewiferyFeatures;
-import com.lsp.hou.entity.HousewiferyProcess;
-import com.lsp.hou.entity.HousewiferyScope;
-import com.lsp.hou.entity.HousewiferySecurity;
+import com.lsp.hou.entity.HousewiferyInfo;
 import com.lsp.hou.entity.ServeType;
 import com.lsp.pub.dao.BaseDao;
 import com.lsp.pub.db.MongoSequence; 
@@ -23,18 +21,18 @@ import com.lsp.pub.web.GeneralAction;
 import com.mongodb.DBObject;
 
 /**
- * 服务保障
+ * 保洁员
  * 
  * @author lsp
  * 
  */
 @Namespace("/hou")
-@Results({ @Result(name = HousecAction.RELOAD, location = "housec.action", params = {"fypage", "%{fypage}" }, type = "redirect") })
-public class HousecAction extends GeneralAction<HousewiferySecurity> {
+@Results({ @Result(name = HouinfoAction.RELOAD, location = "houfaet.action", params = {"fypage", "%{fypage}" }, type = "redirect") })
+public class HouinfoAction extends GeneralAction<HousewiferyInfo> {
 	private static final long serialVersionUID = -6784469775589971579L;
 	@Autowired
 	private BaseDao baseDao;
-	private HousewiferySecurity entity = new HousewiferySecurity();
+	private HousewiferyInfo entity = new HousewiferyInfo();
 	private Long _id;
 
 	private MongoSequence mongoSequence;
@@ -75,7 +73,7 @@ public class HousecAction extends GeneralAction<HousewiferySecurity> {
 	public String update() throws Exception { 
 		DBObject db = baseDao.getMessage(PubConstants.HOU_SERVETYPE, _id);
 
-		entity = JSON.parseObject(db.toString(), HousewiferySecurity.class);
+		entity = JSON.parseObject(db.toString(), HousewiferyInfo.class);
 		entity.set_id((Long) db.get("_id"));
 		return "add";
 	}
@@ -89,10 +87,10 @@ public class HousecAction extends GeneralAction<HousewiferySecurity> {
 		if (_id != null) { 
 			DBObject db = baseDao.getMessage(PubConstants.HOU_SERVETYPE, _id);
 
-			entity = JSON.parseObject(db.toString(), HousewiferySecurity.class);
+			entity = JSON.parseObject(db.toString(), HousewiferyInfo.class);
 			entity.set_id((Long) db.get("_id"));
 		} else {
-			entity = new HousewiferySecurity();
+			entity = new HousewiferyInfo();
 		}
 	}
 
@@ -114,7 +112,7 @@ public class HousecAction extends GeneralAction<HousewiferySecurity> {
 	}
 
 	@Override
-	public HousewiferySecurity getModel() {
+	public HousewiferyInfo getModel() {
 		return entity;
 	}
 
