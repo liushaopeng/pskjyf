@@ -315,6 +315,15 @@ public class PubConstants
   public static String SUC_LAWYERCOMMENT="suc_lawyercomment";//律师评论
   
   public static String HOU_HOUSERVE="hou_houserve";//家政服务
+  public static String HOU_SERVETYPE="hou_servetype";//家政分类
+  public static String HOU_HOUSEWIFERYINFO="hou_housewiferyinfo";//保洁员
+  public static String HOU_HOUSEWIFERYADDRESS="hou_housewiferyaddress";//家政地址
+  public static String HOU_HOUSEWIFERYMEMBERS="hou_housewiferymembers";//家政会员
+  public static String HOU_HOUSEWIFERYPROCESS="hou_housewiferyprocess";//家政流程
+  public static String HOU_HOUSEWIFERYORDER="hou_housewiferyorder";//家政订单
+  public static String HOU_HOUSEWIFERYSCOPE="hou_housewiferyscope";//家政范围
+  public static String HOU_HOUSEWIFERYSECURITY="Uhou_housewiferysecurity";//家政保障
+  public static String HOU_HOUSEWIFERYFEATURES="Uhou_housewiferyfeatures";//家政优势
   
   
 }

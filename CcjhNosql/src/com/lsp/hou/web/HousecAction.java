@@ -9,6 +9,10 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.fastjson.JSON;
+import com.lsp.hou.entity.HousewiferyFeatures;
+import com.lsp.hou.entity.HousewiferyProcess;
+import com.lsp.hou.entity.HousewiferyScope;
+import com.lsp.hou.entity.HousewiferySecurity;
 import com.lsp.hou.entity.ServeType;
 import com.lsp.pub.dao.BaseDao;
 import com.lsp.pub.db.MongoSequence; 
@@ -19,18 +23,18 @@ import com.lsp.pub.web.GeneralAction;
 import com.mongodb.DBObject;
 
 /**
- * 服务管理
+ * 服务范围
  * 
  * @author lsp
  * 
  */
 @Namespace("/hou")
-@Results({ @Result(name = HoutypeAction.RELOAD, location = "houtype.action", params = {"fypage", "%{fypage}" }, type = "redirect") })
-public class HoutypeAction extends GeneralAction<ServeType> {
+@Results({ @Result(name = HousecAction.RELOAD, location = "housec.action", params = {"fypage", "%{fypage}" }, type = "redirect") })
+public class HousecAction extends GeneralAction<HousewiferySecurity> {
 	private static final long serialVersionUID = -6784469775589971579L;
 	@Autowired
 	private BaseDao baseDao;
-	private ServeType entity = new ServeType();
+	private HousewiferySecurity entity = new HousewiferySecurity();
 	private Long _id;
 
 	private MongoSequence mongoSequence;
@@ -71,7 +75,7 @@ public class HoutypeAction extends GeneralAction<ServeType> {
 	public String update() throws Exception { 
 		DBObject db = baseDao.getMessage(PubConstants.HOU_SERVETYPE, _id);
 
-		entity = JSON.parseObject(db.toString(), ServeType.class);
+		entity = JSON.parseObject(db.toString(), HousewiferySecurity.class);
 		entity.set_id((Long) db.get("_id"));
 		return "add";
 	}
@@ -85,10 +89,10 @@ public class HoutypeAction extends GeneralAction<ServeType> {
 		if (_id != null) { 
 			DBObject db = baseDao.getMessage(PubConstants.HOU_SERVETYPE, _id);
 
-			entity = JSON.parseObject(db.toString(), ServeType.class);
+			entity = JSON.parseObject(db.toString(), HousewiferySecurity.class);
 			entity.set_id((Long) db.get("_id"));
 		} else {
-			entity = new ServeType();
+			entity = new HousewiferySecurity();
 		}
 	}
 
@@ -110,7 +114,7 @@ public class HoutypeAction extends GeneralAction<ServeType> {
 	}
 
 	@Override
-	public ServeType getModel() {
+	public HousewiferySecurity getModel() {
 		return entity;
 	}
 

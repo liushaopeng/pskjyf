@@ -2,16 +2,19 @@ package com.lsp.hou.entity;
 
 import com.mongodb.ReflectionDBObject;
 /**
- * 服务类型
+ * 服务模板
  * @author lsp
  *
  */
 public class ServeType extends ReflectionDBObject{
 
 	private String custid;
-	private String title;
-	private String font;
+	private String title; 
 	private String picurl;
+	private String ioc;
+	private String icon;
+	private String summary;
+	private String content;
 	private String url;
 	private int sort;
 	public String getCustid() {
@@ -25,19 +28,7 @@ public class ServeType extends ReflectionDBObject{
 	}
 	public void setTitle(String title) {
 		this.title = title;
-	}
-	public String getFont() {
-		return font;
-	}
-	public void setFont(String font) {
-		this.font = font;
-	}
-	public String getPicurl() {
-		return picurl;
-	}
-	public void setPicurl(String picurl) {
-		this.picurl = picurl;
-	}
+	} 
 	public String getUrl() {
 		return url;
 	}
@@ -50,6 +41,36 @@ public class ServeType extends ReflectionDBObject{
 	public void setSort(int sort) {
 		this.sort = sort;
 	}
-	
+	public String getPicurl() {
+		return picurl;
+	}
+	public void setPicurl(String picurl) {
+		this.picurl = picurl;
+	}
+	public String getIoc() {
+		return ioc;
+	}
+	public void setIoc(String ioc) {
+		this.ioc = ioc;
+	}
+	public String getSummary() {
+		return summary;
+	}
+	public void setSummary(String summary) {
+		this.summary = summary;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public String getIcon() {
+		return icon;
+	}
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+	 
 	
 }

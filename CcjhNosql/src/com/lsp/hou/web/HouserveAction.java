@@ -1,27 +1,21 @@
 package com.lsp.hou.web;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
- 
 import com.alibaba.fastjson.JSON;
 import com.lsp.hou.entity.HousewiferyServe;
 import com.lsp.pub.dao.BaseDao;
 import com.lsp.pub.db.MongoSequence;
-import com.lsp.pub.entity.Color;
 import com.lsp.pub.entity.PubConstants;
 import com.lsp.pub.util.SpringSecurityUtils;
 import com.lsp.pub.util.Struts2Utils;
 import com.lsp.pub.web.GeneralAction;
-import com.lsp.shop.entiy.ShopType;
 import com.mongodb.DBObject;
  
 
@@ -51,8 +45,8 @@ public class HouserveAction extends GeneralAction<HousewiferyServe> {
 	public String execute() throws Exception {
 		HashMap<String, Object> sortMap = new HashMap<String, Object>();
 		HashMap<String, Object> whereMap = new HashMap<String, Object>();  
-		List<DBObject> list = baseDao.getList(PubConstants.PUB_COLOR,whereMap, sortMap);
-		Struts2Utils.getRequest().setAttribute("colorList", list); 
+		List<DBObject> list = baseDao.getList(PubConstants.HOU_HOUSERVE,whereMap, sortMap);
+		Struts2Utils.getRequest().setAttribute("list", list); 
 		return SUCCESS;
 	}
 
@@ -60,7 +54,7 @@ public class HouserveAction extends GeneralAction<HousewiferyServe> {
 	public String delete() throws Exception {
 		try {
 			custid=SpringSecurityUtils.getCurrentUser().getId(); 
-			baseDao.delete(PubConstants.PUB_COLOR, _id);
+			baseDao.delete(PubConstants.HOU_HOUSERVE, _id);
 			addActionMessage("成功删除");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -76,21 +70,21 @@ public class HouserveAction extends GeneralAction<HousewiferyServe> {
 
 	@Override
 	public String update() throws Exception { 
-		DBObject db = baseDao.getMessage(PubConstants.PUB_COLOR, _id);
+		DBObject db = baseDao.getMessage(PubConstants.HOU_HOUSERVE, _id);
 
 		entity = JSON.parseObject(db.toString(), HousewiferyServe.class);
 		entity.set_id((Long) db.get("_id"));
 		return "add";
 	}
 	public void upd() throws Exception {
-		DBObject db = baseDao.getMessage(PubConstants.PUB_COLOR, _id);
+		DBObject db = baseDao.getMessage(PubConstants.HOU_HOUSERVE, _id);
 		String json = JSONObject.fromObject(db).toString();
 		Struts2Utils.renderJson(json, new String[0]);
 	}
 	@Override
 	protected void prepareModel() throws Exception {
 		if (_id != null) { 
-			DBObject db = baseDao.getMessage(PubConstants.PUB_COLOR, _id);
+			DBObject db = baseDao.getMessage(PubConstants.HOU_HOUSERVE, _id);
 
 			entity = JSON.parseObject(db.toString(), HousewiferyServe.class);
 			entity.set_id((Long) db.get("_id"));
@@ -104,10 +98,10 @@ public class HouserveAction extends GeneralAction<HousewiferyServe> {
 		// 注册业务逻辑
 		try {
 			if (_id == null) {
-				_id = mongoSequence.currval(PubConstants.PUB_COLOR);
+				_id = mongoSequence.currval(PubConstants.HOU_HOUSERVE);
 			}
 			entity.set_id(_id); 
-			baseDao.insert(PubConstants.PUB_COLOR, entity); 
+			baseDao.insert(PubConstants.HOU_HOUSERVE, entity); 
 			addActionMessage("成功添加!");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -125,12 +119,12 @@ public class HouserveAction extends GeneralAction<HousewiferyServe> {
 		this._id = _id;
 	}
 	/**
-	 * ajax获取色值
+	 * ajax获取服务
 	 */
 	public  void  ajaxweb(){
 		Map<String, Object>submap=new HashMap<String, Object>();
 		HashMap<String, Object>whereMap=new HashMap<String, Object>();
-		List<DBObject>list=baseDao.getList(PubConstants.PUB_COLOR, whereMap, null);
+		List<DBObject>list=baseDao.getList(PubConstants.HOU_HOUSERVE, whereMap, null);
 		if(list.size()>0){
 			submap.put("state",0);
 			submap.put("list",list);	
@@ -138,5 +132,23 @@ public class HouserveAction extends GeneralAction<HousewiferyServe> {
 		
 		String json = JSONArray.fromObject(submap).toString(); 
 		Struts2Utils.renderJson(json.substring(1, json.length() - 1), new String[0]);
+	}
+	/**
+	 * ajax获取服务分类
+	 */
+	public  void  ajaxtype(){
+		Map<String, Object>submap=new HashMap<String, Object>();
+		HashMap<String, Object>whereMap=new HashMap<String, Object>();
+		List<DBObject>list=baseDao.getList(PubConstants.HOU_SERVETYPE, whereMap, null);
+		if(list.size()>0){
+			submap.put("state",0);
+			submap.put("list",list);	
+		}
+		
+		String json = JSONArray.fromObject(submap).toString(); 
+		Struts2Utils.renderJson(json.substring(1, json.length() - 1), new String[0]);
+	}
+	public String detail(){
+		return "";
 	}
 }

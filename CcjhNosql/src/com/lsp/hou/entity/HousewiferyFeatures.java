@@ -2,7 +2,7 @@ package com.lsp.hou.entity;
 
 import com.mongodb.ReflectionDBObject;
 /**
- * 服务保障
+ * 服务优势
  * @author lsp
  *
  */
