@@ -324,6 +324,7 @@ public class PubConstants
   public static String HOU_HOUSEWIFERYSCOPE="hou_housewiferyscope";//家政范围
   public static String HOU_HOUSEWIFERYSECURITY="Uhou_housewiferysecurity";//家政保障
   public static String HOU_HOUSEWIFERYFEATURES="Uhou_housewiferyfeatures";//家政优势
+  public static String HOU_HOUSEWIFERYPROBLEM="Uhou_housewiferyproblem";//家政问题
   
   
 }

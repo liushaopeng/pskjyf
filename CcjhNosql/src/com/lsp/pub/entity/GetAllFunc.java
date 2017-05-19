@@ -1,7 +1,7 @@
 package com.lsp.pub.entity;
 
+import com.lsp.hou.entity.HousewiferyInfo;
 import com.lsp.shop.entiy.ComMain;
-import com.lsp.shop.entiy.ShopCustService;
 import com.lsp.suc.entity.Comunit;
 import com.lsp.user.entity.CustomerInfo;
 import com.lsp.user.entity.UserInfo;
@@ -52,5 +52,7 @@ public class GetAllFunc {
 	public static HashMap<String,Object>shopCustServicenum= new HashMap<String,Object>();
 	//婚恋客服
 	public static HashMap<String,List<DBObject>>datingCustServicenum= new HashMap<String,List<DBObject>>();
+	//保洁员
+	public static HashMap<String, HousewiferyInfo> housewifery = new HashMap<String, HousewiferyInfo>();
 
 }

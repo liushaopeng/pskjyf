@@ -13,7 +13,10 @@ public class HousewiferyInfo extends ReflectionDBObject{
 	private String custid;
 	private String name;
 	private String tel;
-	private String picurl; 
+	private String picurl;
+	/**
+	 * 0为空闲1为忙碌
+	 */
 	private int  state;
 	private Date createdate;
 	public String getCustid() {
