@@ -69,14 +69,14 @@
                         $('#name').val(json.name);
                         $('#logo').val(json.logo);
                         $('#picurl').val(json.picurl);
-                        $('#mb').val(json.mb);
+                        $('#mb').val(json.mb).trigger("change");;
                         $('#summary').val(json.summary);
                         $('#sort').val(json.sort);
-                        $('#type').val(json.type);
+                        $('#type').val(json.type).trigger("change");;
                         $('#lx').val(json.lx);
                         $('#searchcolor').val(json.searchcolor);
                         $('#byprice').val(json.byprice);
-                        $('#jfbl').val(json.jfbl);
+                        $('#jfbl').val(json.jfbl).trigger("change");;
 
                     }, "json")
             ps_show('inszc');

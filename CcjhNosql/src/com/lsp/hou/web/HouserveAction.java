@@ -150,7 +150,7 @@ public class HouserveAction extends GeneralAction<HousewiferyServe> {
 		Struts2Utils.renderJson(json.substring(1, json.length() - 1), new String[0]);
 	}
 	public String detail(){
-		return "";
+		return "detail";
 	}
 	/**
 	 * 预约

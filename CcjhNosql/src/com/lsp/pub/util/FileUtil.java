@@ -9,6 +9,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 /**
  * 工具
  * @author lsp 
@@ -322,6 +324,15 @@ public class FileUtil
         return paramString.substring(i + 1);
     }
     return "";
+  }
+  public void  createDir(String fpath){
+	  Date date = new Date();
+		//格式化并转换String类型
+		String path=fpath+new SimpleDateFormat("yyyy/MM/dd").format(date);
+		//创建文件夹
+		File f = new File(path);
+		if(!f.exists())
+		f.mkdirs(); 
   }
 }
 
