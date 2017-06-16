@@ -146,7 +146,7 @@
                                     <tr>
                                         <td>${bean._id}</td>
                                         <td>${bean.name}</td>
-                                        <td><c:if test="${bean.lx==0}">普通店</c:if><c:if test="${bean.lx==1}">官方店</c:if>
+                                        <td><c:if test="${bean.type==0}">普通店</c:if><c:if test="${bean.type==1}">官方店</c:if><c:if test="${bean.type==2}">商家店</c:if>
                                         </td>
                                         <td>${bean.mb}</td>
                                         <td class="table-action">
