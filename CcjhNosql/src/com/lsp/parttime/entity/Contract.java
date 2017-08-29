@@ -2,7 +2,7 @@ package com.lsp.parttime.entity;
 
 import com.mongodb.ReflectionDBObject;
 /**
- * 资产
+ * 合同
  * @author lsp
  *
  */
