@@ -40,6 +40,7 @@ public class Mission extends ReflectionDBObject{
 	 */
 	private String linktel;
 	private int sort;
+	private int collect;
 	public String getTitle() {
 		return title;
 	}
@@ -105,6 +106,12 @@ public class Mission extends ReflectionDBObject{
 	}
 	public void setSort(int sort) {
 		this.sort = sort;
+	}
+	public int getCollect() {
+		return collect;
+	}
+	public void setCollect(int collect) {
+		this.collect = collect;
 	}
 	
 	
