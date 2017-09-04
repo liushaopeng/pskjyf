@@ -149,7 +149,7 @@
             </font>
         </div>
     </div>
-    <div class="bottom-26bd93 zi-hui-wx txt-c weight500 line-right_bai pt-5 pb-5 button_group1">
+    <div class="bottom-26bd93 zi-hui-wx txt-c weight500 line-right_bai pt-5 pb-5 button_group1" onclick="window.location.href='${ctx}/parttime/mission!order.action?custid=${custid}&lscode=${lscode}'">
         <font size="4">
             <div class="fa fa-clone"></div>
         </font>
@@ -177,7 +177,7 @@
             </font>
         </div>
     </div>
-    <div class="bottom-26bd93 zi-hui-wx txt-c weight500 line-right_bai pt-5 pb-5 button_group1">
+    <div class="bottom-26bd93 zi-hui-wx txt-c weight500 line-right_bai pt-5 pb-5 button_group1" onclick="window.location.href='${ctx}/parttime/mission!mine.action?custid=${custid}&lscode=${lscode}'">
         <font size="4">
             <div class="fa fa-user"></div>
         </font>

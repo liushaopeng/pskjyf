@@ -13,7 +13,9 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <title>信息录取</title>
-    <link href="css/YLui.css" rel="stylesheet" type="text/css"/>
+    <script src="${ctx}/app/js/jquery-1.8.3.js"></script>
+    <link href="${ctx}/app/css/YLui.css" rel="stylesheet" type="text/css"/>
+    <link href="${ctx}/app/css/font-awesome.min.css" rel="stylesheet">
     <style>
         .btn-26bd93 {
             background-color: #26bd93;
