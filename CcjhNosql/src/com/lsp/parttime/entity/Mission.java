@@ -35,6 +35,10 @@ public class Mission extends ReflectionDBObject{
 	 */
 	private int experience;
 	/**
+	 * 年龄要求
+	 */
+	private int age;
+	/**
 	 * 负责人姓名
 	 */
 	private String linkname;
@@ -57,6 +61,14 @@ public class Mission extends ReflectionDBObject{
 	 * 上班结束时间
 	 */
 	private Date enddate;
+	/**
+	 * 描述
+	 */
+	private String content;
+	/**
+	 * 福利
+	 */
+	private String welfare;
 	public String getTitle() {
 		return title;
 	}
@@ -159,6 +171,24 @@ public class Mission extends ReflectionDBObject{
 	}
 	public void setEnddate(Date enddate) {
 		this.enddate = enddate;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public String getWelfare() {
+		return welfare;
+	}
+	public void setWelfare(String welfare) {
+		this.welfare = welfare;
 	}
 	
 	

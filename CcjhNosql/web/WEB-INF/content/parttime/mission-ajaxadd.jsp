@@ -7,16 +7,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta http-equiv="pragma" content="no-cache">
-    <meta http-equiv="cache-control" content="no-cache">
-    <meta http-equiv="expires" content="0">
+    <meta http-equiv="pragma" content="no-cache"/>
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta http-equiv="expires" content="0"/>
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <title>发布招聘信息</title>
     <!-- Resource style -->
-    <script src="js/jquery-1.8.3.js"></script>
-    <link href="css/YLui.css" rel="stylesheet" type="text/css"/>
-    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <script src="${ctx}/app/js/jquery-1.8.3.js"></script>
+    <link href="${ctx}/app/css/YLui.css" rel="stylesheet" type="text/css"/>
+    <link href="${ctx}/app/css/font-awesome.min.css" rel="stylesheet"/>
     <style>
         .btn-cheng {
             background-color: #26bd93;
@@ -29,6 +29,27 @@
             color: #26bd93;
         }
     </style>
+    
+    <script>
+   function  save(){ 
+	   var submitData = {
+			   welfare:('#welfare').val(),
+			   age:('#age').val(),
+			   content:('#content').val(),
+			   education:('#education').val(),
+			   workaddress:('#workaddress').val(),
+			   experience:('#experience').val(),
+			   num:('#num').val(),
+	   }; 
+	   $.post('${ctx}/parttime/mission!ajaxpropsweb.action?custid=${custid}&lscode=${lscode}&fypage=' + fypage, submitData,
+	           function (json) {
+	                 if(json.state==0){
+	                	alert("发布成功！"); 
+	                 }        
+	                        
+	          }, "json")
+      }
+   </script>
 </head>
 <body>
 
@@ -45,53 +66,53 @@
             <a href="javascript:shopping_xianshi()">
                 <div class="width-10 size14 pt-10 zi-hui hang50 weight500">
                     <input class="width-10 pl-10 pr-10 size14 zi-hui hang30 weight500" type="text" name=""
-                           value="职位类别" onfocus="if(this.value=='职位类别'){this.value=''};this.style.color='#666666';"
-                           onblur="if(this.value==''||this.value=='职位类别'){this.value='职位类别';this.style.color='#aaa';}">
+                           value="职位类别"  onfocus="if(this.value=='职位类别'){this.value=''};this.style.color='#666666';"
+                           onblur="if(this.value==''||this.value=='职位类别'){this.value='职位类别';this.style.color='#aaa';}"/>
                 </div>
             </a>
         </div>
         <div class="line-bottom-92 line-right-92 pt-10 line-left-92 hang50">
             <input class="width-10 pl-10 pr-10 size14 zi-hui hang30 weight500" type="text" name=""
-                   value="招聘人数" onfocus="if(this.value=='招聘人数'){this.value=''};this.style.color='#666666';"
-                   onblur="if(this.value==''||this.value=='招聘人数'){this.value='招聘人数';this.style.color='#aaa';}">
+                   value="招聘人数" id="num" onfocus="if(this.value=='招聘人数'){this.value=''};this.style.color='#666666';"
+                   onblur="if(this.value==''||this.value=='招聘人数'){this.value='招聘人数';this.style.color='#aaa';}"/>
         </div>
         <div class="line-bottom-92 line-right-92 pt-10 line-left-92 hang50">
             <input class="width-10 pl-10 pr-10 size14 zi-hui hang30 weight500" type="text" name=""
-                   value="年龄要求" onfocus="if(this.value=='年龄要求'){this.value=''};this.style.color='#666666';"
-                   onblur="if(this.value==''||this.value=='年龄要求'){this.value='年龄要求';this.style.color='#aaa';}">
+                   value="年龄要求" id="age" onfocus="if(this.value=='年龄要求'){this.value=''};this.style.color='#666666';"
+                   onblur="if(this.value==''||this.value=='年龄要求'){this.value='年龄要求';this.style.color='#aaa';}"/>
         </div>
         <div class="line-bottom-92 line-right-92 pt-10 line-left-92 hang50">
             <input class="width-10 pl-10 pr-10 size14 zi-hui hang30 weight500" type="text" name=""
-                   value="学历要求" onfocus="if(this.value=='学历要求'){this.value=''};this.style.color='#666666';"
-                   onblur="if(this.value==''||this.value=='学历要求'){this.value='学历要求';this.style.color='#aaa';}">
+                   value="学历要求" id="education" onfocus="if(this.value=='学历要求'){this.value=''};this.style.color='#666666';"
+                   onblur="if(this.value==''||this.value=='学历要求'){this.value='学历要求';this.style.color='#aaa';}"/>
         </div>
         <div class="line-bottom-92 line-right-92 pt-10 line-left-92 hang50">
             <input class="width-10 pl-10 pr-10 size14 zi-hui hang30 weight500" type="text" name=""
-                   value="经验要求" onfocus="if(this.value=='经验要求'){this.value=''};this.style.color='#666666';"
-                   onblur="if(this.value==''||this.value=='经验要求'){this.value='经验要求';this.style.color='#aaa';}">
+                   value="经验要求" id="experience" onfocus="if(this.value=='经验要求'){this.value=''};this.style.color='#666666';"
+                   onblur="if(this.value==''||this.value=='经验要求'){this.value='经验要求';this.style.color='#aaa';}"/>
         </div>
         <div class="line-bottom-92 line-right-92 pt-10 line-left-92 hang50">
             <input class="width-10 pl-10 pr-10 size14 zi-hui hang30 weight500" type="text" name=""
-                   value="薪资待遇" onfocus="if(this.value=='薪资待遇'){this.value=''};this.style.color='#666666';"
-                   onblur="if(this.value==''||this.value=='薪资待遇'){this.value='薪资待遇';this.style.color='#aaa';}">
+                   value="薪资待遇" id="wages" onfocus="if(this.value=='薪资待遇'){this.value=''};this.style.color='#666666';"
+                   onblur="if(this.value==''||this.value=='薪资待遇'){this.value='薪资待遇';this.style.color='#aaa';}"/>
         </div>
         <div class="line-bottom-92 line-right-92 pt-10 line-left-92 hang50">
             <input class="width-10 pl-10 pr-10 size14 zi-hui hang30 weight500" type="text" name=""
-                   value="工作地点" onfocus="if(this.value=='工作地点'){this.value=''};this.style.color='#666666';"
-                   onblur="if(this.value==''||this.value=='工作地点'){this.value='工作地点';this.style.color='#aaa';}">
+                   value="工作地点" id="workaddress" onfocus="if(this.value=='工作地点'){this.value=''};this.style.color='#666666';"
+                   onblur="if(this.value==''||this.value=='工作地点'){this.value='工作地点';this.style.color='#aaa';}"/>
         </div>
         <div class="line-bottom-92 line-right-92 line-left-92 overflow-hidden zi-hui">
             <form action="">
-                <textarea onfocus="if(this.value=='职位描述10-300个字'){this.value=''};this.style.color='#666666';"
+                <textarea id="content" onfocus="if(this.value=='职位描述10-300个字'){this.value=''};this.style.color='#666666';"
                           onblur="if(this.value==''||this.value=='职位描述10-300个字'){this.value='职位描述10-300个字';this.style.color='#aaa';}"
                           rows="5" name="message" class="size14 weight500"
                           style="height:90px;" onKeyDown="textCounter(message,remLen,300);"
                           onKeyUp="textCounter(message,remLen,300);">职位描述10-300个字</textarea>
                 <input name="remLen" type="text" value="300字" size="5" readonly="readonly"
-                       class="zi-hui size12 pl-2 pb-10 pull-right">
+                       class="zi-hui size12 pl-2 pb-10 pull-right"/>
             </form>
         </div>
-
+        <input type="hidden" id="welfare"/> 
         <div class="size14 line-bottom-92 weight500 div-group-10" style="padding-left: 2px;">公司福利</div>
         <div class="line-bottom-92 line-right-92 line-left-92 overflow-hidden pt-10 pl-10">
             <font size="2">
