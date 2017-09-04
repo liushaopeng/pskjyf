@@ -121,6 +121,12 @@ public class MissionAction extends GeneralAction<Mission>{
 		String json = JSONArray.fromObject(submap).toString(); 
 		Struts2Utils.renderJson(json.substring(1, json.length() - 1), new String[0]);
 	}
-
+	/**
+	 * 首页
+	 * @return
+	 */
+	public String index() {
+		return "index";
+	} 
 	 
 }
