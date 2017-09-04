@@ -327,4 +327,14 @@ public class PubConstants
   public static String HOU_HOUSEWIFERYPROBLEM="Uhou_housewiferyproblem";//家政问题
   
   
+  public static String PARTTIME_ASSETS="parttime_assets";
+  public static String PARTTIME_ORDER="parttime_order";
+  public static String PARTTIME_ASSETSRECORD="parttime_assetsrecord";
+  public static String PARTTIME_COMPANY="parttime_company";
+  public static String PARTTIME_CONTRACT="parttime_contract";
+  public static String PARTTIME_EMPLOYEE="parttime_employee";
+  public static String PARTTIME_MISSION="parttime_mission";
+  public static String PARTTIME_MISSIONCOLLECT="parttime_missioncollect";
+  
+  
 }

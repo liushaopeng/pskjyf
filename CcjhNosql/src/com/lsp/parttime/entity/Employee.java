@@ -2,6 +2,8 @@ package com.lsp.parttime.entity;
 
 import java.util.Date;
 
+import org.bson.util.StringRangeSet;
+
 import com.mongodb.ReflectionDBObject;
 /**
  * 员工
@@ -22,7 +24,16 @@ public class Employee extends ReflectionDBObject{
 	 * 经验
 	 */
 	private int experience;
+	private String idcard;
 	private Date createdate;
+	/**
+	 * 备用手机号
+	 */
+	private String bytel;
+	/**
+	 * 微信ID
+	 */
+	private String wxid;
 	public String getCustid() {
 		return custid;
 	}
@@ -64,6 +75,24 @@ public class Employee extends ReflectionDBObject{
 	}
 	public void setExperience(int experience) {
 		this.experience = experience;
+	}
+	public String getIdcard() {
+		return idcard;
+	}
+	public void setIdcard(String idcard) {
+		this.idcard = idcard;
+	}
+	public String getBytel() {
+		return bytel;
+	}
+	public void setBytel(String bytel) {
+		this.bytel = bytel;
+	}
+	public String getWxid() {
+		return wxid;
+	}
+	public void setWxid(String wxid) {
+		this.wxid = wxid;
 	}
 	
 }

@@ -49,6 +49,10 @@ public class Order extends ReflectionDBObject{
 	 * 实际工作时长
 	 */
 	private int  practicalwh;
+	/**
+	 * 上班地点
+	 */
+	private String workaddress;
 	
 	public Date getGatherdate() {
 		return gatherdate;
@@ -121,6 +125,12 @@ public class Order extends ReflectionDBObject{
 	}
 	public void setPracticalwh(int practicalwh) {
 		this.practicalwh = practicalwh;
+	}
+	public String getWorkaddress() {
+		return workaddress;
+	}
+	public void setWorkaddress(String workaddress) {
+		this.workaddress = workaddress;
 	}
 	
 }
