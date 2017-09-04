@@ -2,6 +2,7 @@ package com.lsp.parttime.web;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
@@ -127,6 +128,123 @@ public class MissionAction extends GeneralAction<Mission>{
 	 */
 	public String index() {
 		return "index";
-	} 
+	}
+	/**
+	 * 详情页
+	 * @return
+	 */
+	public String details() {
+		String id=Struts2Utils.getParameter("id");
+		if (StringUtils.isNotEmpty(id)) {
+			DBObject dbObject=baseDao.getMessage(PubConstants.PARTTIME_MISSION, Long.parseLong(id));
+			Struts2Utils.getRequest().setAttribute("entity",dbObject);
+		}
+		return "details";
+	}
+	/**
+	 * 订单
+	 * @return
+	 */
+	public String order() {
+		return "order";
+	}
+	/**
+	 * 提现
+	 * @return
+	 */
+	public String withposi() {
+		return "withposi";
+	}
+	/**
+	 * 提现记录
+	 * @return
+	 */
+	public String withposidet() {
+		return "withposidet";
+	}
+	/**
+	 * 发布
+	 * @return
+	 */
+	public String ajaxadd() {
+		return "ajaxadd";
+	}
+	/**
+	 * 我的
+	 * @return
+	 */
+	public String mine() {
+		return "mine";
+	}
+	/**
+	 * 我的资料
+	 * @return
+	 */
+	public String minedata() {
+		return "minedata";
+	}
+	/**
+	 * ajax获取首页数据
+	 */
+	public void ajaxIndex() {
+		Map<String, Object>submap=new HashMap<String, Object>();
+		submap.put("state", 1);
+		HashMap<String, Object>whereMap=new HashMap<String, Object>();
+		HashMap<String, Object>sortMap=new HashMap<String, Object>();
+		sortMap.put("createdate", -1);
+		if (StringUtils.isNotEmpty(Struts2Utils.getParameter("fypage"))) {
+			fypage=Integer.parseInt(Struts2Utils.getParameter("fypage"));
+		}
+		List<DBObject>list=baseDao.getList(PubConstants.PARTTIME_MISSION, whereMap,fypage,10, sortMap);
+		if(list.size()>0){
+			submap.put("state",0);
+			submap.put("list",list);	
+		}
+		
+		String json = JSONArray.fromObject(submap).toString(); 
+		Struts2Utils.renderJson(json.substring(1, json.length() - 1), new String[0]);
+	}
+	/**
+	 * ajax获取订单数据
+	 */
+	public void ajaxOrder() {
+		Map<String, Object>submap=new HashMap<String, Object>();
+		submap.put("state", 1);
+		HashMap<String, Object>whereMap=new HashMap<String, Object>();
+		HashMap<String, Object>sortMap=new HashMap<String, Object>();
+		sortMap.put("createdate", -1);
+		if (StringUtils.isNotEmpty(Struts2Utils.getParameter("fypage"))) {
+			fypage=Integer.parseInt(Struts2Utils.getParameter("fypage"));
+		}
+		List<DBObject>list=baseDao.getList(PubConstants.PARTTIME_ORDER, whereMap,fypage,10, sortMap);
+		if(list.size()>0){
+			submap.put("state",0);
+			submap.put("list",list);	
+		}
+		
+		String json = JSONArray.fromObject(submap).toString(); 
+		Struts2Utils.renderJson(json.substring(1, json.length() - 1), new String[0]);
+	}
+	/**
+	 * ajax获取提现数据
+	 */
+	public void ajaxWithposi() {
+		Map<String, Object>submap=new HashMap<String, Object>();
+		submap.put("state", 1);
+		HashMap<String, Object>whereMap=new HashMap<String, Object>();
+		HashMap<String, Object>sortMap=new HashMap<String, Object>();
+		sortMap.put("createdate", -1);
+		if (StringUtils.isNotEmpty(Struts2Utils.getParameter("fypage"))) {
+			fypage=Integer.parseInt(Struts2Utils.getParameter("fypage"));
+		}
+		List<DBObject>list=baseDao.getList(PubConstants.PARTTIME_ASSETSRECORD, whereMap,fypage,10, sortMap);
+		if(list.size()>0){
+			submap.put("state",0);
+			submap.put("list",list);	
+		}
+		
+		String json = JSONArray.fromObject(submap).toString(); 
+		Struts2Utils.renderJson(json.substring(1, json.length() - 1), new String[0]);
+	}
 	 
 }
