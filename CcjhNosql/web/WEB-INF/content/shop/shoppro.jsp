@@ -117,7 +117,7 @@
                                     <th class="th8 table-action">标签</th>
                                     <th class="th8 table-action">最低价</th>
                                     <th class="th5 table-action">价格</th>
-                                    <th class="th5 table-action">销售量</th>
+                                    <th class="th5 table-action">销售量</th> 
                                     <th class="th5 table-action">操作</th>
                                 </tr>
                                 </thead>
@@ -144,7 +144,7 @@
                                         <td><fmt:formatNumber value='${bean.lowprice}' pattern="0.0#"/></td>
                                         <td><fmt:formatNumber value='${bean.price}' pattern="0.0#"/>/<fmt:formatNumber
                                                 value='${bean.oldprice}' pattern="0.0#"/></td>
-                                        <td>${bean.num}/${bean.gmnum}</td>
+                                        <td>${bean.num}/${bean.gmnum}</td> 
 
                                         <td class="table-action">
 
