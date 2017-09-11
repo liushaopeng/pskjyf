@@ -17,6 +17,7 @@ import com.lsp.parttime.entity.Mission;
 import com.lsp.pub.dao.BaseDao;
 import com.lsp.pub.db.MongoSequence;
 import com.lsp.pub.entity.PubConstants;
+import com.lsp.pub.util.SpringSecurityUtils;
 import com.lsp.pub.util.Struts2Utils;
 import com.lsp.pub.util.UniObject;
 import com.lsp.pub.web.GeneralAction;
@@ -43,6 +44,21 @@ public class MissionAction extends GeneralAction<Mission>{
 	@Autowired
 	public void setMongoSequence(MongoSequence mongoSequence) {
 		this.mongoSequence = mongoSequence;
+	}
+	@Override
+	public String execute() throws Exception {
+		custid=SpringSecurityUtils.getCurrentUser().getId();
+		HashMap<String, Object>whereMap=new HashMap<>();
+		HashMap<String, Object>sortMap=new HashMap<>();
+		whereMap.put("custid", custid);
+		if(StringUtils.isNotEmpty(Struts2Utils.getParameter("fypage"))) {
+			fypage=Integer.parseInt(Struts2Utils.getParameter("fypage"));
+		}
+		List<DBObject>list=baseDao.getList(PubConstants.PARTTIME_MISSION, whereMap,fypage,10,sortMap);
+		fycount=baseDao.getCount(PubConstants.PARTTIME_MISSION,whereMap);
+		Struts2Utils.getRequest().setAttribute("list",list);
+		Struts2Utils.getRequest().setAttribute("custid",custid);
+		return SUCCESS; 
 	}
 
 	@Override

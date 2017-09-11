@@ -134,61 +134,27 @@
             </div>
         </div>
     </font>
+    
+      <div class="zi-hei div-group-5 pt-10 pl-10 pr-10 overflow-hidden position-r size16" onclick="window.location.href='${ctx}/parttime/mission!details.action?custid=${custid}&lscode=${lscode}&id=1'">
+        <div class="weight500 hang30 line-height30">
+            <div class="sl"><i class="zi-26bd93 pr-5">[自营]</i>快递分拣/搬运<i class="pl-5">18至35岁</i><i
+                    class="pl-5">需30人</i>
+            </div>
+        </div>
+        <div class="clear sl weight100 hang30 line-height30">
+            <span class="zi-hui"><i class="pr-5 weight500 zi-hei">[未央区]</i><i>已招募:</i>20人</span>
+        </div>
+        <div class="sl weight500 hang30 line-height30">
+            <div class="pull-left">薪资<span class="zi-cheng pl-5 weight500">300/天</span>
+            </div>
+            <div class="pull-right zi-hui">2016-10-08</div>
+        </div>
+    </div>
+    <div class="hang7 bg-hui clear"></div>
     <div id="ajaxdiv"></div> 
 </main>
-<div class="clear hang70"></div>
-<div class=" button_foot bg-bai zi-hui shadow-wai cmp640" style="z-index: 1;">
-    <div class="bottom-26bd93 zi-hui-wx txt-c weight500 line-right_bai pt-5 pb-5 button_group1">
-        <font size="4">
-            <div class="fa fa-home"></div>
-        </font>
-
-        <div class=" pt-3">
-            <font size="1">
-                首页
-            </font>
-        </div>
-    </div>
-    <div class="bottom-26bd93 zi-hui-wx txt-c weight500 line-right_bai pt-5 pb-5 button_group1" onclick="window.location.href='${ctx}/parttime/mission!order.action?custid=${custid}&lscode=${lscode}'">
-        <font size="4">
-            <div class="fa fa-clone"></div>
-        </font>
-
-        <div class=" pt-3">
-            <font size="1">
-               订单
-            </font>
-        </div>
-    </div>
-    <div class=" button_group1 zi-6">
-        <div class="bottom-26bd93 zi-hui-wx txt-c weight500 line-right_bai hang50">
-            <font size="3">
-                <div class="hang25 line-height30 fa fa-envelope-open-o position-r">
-                    <div class="position-a bg-26bd93 zi-bai border-radius50 img-wh15 sl"
-                         style="top:-3px; right: -10px;line-height: 15px;">
-                        <font size="2">9</font>
-                    </div>
-                </div>
-            </font>
-            <font size="2">
-                <div class="hang25 line-height25">
-                    消息
-                </div>
-            </font>
-        </div>
-    </div>
-    <div class="bottom-26bd93 zi-hui-wx txt-c weight500 line-right_bai pt-5 pb-5 button_group1" onclick="window.location.href='${ctx}/parttime/mission!mine.action?custid=${custid}&lscode=${lscode}'">
-        <font size="4">
-            <div class="fa fa-user"></div>
-        </font>
-
-        <div class=" pt-3">
-            <font size="1">
-                我的
-            </font>
-        </div>
-    </div>
-</div>
+<%@include file="/webcom/mission-foot.jsp"%>
+ 
 <script> 
 $(window).scroll(function () {
         var offsetY = $(window).scrollTop();

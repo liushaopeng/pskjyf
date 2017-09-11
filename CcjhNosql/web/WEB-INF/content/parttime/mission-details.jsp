@@ -14,23 +14,29 @@
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <title>小象兼职</title>
     <!-- Resource style -->
-    <script src="js/jquery-1.8.3.js"></script>
-    <link href="css/YLui.css" rel="stylesheet" type="text/css"/>
-    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <script src="${ctx}/app/js/jquery-1.8.3.js"></script>
+    <link href="${ctx}/app/css/YLui.css" rel="stylesheet" type="text/css"/>
+    <link href="${ctx}/app/css/font-awesome.min.css" rel="stylesheet">
   <script>
-      $(function () {
-          $(".yListr2 li").click(function () {
-              $(this).addClass("zi-hong").siblings().removeClass("zi-hong");
-          })
-      })
-  </script>
+        $(function () {
+            $(".yListr2 li").click(function () {
+                $(this).addClass("zi-hong").siblings().removeClass("zi-hong");
+            })
+        })
+    </script>
     <style>
+        .zi-26bd93 {
+            color: #26bd93;
+        }
+
         .line-left-26bd93 {
             border-left: 3px solid #26bd93;
         }
-        .line-height37{
+
+        .line-height37 {
             line-height: 37px;
         }
+
         .btn-26bd93 {
             background-color: #26bd93;
         }
@@ -38,12 +44,15 @@
         .btn-26bd93:hover {
             background-color: #21a883;
         }
+
         .bottom-26bd93 {
             background-color: white;
         }
+
         .zi-jin {
             color: #e3c06a
         }
+
         .bottom-26bd93:hover {
             color: #21a883;
         }
@@ -58,28 +67,26 @@
         <div class="pull-left zi-bai">
             <div class="pull-left pt-4 pr-5">
                 <div class="bg-bai overflow-hidden" style="height:32px;width:118px;">
-                    <img src="img/兼职logo236x64.png" class="width-10">
+                    <img src="${ctx}/img/parttime/logo.png" class="width-10">
                 </div>
             </div>
             <div class="pull-left zi-hei-tq pl-10">
                 <!--<i class="fa fa-caret-down pl-5"></i>-->
             </div>
         </div>
-        <div class="pull-right zi-6">
+        <div class="pull-right zi-hei">
             <i class="weight500">分享得佣金</i>
         </div>
     </div>
     <div class="hang40"></div>
 
     <div class="div-group-10">
-        <font size="4">
-            <div class="line-height25 weight500 zi-6 pt-5">
-                蓝月亮超市促销员
-            </div>
-        </font>
+        <div class="line-height25 weight500 size20 zi-hei pt-5">
+            <i class="zi-26bd93 pr-5">[自营]</i>蓝月亮超市促销员实习生兼职储备干部等均可
+        </div>
 
-        <div class="pt-15 pb-5 zi-hui overflow-hidden weight500">
-            <font size="1">
+        <div class="pt-15 pb-5 zi-6 overflow-hidden weight500">
+            <font size="2">
                 <div class="txt-l col-6">
                     发布时间：<i>2016-10-20</i>
                 </div>
@@ -92,44 +99,42 @@
     <div class="hang7 overflow-hidden bg-hui clear"></div>
 
     <div class="div-group-10 weight500">
-        <font size="4">
+        <font size="5">
             <div class="line-height25 zi-jin pt-5">
                 薪资待遇：300/天
             </div>
         </font>
 
-        <div class="pt-15 pb-5 line-height30 zi-hui overflow-hidden">
-            <font size="2">
-                <div><i class="zi-hei">公司名称：</i>陕西鹏森网络科技有限公司</div>
-                <div><i class="zi-hei">工作地点：</i>陕西省-渭南市-白水县</div>
-                <div><i class="zi-hei">招聘人数：</i>招聘8人</div>
-                <div><i class="zi-hei">招聘条件：</i>学历一本<i class="pl-5 pr-5">|</i>经验1-3年</div>
-            </font>
+        <div class="pt-15 pb-5 line-height30 zi-6 size16 overflow-hidden">
+            <div><i class="zi-hei">公司名称：</i>陕西鹏森网络科技有限公司</div>
+            <div><i class="zi-hei">工作地点：</i>陕西省-渭南市-白水县</div>
+            <div><i class="zi-hei">集合时间：</i>2018-09-08&emsp;11:30</div>
+            <div><i class="zi-hei">工作时间：</i>12：00&emsp;至&emsp;22：00</div>
+            <div><i class="zi-hei">招聘条件：</i>学历一本<i class="pl-5 pr-5">|</i>经验1-3年</div>
+            <div><i class="zi-hei">年龄要求：</i>16-55岁</div>
+            <div><i class="zi-hei">招聘人数：</i>招聘8人</div>
         </div>
     </div>
     <div class="hang7 overflow-hidden bg-hui clear"></div>
-    <div class="div-group-10">
-        <div class="zi-hei overflow-hidden">
-            <font size="3">
-                <div class="hang40 line-height40">联系人：刘经理</div>
-                <div class="hang40">
-                    <div class="pull-left line-height40">联系电话：15091563325</div>
-                    <div class="pull-right">
-                        <div class="clear img-wh35 line-height37 btn-26bd93 txt-c border-radius50">
-                            <font size="4">
-                                <i class="fa fa-phone zi-bai line-height37"></i>
-                            </font>
-                        </div>
-                    </div>
+    <div class="size16 div-group-10 zi-hei overflow-hidden weight500">
+        <div class="hang40 line-height40">联系人：刘经理</div>
+        <div class="hang40">
+            <div class="pull-left line-height40">联系电话：15091563325</div>
+            <div class="pull-right">
+                <div class="clear img-wh35 line-height37 btn-26bd93 txt-c border-radius50">
+                    <font size="4">
+                        <i class="fa fa-phone zi-bai line-height37"></i>
+                    </font>
                 </div>
-            </font>
+            </div>
         </div>
+    </div>
     </div>
     <div class="hang7 overflow-hidden bg-hui clear"></div>
 
-    <font size="2">
+    <font size="3">
         <div class="div-group-5 pt-10 pb-10 line-bottom">
-            <div class="line-left-26bd93"><i class="pl-10">职位描述</i></div>
+            <div class="line-left-26bd93 weight500"><i class="pl-10">职位描述</i></div>
         </div>
     </font>
 
@@ -138,12 +143,20 @@
     </div>
 </main>
 
+<!--点击事件提示框  弹出后经过很短时间就消失-->
+<div class="position-f width-10" style="bottom:100px;left:0px;">
+    <div class="zi-bai txt-c line-height25">
+        <!--此处字数尽量不要超过十字-->
+        <i class="bg-hei-8 div-group-10 border-radius5 line-height25">提示信息条字数尽量不要超过十五字</i>
+    </div>
+</div>
+
 <div class="clear hang50"></div>
 
 <div class=" button_foot bg-bai zi-hui shadow-wai cmp640">
     <div class="zi-hui-wx txt-c weight500 button_group1">
-        <div class="col-3 hang50 line-height50 bottom-26bd93"><i class="fa fa-star pr-5"></i>收藏</div>
-        <div class="col-9 hang50 line-height50 zi-bai btn-26bd93 txt-c">
+        <div class="col-4 hang50 line-height50 bottom-26bd93"><i class="fa fa-star pr-5"></i>收藏</div>
+        <div class="col-8 hang50 line-height50 zi-bai btn-26bd93 txt-c">
             立刻报名
         </div>
     </div>

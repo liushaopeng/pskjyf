@@ -64,5 +64,6 @@
     </div>
 
 </main>
+<%@include file="/webcom/mission-foot.jsp"%>
 </body>
 </html>
