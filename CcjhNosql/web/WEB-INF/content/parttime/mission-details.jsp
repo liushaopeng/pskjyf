@@ -82,13 +82,13 @@
 
     <div class="div-group-10">
         <div class="line-height25 weight500 size20 zi-hei pt-5">
-            <i class="zi-26bd93 pr-5">[自营]</i>蓝月亮超市促销员实习生兼职储备干部等均可
+            <i class="zi-26bd93 pr-5">[自营]</i>${entity.title}
         </div>
 
         <div class="pt-15 pb-5 zi-6 overflow-hidden weight500">
             <font size="2">
                 <div class="txt-l col-6">
-                    发布时间：<i>2016-10-20</i>
+                    发布时间：<i><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${entity.createdate}" /></i>
                 </div>
                 <div class="txt-r col-6">
                     <i>关注度：20</i>
@@ -101,25 +101,25 @@
     <div class="div-group-10 weight500">
         <font size="5">
             <div class="line-height25 zi-jin pt-5">
-                薪资待遇：300/天
+                薪资待遇：${entity.wages}
             </div>
         </font>
 
         <div class="pt-15 pb-5 line-height30 zi-6 size16 overflow-hidden">
-            <div><i class="zi-hei">公司名称：</i>陕西鹏森网络科技有限公司</div>
-            <div><i class="zi-hei">工作地点：</i>陕西省-渭南市-白水县</div>
-            <div><i class="zi-hei">集合时间：</i>2018-09-08&emsp;11:30</div>
-            <div><i class="zi-hei">工作时间：</i>12：00&emsp;至&emsp;22：00</div>
-            <div><i class="zi-hei">招聘条件：</i>学历一本<i class="pl-5 pr-5">|</i>经验1-3年</div>
-            <div><i class="zi-hei">年龄要求：</i>16-55岁</div>
-            <div><i class="zi-hei">招聘人数：</i>招聘8人</div>
+            <div><i class="zi-hei">公司名称：</i>${entity.company}</div>
+            <div><i class="zi-hei">工作地点：</i>${entity.workaddress}</div>
+            <div><i class="zi-hei">集合时间：</i><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${entity.gatherdate}" /></div>
+            <div><i class="zi-hei">工作时间：</i><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${entity.startdate}" />至<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${entity.enddate}" /></div>
+            <div><i class="zi-hei">招聘条件：</i>学历一本<i class="pl-5 pr-5">|</i>${entity.experience}</div>
+            <div><i class="zi-hei">年龄要求：</i>${entity.education}</div>
+            <div><i class="zi-hei">招聘人数：</i>招聘${entity.num}人</div>
         </div>
     </div>
     <div class="hang7 overflow-hidden bg-hui clear"></div>
     <div class="size16 div-group-10 zi-hei overflow-hidden weight500">
-        <div class="hang40 line-height40">联系人：刘经理</div>
+        <div class="hang40 line-height40">联系人：${entity.linkname}</div>
         <div class="hang40">
-            <div class="pull-left line-height40">联系电话：15091563325</div>
+            <div class="pull-left line-height40">联系电话：${entity.linktel}</div>
             <div class="pull-right">
                 <div class="clear img-wh35 line-height37 btn-26bd93 txt-c border-radius50">
                     <font size="4">
@@ -139,7 +139,7 @@
     </font>
 
     <div class="width-10 clear div-group-10">
-        <img src="img/a1.png" class="width-10">
+        ${entity.summary}
     </div>
 </main>
 

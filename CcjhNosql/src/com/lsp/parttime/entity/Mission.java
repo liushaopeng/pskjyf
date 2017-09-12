@@ -69,6 +69,44 @@ public class Mission extends ReflectionDBObject{
 	 * 福利
 	 */
 	private String welfare;
+	/**
+	 * 0平台自营
+	 */
+	private int type;
+	/**
+	 * 公司
+	 */
+	private String company;
+	private String summary;
+	/**
+	 * 区域
+	 */
+	private String area;
+	 
+	public String getArea() {
+		return area;
+	}
+	public void setArea(String area) {
+		this.area = area;
+	}
+	public String getCompany() {
+		return company;
+	}
+	public void setCompany(String company) {
+		this.company = company;
+	}
+	public String getSummary() {
+		return summary;
+	}
+	public void setSummary(String summary) {
+		this.summary = summary;
+	}
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
+	}
 	public String getTitle() {
 		return title;
 	}
