@@ -38,6 +38,8 @@ function add(){
 	    $('#company').val(''); 
 	    $('#summary').val(''); 
 	    $('#area').val('');
+	    $('#price').val(0);
+	    $('#jstype').val('').trigger("change");
 	ps_show('inszc');
 }
 function upd(id){
@@ -59,7 +61,9 @@ function upd(id){
     $('#company').val(json.company); 
     $('#summary').val(json.summary); 
     $('#area').val(json.area);
+    $('#price').val(json.price);
     $('#type').val(json.type).trigger("change"); 
+    $('#jstype').val(json.jstype).trigger("change"); 
     $('#gatherdate').val(Date.prototype.format(json.gatherdate)); 
     $('#startdate').val(Date.prototype.format(json.startdate)); 
     $('#enddate').val(Date.prototype.format(json.enddate)); 
@@ -109,6 +113,7 @@ function page_submit(num){
                       	菜单 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu pull-right" role="menu">
+                <li><a href="javascript:updfx('mission')"><i class="fa fa-share-alt-square"></i>&nbsp;&nbsp;&nbsp;&nbsp;首页分享设置</a></li> 
             	<li><a href="javascript:add()"><i class="fa fa-plus"></i>&nbsp;&nbsp;&nbsp;&nbsp;新增</a></li>
             	<li><a href="javascript:qrcode('${ctxurl}/parttime/mission!index.action?custid=${custid}&lscode=${lscode}');">
                     <i class="fa fa-mail-reply-all"></i> 预览&nbsp;
@@ -207,8 +212,20 @@ function page_submit(num){
                         <div class="col-sm-6">
                             <div class="mb-20">
                                 <label class="control-label">薪资：</label>
-                                <input type="text" id="wages" name="wages"
+                                <input type="text" id="price" name="price"
                                        class="form-control" placeholder="请输入"/>
+                            </div>
+                        </div>
+                         <div class="col-sm-6">
+                            <div class="mb-20">
+                                <label class="control-label">结算类型：</label> 
+                                <select id="jstype" name="jstype" class="select2 form-control hang40" style="line-height: 28px!important;"
+                                        required data-placeholder="请选择">
+                                  <option value="0">默认</option> 
+                                  <option value="1">小时结算</option> 
+                                  <option value="2">日结算</option> 
+                                  <option value="3">月结算</option> 
+                                </select>       
                             </div>
                         </div>
                         <div class="col-sm-6">
@@ -343,5 +360,8 @@ function page_submit(num){
         </div>
     </div>
   </div>
+<%@ include file="/webcom/share.jsp" %> 
+<%@include file="/webcom/cut-img.jsp" %> 
+<%@ include file="/webcom/preview.jsp" %>
 </body>
 </html>

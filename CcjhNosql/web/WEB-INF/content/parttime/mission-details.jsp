@@ -57,6 +57,24 @@
             color: #21a883;
         }
     </style>
+    <script>
+    function  apply(){
+    	   var submitData = { 
+    			 mid:'${entity._id}'
+    	  };
+    	  $.post('${ctx}/parttime/order!createMiss.action?custid=${custid}&lscode=${lscode}', submitData, function(json) {
+    		  if(json.state==0){
+    			  alert("报名成功！");
+    			  window.location.href="${ctx}/parttime/mission!order.action?custid=${custid}&lscode=${lscode}";
+    		  }else if(json.state==1){
+    			  alert("报名失败！"); 
+    		  }else if(json.state==2){
+    			  alert("重复报名！"); 
+    		  }
+    	    
+    	  }, "json") 
+    	}
+    </script>
 </head>
 <body>
 <main class="cmp640">
@@ -156,7 +174,7 @@
 <div class=" button_foot bg-bai zi-hui shadow-wai cmp640">
     <div class="zi-hui-wx txt-c weight500 button_group1">
         <div class="col-4 hang50 line-height50 bottom-26bd93"><i class="fa fa-star pr-5"></i>收藏</div>
-        <div class="col-8 hang50 line-height50 zi-bai btn-26bd93 txt-c">
+        <div class="col-8 hang50 line-height50 zi-bai btn-26bd93 txt-c" onclick="apply()">
             立刻报名
         </div>
     </div>

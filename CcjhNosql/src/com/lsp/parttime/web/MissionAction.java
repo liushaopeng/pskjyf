@@ -1,5 +1,6 @@
 package com.lsp.parttime.web;
 
+import java.net.URLEncoder;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -16,11 +17,17 @@ import com.lsp.parttime.entity.Employee;
 import com.lsp.parttime.entity.Mission;
 import com.lsp.pub.dao.BaseDao;
 import com.lsp.pub.db.MongoSequence;
+import com.lsp.pub.entity.GetAllFunc;
 import com.lsp.pub.entity.PubConstants;
+import com.lsp.pub.entity.WxToken;
 import com.lsp.pub.util.SpringSecurityUtils;
 import com.lsp.pub.util.Struts2Utils;
+import com.lsp.pub.util.SysConfig;
 import com.lsp.pub.util.UniObject;
+import com.lsp.pub.util.WeiXinUtil;
 import com.lsp.pub.web.GeneralAction;
+import com.lsp.website.service.WwzService;
+import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.sun.faces.taglib.html_basic.DataTableTag;
 
@@ -43,6 +50,8 @@ public class MissionAction extends GeneralAction<Mission>{
 	public void set_id(Long _id) {
 		this._id = _id;
 	}
+	@Autowired
+	private WwzService wwzService;
 	private MongoSequence mongoSequence;
 
 	@Autowired
@@ -168,6 +177,35 @@ public class MissionAction extends GeneralAction<Mission>{
 	 * @return
 	 */
 	public String index() {
+		getLscode();
+    	Struts2Utils.getRequest().setAttribute("custid", custid); 
+    	WxToken token=GetAllFunc.wxtoken.get(custid); 
+		if(token.getSqlx()>0){
+			 token=GetAllFunc.wxtoken.get(wwzService.getparentcustid(custid)); 
+		} 
+		Struts2Utils.getRequest().setAttribute("token", WeiXinUtil.getSignature(token,Struts2Utils.getRequest()));
+		token=WeiXinUtil.getSignature(token,Struts2Utils.getRequest());
+		String url=SysConfig.getProperty("ip")+"/parttime/mission!index.action?custid="+custid;
+		if(StringUtils.isEmpty(fromUserid)){ 
+			String inspection="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+token.getAppid()+"&redirect_uri="+URLEncoder.encode(url)+"&response_type=code&scope=snsapi_base&state=c1c2j3h4#wechat_redirect";
+			Struts2Utils.getRequest().setAttribute("inspection",inspection);  
+			return "refresh";
+		}else if(fromUserid.equals("register")){ 
+			String inspection="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+token.getAppid()+"&redirect_uri="+URLEncoder.encode(url)+"&response_type=code&scope=snsapi_userinfo&state=register#wechat_redirect";
+			Struts2Utils.getRequest().setAttribute("inspection",inspection);  
+			return "refresh";
+		}
+		DBObject share=wwzService.getShareFx(custid,"mission_share");  
+		if(share==null){
+			share=new BasicDBObject();
+			share.put("fxtitle", wwzService.getWxUsertype(fromUserid, "nickname"));
+			share.put("fximg",wwzService.getWxUsertype(fromUserid, "headimgurl"));
+			share.put("fxurl", url);
+			share.put("fxsummary", share.get("fxsummary"));
+		}else{
+			share.put("fxurl", url);
+		} 
+		Struts2Utils.getRequest().setAttribute("share", share);
 		return "index";
 	}
 	/**
@@ -175,7 +213,39 @@ public class MissionAction extends GeneralAction<Mission>{
 	 * @return
 	 */
 	public String details() {
-		String id=Struts2Utils.getParameter("id");
+		
+		getLscode();
+    	Struts2Utils.getRequest().setAttribute("custid", custid); 
+    	String id=Struts2Utils.getParameter("id");
+    	WxToken token=GetAllFunc.wxtoken.get(custid); 
+		if(token.getSqlx()>0){
+			 token=GetAllFunc.wxtoken.get(wwzService.getparentcustid(custid)); 
+		} 
+		Struts2Utils.getRequest().setAttribute("token", WeiXinUtil.getSignature(token,Struts2Utils.getRequest()));
+		token=WeiXinUtil.getSignature(token,Struts2Utils.getRequest());
+		String url=SysConfig.getProperty("ip")+"/parttime/mission!details.action?custid="+custid+"&id="+id;
+		if(StringUtils.isEmpty(fromUserid)){ 
+			String inspection="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+token.getAppid()+"&redirect_uri="+URLEncoder.encode(url)+"&response_type=code&scope=snsapi_base&state=c1c2j3h4#wechat_redirect";
+			Struts2Utils.getRequest().setAttribute("inspection",inspection);  
+			return "refresh";
+		}else if(fromUserid.equals("register")){ 
+			String inspection="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+token.getAppid()+"&redirect_uri="+URLEncoder.encode(url)+"&response_type=code&scope=snsapi_userinfo&state=register#wechat_redirect";
+			Struts2Utils.getRequest().setAttribute("inspection",inspection);  
+			return "refresh";
+		}
+		DBObject share=wwzService.getShareFx(custid,"mission_share");  
+		if(share==null){
+			share=new BasicDBObject();
+			share.put("fxtitle", wwzService.getWxUsertype(fromUserid, "nickname"));
+			share.put("fximg",wwzService.getWxUsertype(fromUserid, "headimgurl"));
+			share.put("fxurl", url);
+			share.put("fxsummary", share.get("fxsummary"));
+		}else{
+			share.put("fxurl", url);
+		} 
+		Struts2Utils.getRequest().setAttribute("share", share);
+		
+		
 		if (StringUtils.isNotEmpty(id)) {
 			DBObject dbObject=baseDao.getMessage(PubConstants.PARTTIME_MISSION, Long.parseLong(id));
 			if (dbObject!=null) {
@@ -222,6 +292,35 @@ public class MissionAction extends GeneralAction<Mission>{
 	 * @return
 	 */
 	public String order() {
+		getLscode();
+    	Struts2Utils.getRequest().setAttribute("custid", custid); 
+    	WxToken token=GetAllFunc.wxtoken.get(custid); 
+		if(token.getSqlx()>0){
+			 token=GetAllFunc.wxtoken.get(wwzService.getparentcustid(custid)); 
+		} 
+		Struts2Utils.getRequest().setAttribute("token", WeiXinUtil.getSignature(token,Struts2Utils.getRequest()));
+		token=WeiXinUtil.getSignature(token,Struts2Utils.getRequest());
+		String url=SysConfig.getProperty("ip")+"/parttime/mission!order.action?custid="+custid;
+		if(StringUtils.isEmpty(fromUserid)){ 
+			String inspection="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+token.getAppid()+"&redirect_uri="+URLEncoder.encode(url)+"&response_type=code&scope=snsapi_base&state=c1c2j3h4#wechat_redirect";
+			Struts2Utils.getRequest().setAttribute("inspection",inspection);  
+			return "refresh";
+		}else if(fromUserid.equals("register")){ 
+			String inspection="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+token.getAppid()+"&redirect_uri="+URLEncoder.encode(url)+"&response_type=code&scope=snsapi_userinfo&state=register#wechat_redirect";
+			Struts2Utils.getRequest().setAttribute("inspection",inspection);  
+			return "refresh";
+		}
+		DBObject share=wwzService.getShareFx(custid,"mission_share");  
+		if(share==null){
+			share=new BasicDBObject();
+			share.put("fxtitle", wwzService.getWxUsertype(fromUserid, "nickname"));
+			share.put("fximg",wwzService.getWxUsertype(fromUserid, "headimgurl"));
+			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/mission!index.action?custid="+custid);
+			share.put("fxsummary", share.get("fxsummary"));
+		}else{
+			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/mission!index.action?custid="+custid);
+		} 
+		Struts2Utils.getRequest().setAttribute("share", share);
 		return "order";
 	}
 	/**
@@ -229,6 +328,35 @@ public class MissionAction extends GeneralAction<Mission>{
 	 * @return
 	 */
 	public String withposi() {
+		getLscode();
+    	Struts2Utils.getRequest().setAttribute("custid", custid); 
+    	WxToken token=GetAllFunc.wxtoken.get(custid); 
+		if(token.getSqlx()>0){
+			 token=GetAllFunc.wxtoken.get(wwzService.getparentcustid(custid)); 
+		} 
+		Struts2Utils.getRequest().setAttribute("token", WeiXinUtil.getSignature(token,Struts2Utils.getRequest()));
+		token=WeiXinUtil.getSignature(token,Struts2Utils.getRequest());
+		String url=SysConfig.getProperty("ip")+"/parttime/mission!withposi.action?custid="+custid;
+		if(StringUtils.isEmpty(fromUserid)){ 
+			String inspection="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+token.getAppid()+"&redirect_uri="+URLEncoder.encode(url)+"&response_type=code&scope=snsapi_base&state=c1c2j3h4#wechat_redirect";
+			Struts2Utils.getRequest().setAttribute("inspection",inspection);  
+			return "refresh";
+		}else if(fromUserid.equals("register")){ 
+			String inspection="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+token.getAppid()+"&redirect_uri="+URLEncoder.encode(url)+"&response_type=code&scope=snsapi_userinfo&state=register#wechat_redirect";
+			Struts2Utils.getRequest().setAttribute("inspection",inspection);  
+			return "refresh";
+		}
+		DBObject share=wwzService.getShareFx(custid,"mission_share");  
+		if(share==null){
+			share=new BasicDBObject();
+			share.put("fxtitle", wwzService.getWxUsertype(fromUserid, "nickname"));
+			share.put("fximg",wwzService.getWxUsertype(fromUserid, "headimgurl"));
+			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/mission!index.action?custid="+custid);
+			share.put("fxsummary", share.get("fxsummary"));
+		}else{
+			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/mission!index.action?custid="+custid);
+		} 
+		Struts2Utils.getRequest().setAttribute("share", share);
 		return "withposi";
 	}
 	/**
@@ -236,6 +364,35 @@ public class MissionAction extends GeneralAction<Mission>{
 	 * @return
 	 */
 	public String withposidet() {
+		getLscode();
+    	Struts2Utils.getRequest().setAttribute("custid", custid); 
+    	WxToken token=GetAllFunc.wxtoken.get(custid); 
+		if(token.getSqlx()>0){
+			 token=GetAllFunc.wxtoken.get(wwzService.getparentcustid(custid)); 
+		} 
+		Struts2Utils.getRequest().setAttribute("token", WeiXinUtil.getSignature(token,Struts2Utils.getRequest()));
+		token=WeiXinUtil.getSignature(token,Struts2Utils.getRequest());
+		String url=SysConfig.getProperty("ip")+"/parttime/mission!withposidet.action?custid="+custid;
+		if(StringUtils.isEmpty(fromUserid)){ 
+			String inspection="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+token.getAppid()+"&redirect_uri="+URLEncoder.encode(url)+"&response_type=code&scope=snsapi_base&state=c1c2j3h4#wechat_redirect";
+			Struts2Utils.getRequest().setAttribute("inspection",inspection);  
+			return "refresh";
+		}else if(fromUserid.equals("register")){ 
+			String inspection="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+token.getAppid()+"&redirect_uri="+URLEncoder.encode(url)+"&response_type=code&scope=snsapi_userinfo&state=register#wechat_redirect";
+			Struts2Utils.getRequest().setAttribute("inspection",inspection);  
+			return "refresh";
+		}
+		DBObject share=wwzService.getShareFx(custid,"mission_share");  
+		if(share==null){
+			share=new BasicDBObject();
+			share.put("fxtitle", wwzService.getWxUsertype(fromUserid, "nickname"));
+			share.put("fximg",wwzService.getWxUsertype(fromUserid, "headimgurl"));
+			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/mission!index.action?custid="+custid);
+			share.put("fxsummary", share.get("fxsummary"));
+		}else{
+			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/mission!index.action?custid="+custid);
+		} 
+		Struts2Utils.getRequest().setAttribute("share", share);
 		return "withposidet";
 	}
 	/**
@@ -243,6 +400,35 @@ public class MissionAction extends GeneralAction<Mission>{
 	 * @return
 	 */
 	public String ajaxadd() {
+		getLscode();
+    	Struts2Utils.getRequest().setAttribute("custid", custid); 
+    	WxToken token=GetAllFunc.wxtoken.get(custid); 
+		if(token.getSqlx()>0){
+			 token=GetAllFunc.wxtoken.get(wwzService.getparentcustid(custid)); 
+		} 
+		Struts2Utils.getRequest().setAttribute("token", WeiXinUtil.getSignature(token,Struts2Utils.getRequest()));
+		token=WeiXinUtil.getSignature(token,Struts2Utils.getRequest());
+		String url=SysConfig.getProperty("ip")+"/parttime/mission!ajaxadd.action?custid="+custid;
+		if(StringUtils.isEmpty(fromUserid)){ 
+			String inspection="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+token.getAppid()+"&redirect_uri="+URLEncoder.encode(url)+"&response_type=code&scope=snsapi_base&state=c1c2j3h4#wechat_redirect";
+			Struts2Utils.getRequest().setAttribute("inspection",inspection);  
+			return "refresh";
+		}else if(fromUserid.equals("register")){ 
+			String inspection="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+token.getAppid()+"&redirect_uri="+URLEncoder.encode(url)+"&response_type=code&scope=snsapi_userinfo&state=register#wechat_redirect";
+			Struts2Utils.getRequest().setAttribute("inspection",inspection);  
+			return "refresh";
+		}
+		DBObject share=wwzService.getShareFx(custid,"mission_share");  
+		if(share==null){
+			share=new BasicDBObject();
+			share.put("fxtitle", wwzService.getWxUsertype(fromUserid, "nickname"));
+			share.put("fximg",wwzService.getWxUsertype(fromUserid, "headimgurl"));
+			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/mission!index.action?custid="+custid);
+			share.put("fxsummary", share.get("fxsummary"));
+		}else{
+			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/mission!index.action?custid="+custid);
+		} 
+		Struts2Utils.getRequest().setAttribute("share", share);
 		return "ajaxadd";
 	}
 	/**
@@ -250,6 +436,36 @@ public class MissionAction extends GeneralAction<Mission>{
 	 * @return
 	 */
 	public String mine() {
+		getLscode();
+    	Struts2Utils.getRequest().setAttribute("custid", custid); 
+    	WxToken token=GetAllFunc.wxtoken.get(custid); 
+		if(token.getSqlx()>0){
+			 token=GetAllFunc.wxtoken.get(wwzService.getparentcustid(custid)); 
+		} 
+		Struts2Utils.getRequest().setAttribute("token", WeiXinUtil.getSignature(token,Struts2Utils.getRequest()));
+		token=WeiXinUtil.getSignature(token,Struts2Utils.getRequest());
+		String url=SysConfig.getProperty("ip")+"/parttime/mission!mine.action?custid="+custid;
+		if(StringUtils.isEmpty(fromUserid)){ 
+			String inspection="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+token.getAppid()+"&redirect_uri="+URLEncoder.encode(url)+"&response_type=code&scope=snsapi_base&state=c1c2j3h4#wechat_redirect";
+			Struts2Utils.getRequest().setAttribute("inspection",inspection);  
+			return "refresh";
+		}else if(fromUserid.equals("register")){ 
+			String inspection="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+token.getAppid()+"&redirect_uri="+URLEncoder.encode(url)+"&response_type=code&scope=snsapi_userinfo&state=register#wechat_redirect";
+			Struts2Utils.getRequest().setAttribute("inspection",inspection);  
+			return "refresh";
+		}
+		DBObject share=wwzService.getShareFx(custid,"mission_share");  
+		if(share==null){
+			share=new BasicDBObject();
+			share.put("fxtitle", wwzService.getWxUsertype(fromUserid, "nickname"));
+			share.put("fximg",wwzService.getWxUsertype(fromUserid, "headimgurl"));
+			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/mission!index.action?custid="+custid);
+			share.put("fxsummary", share.get("fxsummary"));
+		}else{
+			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/mission!index.action?custid="+custid);
+		} 
+		Struts2Utils.getRequest().setAttribute("share", share);
+		Struts2Utils.getRequest().setAttribute("entity",wwzService.getWxUser(fromUserid));
 		return "mine";
 	}
 	/**
@@ -257,12 +473,42 @@ public class MissionAction extends GeneralAction<Mission>{
 	 * @return
 	 */
 	public String minedata() {
+		getLscode();
+    	Struts2Utils.getRequest().setAttribute("custid", custid); 
+    	WxToken token=GetAllFunc.wxtoken.get(custid); 
+		if(token.getSqlx()>0){
+			 token=GetAllFunc.wxtoken.get(wwzService.getparentcustid(custid)); 
+		} 
+		Struts2Utils.getRequest().setAttribute("token", WeiXinUtil.getSignature(token,Struts2Utils.getRequest()));
+		token=WeiXinUtil.getSignature(token,Struts2Utils.getRequest());
+		String url=SysConfig.getProperty("ip")+"/parttime/mission!minedata.action?custid="+custid;
+		if(StringUtils.isEmpty(fromUserid)){ 
+			String inspection="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+token.getAppid()+"&redirect_uri="+URLEncoder.encode(url)+"&response_type=code&scope=snsapi_base&state=c1c2j3h4#wechat_redirect";
+			Struts2Utils.getRequest().setAttribute("inspection",inspection);  
+			return "refresh";
+		}else if(fromUserid.equals("register")){ 
+			String inspection="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+token.getAppid()+"&redirect_uri="+URLEncoder.encode(url)+"&response_type=code&scope=snsapi_userinfo&state=register#wechat_redirect";
+			Struts2Utils.getRequest().setAttribute("inspection",inspection);  
+			return "refresh";
+		}
+		DBObject share=wwzService.getShareFx(custid,"mission_share");  
+		if(share==null){
+			share=new BasicDBObject();
+			share.put("fxtitle", wwzService.getWxUsertype(fromUserid, "nickname"));
+			share.put("fximg",wwzService.getWxUsertype(fromUserid, "headimgurl"));
+			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/mission!index.action?custid="+custid);
+			share.put("fxsummary", share.get("fxsummary"));
+		}else{
+			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/mission!index.action?custid="+custid);
+		} 
+		Struts2Utils.getRequest().setAttribute("share", share);
 		return "minedata";
 	}
 	/**
 	 * ajax获取首页数据
 	 */
 	public void ajaxIndex() {
+		getLscode();
 		Map<String, Object>submap=new HashMap<String, Object>();
 		submap.put("state", 1);
 		HashMap<String, Object>whereMap=new HashMap<String, Object>();
@@ -290,6 +536,7 @@ public class MissionAction extends GeneralAction<Mission>{
 	 * ajax获取订单数据
 	 */
 	public void ajaxOrder() {
+		getLscode();
 		Map<String, Object>submap=new HashMap<String, Object>();
 		submap.put("state", 1);
 		HashMap<String, Object>whereMap=new HashMap<String, Object>();
@@ -298,12 +545,19 @@ public class MissionAction extends GeneralAction<Mission>{
 		if (StringUtils.isNotEmpty(Struts2Utils.getParameter("fypage"))) {
 			fypage=Integer.parseInt(Struts2Utils.getParameter("fypage"));
 		}
+		whereMap.put("fromid", fromUserid);
+		String state=Struts2Utils.getParameter("state");
+		System.out.println(state);
+		if (StringUtils.isNotEmpty(state)) {
+			whereMap.put("state", Integer.parseInt(state));
+		} 
+		System.out.println(fromUserid);
 		List<DBObject>list=baseDao.getList(PubConstants.PARTTIME_ORDER, whereMap,fypage,10, sortMap);
+		System.out.println(list);
 		if(list.size()>0){
 			submap.put("state",0);
 			submap.put("list",list);	
-		}
-		
+		} 
 		String json = JSONArray.fromObject(submap).toString(); 
 		Struts2Utils.renderJson(json.substring(1, json.length() - 1), new String[0]);
 	}
@@ -311,11 +565,13 @@ public class MissionAction extends GeneralAction<Mission>{
 	 * ajax获取提现数据
 	 */
 	public void ajaxWithposi() {
+		getLscode();
 		Map<String, Object>submap=new HashMap<String, Object>();
 		submap.put("state", 1);
 		HashMap<String, Object>whereMap=new HashMap<String, Object>();
 		HashMap<String, Object>sortMap=new HashMap<String, Object>();
 		sortMap.put("createdate", -1);
+		whereMap.put("fromid", fromUserid);
 		if (StringUtils.isNotEmpty(Struts2Utils.getParameter("fypage"))) {
 			fypage=Integer.parseInt(Struts2Utils.getParameter("fypage"));
 		}

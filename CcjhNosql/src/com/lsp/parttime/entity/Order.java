@@ -18,11 +18,19 @@ public class Order extends ReflectionDBObject{
 	 */
 	private Long comid;
 	/**
+	 * 公司名称
+	 */
+	private String company;
+	/**
 	 * 任务ID
 	 */
 	private Long mid;
 	/**
-	 * 状态0.已报名1.已拒绝2.进行中3.已完成4.已结算
+	 * 任务名称
+	 */
+	private String mtitle;
+	/**
+	 * 状态0.已报名1.已拒绝2.进行中3.已完成4.已结算5未完成
 	 */
 	private int state;
 	/**
@@ -53,6 +61,14 @@ public class Order extends ReflectionDBObject{
 	 * 上班地点
 	 */
 	private String workaddress;
+	/**
+	 * 单价
+	 */
+	private double price;
+	/**
+	 * 结算类型（0为默认即一单多钱，1为小时结算，2为日结算，3为月结算）
+	 */
+	private int jstype;
 	
 	public Date getGatherdate() {
 		return gatherdate;
@@ -131,6 +147,30 @@ public class Order extends ReflectionDBObject{
 	}
 	public void setWorkaddress(String workaddress) {
 		this.workaddress = workaddress;
+	}
+	public String getCompany() {
+		return company;
+	}
+	public void setCompany(String company) {
+		this.company = company;
+	}
+	public String getMtitle() {
+		return mtitle;
+	}
+	public void setMtitle(String mtitle) {
+		this.mtitle = mtitle;
+	}
+	public double getPrice() {
+		return price;
+	}
+	public void setPrice(double price) {
+		this.price = price;
+	}
+	public int getJstype() {
+		return jstype;
+	}
+	public void setJstype(int jstype) {
+		this.jstype = jstype;
 	}
 	
 }

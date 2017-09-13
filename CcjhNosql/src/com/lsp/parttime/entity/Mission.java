@@ -82,6 +82,14 @@ public class Mission extends ReflectionDBObject{
 	 * 区域
 	 */
 	private String area;
+	/**
+	 * 单价
+	 */
+	private double price;
+	/**
+	 * 结算类型（0为默认即一单多钱，1为小时结算，2为日结算，3为月结算）
+	 */
+	private int jstype;
 	 
 	public String getArea() {
 		return area;
@@ -228,6 +236,16 @@ public class Mission extends ReflectionDBObject{
 	public void setWelfare(String welfare) {
 		this.welfare = welfare;
 	}
-	
-	
+	public double getPrice() {
+		return price;
+	}
+	public void setPrice(double price) {
+		this.price = price;
+	}
+	public int getJstype() {
+		return jstype;
+	}
+	public void setJstype(int jstype) {
+		this.jstype = jstype;
+	} 
 }

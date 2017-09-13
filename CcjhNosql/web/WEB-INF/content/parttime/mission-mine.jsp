@@ -62,18 +62,18 @@
 <main class="cmp640">
 
     <div class="hang90 overflow-hidden bg-bai width-10 position-r clear">
-        <div class="pull-left bg-hui-tx txt-c img-wh70 position-a p-top-left-10 position-r">
-            <i class="fa fa-user-secret fa-3x zi-bai" style="line-height: 70px;"></i>
-            <!--无头像时显示的div-->
-            <div class="position-a width-10" style="bottom: 0px;left: 0px;">
-                <div class="hang20 line-height20 bg-hei-5 zi-bai"><font size="1">点击上传</font></div>
-            </div>
-            <!--有头像时显示div-->
-            <!--<img src="img/touxiang.jpg" class="width-10 border-radius3">-->
+        <div class="pull-left bg-hui-tx txt-c img-wh70 position-a p-top-left-10 position-r"> 
+            <c:if test="${empty user.headimgurl}">
+            <img src="${ctx}/mvccol/img/user/weizhuce.jpg" class="width-10 border-radius3"/>
+            </c:if>
+            <c:if test="${not empty user.headimgurl}">
+            <img src="${filehttp}/${user.headimgurl}" class="width-10 border-radius3"/>
+            </c:if>
+            
         </div>
         <div class="pt-10 pr-10 width-10 pl-90 weight500">
             <div class="hang25 line-height25 zi-hei-tq">
-                <div class="col-9 sl">昵称，ID:12365485965</div>
+                <div class="col-9 sl">${user.nickname}，ID:${user.no}</div>
             </div>
             <div class="hang20 line-height20 zi-hui-wx">
                 <div class="col-9 sl">陕西省 渭南市</div>

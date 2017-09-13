@@ -76,7 +76,7 @@
                     		+'<div class="clear sl weight100 hang30 line-height30">'
                     		+'<span class="zi-hui"><i class="pr-5 weight500 zi-hei">['+v[i].area+']</i><i>已招募:</i>'+v[i].num+'人</span></div>'
                     		+'<div class="sl weight500 hang30 line-height30">'
-                    		+'<div class="pull-left">薪资<span class="zi-cheng pl-5 weight500">'+v[i].wages+'</span>'
+                    		+'<div class="pull-left">薪资<span class="zi-cheng pl-5 weight500">￥'+v[i].price+'</span>'
                     		+'</div><div class="pull-right zi-hui">'+Date.prototype.format(v[i].createdate)+'</div></div></div>'
                     		+'<div class="hang7 bg-hui clear"></div>';
                     	  

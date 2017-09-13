@@ -86,7 +86,7 @@ public class OrderAction extends GeneralAction<Order>{
 	 * 生成订单
 	 */
 	public void  createMiss() {
-		getLocale();
+		getLscode();
 		Map<String, Object>submap=new HashMap<String, Object>(); 
 		submap.put("state", 1);
 		String mid=Struts2Utils.getParameter("mid"); 
@@ -95,6 +95,17 @@ public class OrderAction extends GeneralAction<Order>{
 				DBObject dbObject=baseDao.getMessage(PubConstants.PARTTIME_MISSION, Long.parseLong(mid));
 				if (dbObject!=null) {
 					Mission mission=(Mission) UniObject.DBObjectToObject(dbObject, Mission.class);
+					HashMap<String, Object>whereMap=new HashMap<>();
+					whereMap.put("mid",Long.parseLong(mid));
+					whereMap.put("fromid",fromUserid);
+					Long count=baseDao.getCount(PubConstants.PARTTIME_ORDER, whereMap);
+					if (count!=0) { 
+						//重复报名
+						submap.put("state", 2);
+						String json = JSONArray.fromObject(submap).toString(); 
+						Struts2Utils.renderJson(json.substring(1, json.length() - 1), new String[0]);
+						return;
+					}
 					Order order=new Order();
 					//10位序列号,可以自行调整。
 					//四位随机数
@@ -102,18 +113,22 @@ public class OrderAction extends GeneralAction<Order>{
 					String orderno = DateFormat.getDate() + strRandom+mongoSequence.currval(PubConstants.PARTTIME_ORDER);
 					order.set_id(orderno);  
 					order.setCreatedate(new Date());
+					order.setMid(Long.parseLong(mid));
 					order.setFromid(fromUserid);
 					order.setCustid(custid);
+					order.setCompany(mission.getCompany());
+					order.setMtitle(mission.getTitle());
 					order.setGatherdate(mission.getGatherdate());
 					order.setStartdate(mission.getStartdate());
 					order.setEnddate(mission.getEnddate());
+					order.setPrice(mission.getPrice());
+					order.setJstype(mission.getJstype());
 					order.setWorkaddress(mission.getWorkaddress());
 					baseDao.insert(PubConstants.PARTTIME_ORDER, order);
+					submap.put("state", 0);
 				}
 				
-			}
-			 
-			submap.put("state", 0);
+			} 
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

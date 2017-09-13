@@ -16,6 +16,7 @@
     <script src="${ctx}/app/js/jquery-1.8.3.js"></script>
     <link href="${ctx}/app/css/YLui.css" rel="stylesheet" type="text/css"/>
     <link href="${ctx}/app/css/font-awesome.min.css" rel="stylesheet">
+    <script type="text/javascript" src="${ctx}/mvccol/js/fomatdate1.js"></script>
      <style>
 
         .line-height32 {
@@ -63,8 +64,69 @@
         $(function () {
             $(".yListr2 li").click(function () {
                 $(this).addClass("line-bottom-red").siblings().removeClass("line-bottom-red");
+                vt=$(this).attr("id");
+                fypage=0;
+                ajaxjz(false);
             })
         })
+    </script>
+     <script> 
+         var fypage=0;
+         var issend=true;
+         var vt='';
+         function ajaxjz(fag) {  
+            var submitData = {
+                state: vt
+            };
+            if(!issend){
+            	return;
+            }
+            issend = false; 
+            $.post('${ctx}/parttime/mission!ajaxOrder.action?custid=${custid}&lscode=${lscode}&fypage=' +fypage, submitData, function (json) {
+          
+            	var xszf;
+                if (fag) {
+                    xszf = $('#ajaxdiv').html();
+                } else {
+                    xszf = '';
+                }
+                if (json.state == 0) {
+                    var v = json.list;
+                    for (var i = 0; i < v.length; i++) {
+                    	xszf+='<div class="div-group-10 overflow-hidden line-bottom-92 clear">'
+                    	    +'<div class="hang20 line-height20 weight500">'
+                    	    +'<div class="pull-left">岗位名称：['+v[i].mtitle+']<i class="zi-26bd93 pl-10">￥100</i></div>';
+                    	    if(v[i].state==3){
+                    	    	xszf+='<div class="pull-right zi-jin">待结算</div>';	
+                    	    } 
+                    	    if(v[i].state==4){
+                    	    	xszf+='<div class="pull-right zi-26bd93">已完成</div>';	
+                    	    } 
+                    	    if(v[i].state==0){
+                    	    	xszf+='<div class="pull-right zi-green">已报名</div>';	
+                    	    } 
+                    	    if(v[i].state==5){
+                    	    	xszf+='<div class="pull-right zi-hui-tq">未完成</div>';	
+                    	    } 
+                    	    xszf+='</div></div>'
+                    	    +'<div class="width-9 maring-a pt-10 pb-10 overflow-hidden zi-6 weight500">'
+                    	    +'<div class="hang30 line-height30">'
+                    	    +'<i class="zi-hei">接单日期：</i>'+Date.prototype.format(v[i].createdate)+'</div>'
+                    	    +'<div class="hang30 line-height30"><i class="zi-hei">集合时间：</i>'+Date.prototype.format(v[i].gatherdate)+'</div>'
+                    	    +'<div class="hang30 line-height30"><i class="zi-hei">上班时间：</i>'+Date.prototype.format(v[i].startdate)+'<i class="pl-10 pr-10">至</i>'+Date.prototype.format(v[i].enddate)+'</div>'
+                    	    +'<div class=" line-height30">'
+                    	    +'<i class="zi-hei">地点：</i>'+v[i].workaddress+'<i class="zi-lan-tq pl-5">查看地图</i></div>'
+                    	    +'<div class="hang30 line-height30"><i class="zi-hei">订单编号：</i>'+v[i]._id+'</div></div>'
+                    	    +'<div class="hang10 clear bg-hui"></div>'; 
+                    }
+                    fypage++;
+                } else {
+                }
+                issend = true;
+                $('#ajaxdiv').html(xszf); 
+            }, "json");
+        }
+       
     </script>
 </head>
 <body class="lock">
@@ -75,134 +137,71 @@
          style="left:0px;top: 0px;z-index: 10;">
         <div class="clear position-r" style=" z-index:3;">
             <div class="hang40 pt-5 line-bottom weight500 weight100 yListr2 zi-hei">
-                <li class="button_group1 hang30 line-height32 txt-c line-bottom-red">
+                <li class="button_group1 hang30 line-height32 txt-c line-bottom-red" id="">
                     全部
                 </li>
-                <li class="button_group1 hang30 line-height32 txt-c">
+                <li class="button_group1 hang30 line-height32 txt-c" id="0">
                     已报名
                 </li>
-                <li class="button_group1 hang30 line-height32 txt-c">
+                <li class="button_group1 hang30 line-height32 txt-c" id="3">
                     待结算
                 </li>
-                <li class="button_group1 hang30 line-height32 txt-c">
+                <li class="button_group1 hang30 line-height32 txt-c" id="5">
                     未完成
                 </li>
-                <li class="button_group1 hang30 line-height32 txt-c">
+                <li class="button_group1 hang30 line-height32 txt-c" id="4">
                     已完成
                 </li>
             </div>
         </div>
     </div>
-    <div class="hang40"></div>
-
-
-    <div class="div-group-10 overflow-hidden line-bottom-92 clear">
-        <div class="hang20 line-height20 weight500">
-            <div class="pull-left">岗位名称：[快递分拣日结]<i class="zi-26bd93 pl-10">￥100</i></div>
-            <div class="pull-right zi-jin">待结算</div>
-        </div>
-    </div>
-    <div class="width-9 maring-a pt-10 pb-10 overflow-hidden zi-6 weight500">
-        <div class="hang30 line-height30">
-            <i class="zi-hei">接单日期：</i>2018-03-03 12：00：00
-        </div>
-        <div class="hang30 line-height30">
-            <i class="zi-hei">集合时间：</i>2018-03-03 11：30
-        </div>
-        <div class="hang30 line-height30">
-            <i class="zi-hei">上班时间：</i>12：00<i class="pl-10 pr-10">至</i>22：00
-        </div>
-        <div class=" line-height30">
-            <i class="zi-hei">地点：</i>陕西省西安市未央区某某某物流园向北100米<i class="zi-lan-tq pl-5">查看地图</i>
-        </div>
-        <div class="hang30 line-height30">
-            <i class="zi-hei">订单编号：</i>8756474869494
-        </div>
-    </div>
-
-    <!--分隔线-->
-    <div class="hang10 clear bg-hui"></div>
-
-    <div class="div-group-10 overflow-hidden line-bottom-92 clear">
-        <div class="hang20 line-height20 weight500">
-            <div class="pull-left">岗位名称：[快递分拣日结]<i class="zi-26bd93 pl-10">￥100</i></div>
-            <div class="pull-right zi-26bd93">已完成</div>
-        </div>
-    </div>
-    <div class="width-9 maring-a pt-10 pb-10 overflow-hidden zi-6 weight500">
-        <div class="hang30 line-height30">
-            <i class="zi-hei">接单日期：</i>2018-03-03 12：00：00
-        </div>
-        <div class="hang30 line-height30">
-            <i class="zi-hei">集合时间：</i>2018-03-03 11：30
-        </div>
-        <div class="hang30 line-height30">
-            <i class="zi-hei">上班时间：</i>12：00<i class="pl-10 pr-10">至</i>22：00
-        </div>
-        <div class=" line-height30">
-            <i class="zi-hei">地点：</i>陕西省西安市未央区某某某物流园向北100米<i class="zi-lan-tq pl-5">查看地图</i>
-        </div>
-        <div class="hang30 line-height30">
-            <i class="zi-hei">订单编号：</i>8756474869494
-        </div>
-    </div>
-
-    <!--分隔线-->
-    <div class="hang10 clear bg-hui"></div>
-
-    <div class="div-group-10 overflow-hidden line-bottom-92 clear">
-        <div class="hang20 line-height20 weight500">
-            <div class="pull-left">岗位名称：[快递分拣日结]<i class="zi-26bd93 pl-10">￥100</i></div>
-            <div class="pull-right zi-hui-tq">未完成</div>
-        </div>
-    </div>
-    <div class="width-9 maring-a pt-10 pb-10 overflow-hidden zi-6 weight500">
-        <div class="hang30 line-height30">
-            <i class="zi-hei">接单日期：</i>2018-03-03 12：00：00
-        </div>
-        <div class="hang30 line-height30">
-            <i class="zi-hei">集合时间：</i>2018-03-03 11：30
-        </div>
-        <div class="hang30 line-height30">
-            <i class="zi-hei">上班时间：</i>12：00<i class="pl-10 pr-10">至</i>22：00
-        </div>
-        <div class=" line-height30">
-            <i class="zi-hei">地点：</i>陕西省西安市未央区某某某物流园向北100米<i class="zi-lan-tq pl-5">查看地图</i>
-        </div>
-        <div class="hang30 line-height30">
-            <i class="zi-hei">订单编号：</i>8756474869494
-        </div>
-    </div>
-
-    <!--分隔线-->
-    <div class="hang10 clear bg-hui"></div>
-
-    <div class="div-group-10 overflow-hidden line-bottom-92 clear">
-        <div class="hang20 line-height20 weight500">
-            <div class="pull-left">岗位名称：[快递分拣日结]<i class="zi-26bd93 pl-10">￥100</i></div>
-            <div class="pull-right zi-green">已报名</div>
-        </div>
-    </div>
-    <div class="width-9 maring-a pt-10 pb-10 overflow-hidden zi-6 weight500">
-        <div class="hang30 line-height30">
-            <i class="zi-hei">接单日期：</i>2018-03-03 12：00：00
-        </div>
-        <div class="hang30 line-height30">
-            <i class="zi-hei">集合时间：</i>2018-03-03 11：30
-        </div>
-        <div class="hang30 line-height30">
-            <i class="zi-hei">上班时间：</i>12：00<i class="pl-10 pr-10">至</i>22：00
-        </div>
-        <div class=" line-height30">
-            <i class="zi-hei">地点：</i>陕西省西安市未央区某某某物流园向北100米<i class="zi-lan-tq pl-5">查看地图</i>
-        </div>
-        <div class="hang30 line-height30">
-            <i class="zi-hei">订单编号：</i>8756474869494
-        </div>
-    </div>
-
+    <div class="hang40"></div> 
+    <div id="ajaxdiv"></div>
 </main>
 
 <%@include file="/webcom/mission-foot.jsp"%>
+<script> 
+ajaxjz(false); 
+$(window).scroll(function () {
+        var offsetY = $(window).scrollTop();
+        var section1 = $("#section1").height();
+        if (section1 - offsetY < 600) { 
+            ajaxjz(false); 
+        }
+ });
+wx.config({
+    debug: false,
+    appId: '${token.appid}', 
+    timestamp: '${token.timestamp}', 
+    nonceStr: '${token.noncestr}', 
+    signature: '${token.signature}',
+    jsApiList: [ 'checkJsApi',
+                 'onMenuShareTimeline',
+                 'onMenuShareAppMessage',
+                 'onMenuShareQQ',
+                 'onMenuShareWeibo',
+                 'hideMenuItems',
+                 'showMenuItems'
+                 ] 
+});
+wx.ready(function(){ 
+	var share={
+		    title: '${share.fxtitle}', // 分享标题
+		    desc: '${share.fxsummary}', // 分享描述
+		    link: '${share.fxurl}', // 分享链接
+		    imgUrl: '${filehttp}${share.fximg}', // 分享图标
+		    success: function () {
+		     check_task();
+		    },
+		    cancel: function () {
+		    }
+		};
+	wx.onMenuShareAppMessage(share);
+	wx.onMenuShareTimeline(share);
+	wx.onMenuShareAppMessage(share);
+	wx.onMenuShareQQ(share);
+	wx.onMenuShareWeibo(share);
+}); 
+</script>
 </body>
 </html>
