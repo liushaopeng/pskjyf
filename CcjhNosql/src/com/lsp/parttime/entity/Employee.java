@@ -34,6 +34,10 @@ public class Employee extends ReflectionDBObject{
 	 * 微信ID
 	 */
 	private String wxid;
+	/**
+	 * 0为普通用户，1为管理员
+	 */
+	private int type;
 	public String getCustid() {
 		return custid;
 	}
@@ -93,6 +97,12 @@ public class Employee extends ReflectionDBObject{
 	}
 	public void setWxid(String wxid) {
 		this.wxid = wxid;
+	}
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
 	}
 	
 }

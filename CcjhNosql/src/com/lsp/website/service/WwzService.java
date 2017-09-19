@@ -1855,5 +1855,24 @@ public class WwzService {
 		return null;
 		
     }
+    /**
+     * 验证是否是兼职管理员
+     * @param fromid
+     * @param custid
+     * @return
+     */
+    public boolean CheckEmployee(String fromid,String custid) {
+    	HashMap<String ,Object>whereMap=new HashMap<>();
+    	whereMap.put("custid",custid);
+    	whereMap.put("fromid",fromid);
+    	DBObject dbObject=baseDao.getMessage(PubConstants.PARTTIME_EMPLOYEE, fromid);
+    	if (dbObject!=null&&dbObject.get("type")!=null) {
+		 int type=Integer.parseInt(dbObject.get("type").toString());
+		 if (type==1) {
+			return true;
+		 }
+		}
+		return false; 
+    }
     
 }

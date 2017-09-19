@@ -2,8 +2,10 @@ package com.lsp.parttime.web;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
@@ -15,10 +17,12 @@ import com.lsp.parttime.entity.Employee;
 import com.lsp.pub.dao.BaseDao;
 import com.lsp.pub.db.MongoSequence;
 import com.lsp.pub.entity.PubConstants;
+import com.lsp.pub.util.SpringSecurityUtils;
 import com.lsp.pub.util.Struts2Utils;
 import com.lsp.pub.util.UniObject;
 import com.lsp.pub.web.GeneralAction;
 import com.mongodb.DBObject;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.sun.swing.internal.plaf.basic.resources.basic;
 
 import net.sf.json.JSONArray;
@@ -37,9 +41,27 @@ public class EmployeeAction extends GeneralAction<Employee>{
 	private BaseDao baseDao;
 	private Employee entity = new Employee();
 	private Long _id;
+	public void set_id(Long _id) {
+		this._id = _id;
+	}
 
 	private MongoSequence mongoSequence;
 
+	@Override
+	public String execute() throws Exception {
+		custid=SpringSecurityUtils.getCurrentUser().getId();
+		HashMap<String, Object>whereMap=new HashMap<>();
+		HashMap<String, Object>sortMap=new HashMap<>();
+		whereMap.put("custid", custid);
+		if(StringUtils.isNotEmpty(Struts2Utils.getParameter("fypage"))) {
+			fypage=Integer.parseInt(Struts2Utils.getParameter("fypage"));
+		}
+		List<DBObject>list=baseDao.getList(PubConstants.PARTTIME_EMPLOYEE, whereMap,fypage,10,sortMap);
+		fycount=baseDao.getCount(PubConstants.PARTTIME_EMPLOYEE,whereMap);
+		Struts2Utils.getRequest().setAttribute("list",list);
+		Struts2Utils.getRequest().setAttribute("custid",custid);
+		return SUCCESS; 
+	}
 	@Autowired
 	public void setMongoSequence(MongoSequence mongoSequence) {
 		this.mongoSequence = mongoSequence;
@@ -85,7 +107,10 @@ public class EmployeeAction extends GeneralAction<Employee>{
 	 */
 	public void createEmp() {
 		getLscode();
-		DBObject dbObject=baseDao.getMessage(PubConstants.PARTTIME_EMPLOYEE, fromUserid);
+		HashMap<String,Object>whereMap=new HashMap<>();
+		whereMap.put("fromid",fromUserid);
+		whereMap.put("custid",custid);
+		DBObject dbObject=baseDao.getMessage(PubConstants.PARTTIME_EMPLOYEE, whereMap);
 		if (dbObject==null) {
 			Employee employee=new Employee();
 			employee.set_id(fromUserid);
@@ -118,6 +143,48 @@ public class EmployeeAction extends GeneralAction<Employee>{
 			baseDao.insert(PubConstants.PARTTIME_EMPLOYEE, employee);
 			submap.put("state", 0);
 		}
+		String json = JSONArray.fromObject(submap).toString(); 
+		Struts2Utils.renderJson(json.substring(1, json.length() - 1), new String[0]);
+		
+	}
+	/**
+	 * 设置管理员
+	 */
+	public void ajaxSetAdmin() {  
+		Map<String, Object>submap=new HashMap<String, Object>(); 
+		submap.put("state", 1);
+		String id=Struts2Utils.getParameter("id");
+		if (id!=null) {
+			DBObject dbObject=baseDao.getMessage(PubConstants.PARTTIME_EMPLOYEE, id);
+			if (dbObject!=null) {
+				Employee employee=(Employee) UniObject.DBObjectToObject(dbObject, Employee.class);
+				employee.setType(1);
+				baseDao.insert(PubConstants.PARTTIME_EMPLOYEE, employee);
+				submap.put("state",0);
+			}
+		}
+	 
+		String json = JSONArray.fromObject(submap).toString(); 
+		Struts2Utils.renderJson(json.substring(1, json.length() - 1), new String[0]);
+		
+	}
+	/**
+	 * 取消管理员
+	 */
+	public void ajaxCancelAdmin() {  
+		Map<String, Object>submap=new HashMap<String, Object>(); 
+		submap.put("state", 1);
+		String id=Struts2Utils.getParameter("id");
+		if (id!=null) {
+			DBObject dbObject=baseDao.getMessage(PubConstants.PARTTIME_EMPLOYEE, id);
+			if (dbObject!=null) {
+				Employee employee=(Employee) UniObject.DBObjectToObject(dbObject, Employee.class);
+				employee.setType(0);
+				baseDao.insert(PubConstants.PARTTIME_EMPLOYEE, employee);
+				submap.put("state",0);
+			}
+		}
+	 
 		String json = JSONArray.fromObject(submap).toString(); 
 		Struts2Utils.renderJson(json.substring(1, json.length() - 1), new String[0]);
 		

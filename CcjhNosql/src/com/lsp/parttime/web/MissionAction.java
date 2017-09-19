@@ -142,67 +142,69 @@ public class MissionAction extends GeneralAction<Mission>{
 		getLocale();
 		Map<String, Object>submap=new HashMap<String, Object>(); 
 		submap.put("state", 1);
-		String linktel=Struts2Utils.getParameter("linktel");
-		String linkname=Struts2Utils.getParameter("linkname"); 
-		String experience=Struts2Utils.getParameter("experience");
-		String education=Struts2Utils.getParameter("education");
-		String num=Struts2Utils.getParameter("num");
-		String workaddress=Struts2Utils.getParameter("workaddress");
-		String wages=Struts2Utils.getParameter("wages");
-		String title=Struts2Utils.getParameter("title");
-		String price=Struts2Utils.getParameter("price");
-		String jstype=Struts2Utils.getParameter("jstype");
-		String gatherdate=Struts2Utils.getParameter("gatherdate");
-		String startdate=Struts2Utils.getParameter("startdate");
-		String enddate=Struts2Utils.getParameter("enddate");
-		String type=Struts2Utils.getParameter("type");
-		String company=Struts2Utils.getParameter("company");
-		String area=Struts2Utils.getParameter("area");
-		String age=Struts2Utils.getParameter("age");
-		
-		try {
-			Mission mission=new Mission();
-			mission.set_id(mongoSequence.currval(PubConstants.PARTTIME_MISSION));
-			mission.setFromid(fromUserid);
-			mission.setCustid(custid);
-			mission.setTitle(title);
-			if (StringUtils.isNotEmpty(price)) {
-				mission.setPrice(Double.parseDouble(price));
+		if (wwzService.CheckEmployee(fromUserid, custid)) {
+			String linktel=Struts2Utils.getParameter("linktel");
+			String linkname=Struts2Utils.getParameter("linkname"); 
+			String experience=Struts2Utils.getParameter("experience");
+			String education=Struts2Utils.getParameter("education");
+			String num=Struts2Utils.getParameter("num");
+			String workaddress=Struts2Utils.getParameter("workaddress");
+			String wages=Struts2Utils.getParameter("wages");
+			String title=Struts2Utils.getParameter("title");
+			String price=Struts2Utils.getParameter("price");
+			String jstype=Struts2Utils.getParameter("jstype");
+			String gatherdate=Struts2Utils.getParameter("gatherdate");
+			String startdate=Struts2Utils.getParameter("startdate");
+			String enddate=Struts2Utils.getParameter("enddate");
+			String type=Struts2Utils.getParameter("type");
+			String company=Struts2Utils.getParameter("company");
+			String area=Struts2Utils.getParameter("area");
+			String age=Struts2Utils.getParameter("age");
+			
+			try {
+				Mission mission=new Mission();
+				mission.set_id(mongoSequence.currval(PubConstants.PARTTIME_MISSION));
+				mission.setFromid(fromUserid);
+				mission.setCustid(custid);
+				mission.setTitle(title);
+				if (StringUtils.isNotEmpty(price)) {
+					mission.setPrice(Double.parseDouble(price));
+				}
+				if (StringUtils.isNotEmpty(jstype)) {
+					mission.setJstype(Integer.parseInt(jstype));
+				} 
+				mission.setGatherdate(DateFormat.StringToDate(gatherdate+":00"));
+				mission.setStartdate(DateFormat.StringToDate(startdate+":00"));
+				mission.setEnddate(DateFormat.StringToDate(enddate+":00"));
+				if (StringUtils.isNotEmpty(type)) {
+					mission.setType(Integer.parseInt(type));
+				} 
+				mission.setCompany(company);
+				mission.setArea(area);
+				if (StringUtils.isNotEmpty(age)) {
+					mission.setAge(Integer.parseInt(age));
+				} 
+				mission.setCreatedate(new Date());
+				if (StringUtils.isNotEmpty(education)) {
+					mission.setEducation(Integer.parseInt(education));
+				}
+				if (StringUtils.isNotEmpty(experience)) {
+					mission.setExperience(Integer.parseInt(experience));
+				}
+				if (StringUtils.isNotEmpty(num)) {
+					mission.setNum(Integer.parseInt(num));
+				} 
+				mission.setLinkname(linkname);
+				mission.setLinktel(linktel);
+				mission.setWages(wages);
+				mission.setWorkaddress(workaddress);
+				baseDao.insert(PubConstants.PARTTIME_MISSION, mission);
+				submap.put("state", 0);
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			if (StringUtils.isNotEmpty(jstype)) {
-				mission.setJstype(Integer.parseInt(jstype));
-			} 
-			mission.setGatherdate(DateFormat.StringToDate(gatherdate+":00"));
-			mission.setStartdate(DateFormat.StringToDate(startdate+":00"));
-			mission.setEnddate(DateFormat.StringToDate(enddate+":00"));
-			if (StringUtils.isNotEmpty(type)) {
-				mission.setType(Integer.parseInt(type));
-			} 
-			mission.setCompany(company);
-			mission.setArea(area);
-			if (StringUtils.isNotEmpty(age)) {
-				mission.setAge(Integer.parseInt(age));
-			} 
-			mission.setCreatedate(new Date());
-			if (StringUtils.isNotEmpty(education)) {
-				mission.setEducation(Integer.parseInt(education));
-			}
-			if (StringUtils.isNotEmpty(experience)) {
-				mission.setExperience(Integer.parseInt(experience));
-			}
-			if (StringUtils.isNotEmpty(num)) {
-				mission.setNum(Integer.parseInt(num));
-			} 
-			mission.setLinkname(linkname);
-			mission.setLinktel(linktel);
-			mission.setWages(wages);
-			mission.setWorkaddress(workaddress);
-			baseDao.insert(PubConstants.PARTTIME_MISSION, mission);
-			submap.put("state", 0);
-		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} 
 		String json = JSONArray.fromObject(submap).toString(); 
 		Struts2Utils.renderJson(json.substring(1, json.length() - 1), new String[0]);
 	}
