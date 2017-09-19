@@ -16,6 +16,7 @@
     <script src="${ctx}/app/js/jquery-1.8.3.js"></script>
     <link href="${ctx}/app/css/YLui.css" rel="stylesheet" type="text/css"/>
     <link href="${ctx}/app/css/font-awesome.min.css" rel="stylesheet">
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <style>
         .btn-26bd93 {
             background-color: #26bd93;
@@ -25,6 +26,26 @@
             background-color: #21a883;
         }
     </style>
+    <script>
+    function ajaxsave(){
+    	   var submitData = { 
+    			  tel:$('#tel').val(), 
+    			  name:$('#name').val(), 
+    			  idcard:$('#idcard').val(), 
+    			  wxid:$('#wxid').val(), 
+    			  tel:$('#tel').val(),  
+    	  };
+    	  $.post('${ctx}/parttime/mission!ajaxSaveMine.action?custid=${custid}&lscode=${lscode}', submitData, function(json) { 
+    	   if(json.state==0){
+    		   alert('修改成功');
+    		   
+    	   }else{
+    		   alert('修改失败');
+    	   }
+    	  }, "json")
+    	  ps_show('inszc');
+    	}
+    </script>
 </head>
 <body class="cmp640">
 <main>
@@ -34,10 +55,10 @@
             真实姓名<i class="zi-hui weight100 pl-5 size10">(必填)</i>
         </div>
         <div class=" pull-right hang50">
-            <input class="width-10 size12 txt-r zi-hui weight500 hang50 line-height50" type="text" name=""
-                   value="刘刚"
-                   onfocus="if(this.value=='刘刚'){this.value=''};this.style.color='#666666';"
-                   onblur="if(this.value==''||this.value=='刘刚'){this.value='刘刚';this.style.color='#aaa';}">
+            <input class="width-10 size12 txt-r zi-hui weight500 hang50 line-height50" type="text" id="name"
+                   value="${entity.name}"
+                   onfocus="if(this.value=='${entity.name}'){this.value=''};this.style.color='#666666';"
+                   onblur="if(this.value==''||this.value=='${entity.name}'){this.value='${entity.name}';this.style.color='#aaa';}"/>
         </div>
     </div>
 
@@ -46,10 +67,10 @@
             手机号<i class="zi-hui weight100 pl-5 size10">(必填)</i>
         </div>
         <div class=" pull-right hang50">
-            <input class="width-10 size12 txt-r zi-hui weight500 hang50 line-height50" type="text" name=""
-                   value="15091532287"
-                   onfocus="if(this.value=='610126199709083456'){this.value=''};this.style.color='#666666';"
-                   onblur="if(this.value==''||this.value=='610126199709083456'){this.value='610126199709083456';this.style.color='#aaa';}">
+            <input class="width-10 size12 txt-r zi-hui weight500 hang50 line-height50" type="text" id="tel"
+                   value="${entity.tel}"
+                   onfocus="if(this.value=='${entity.tel}'){this.value=''};this.style.color='#666666';"
+                   onblur="if(this.value==''||this.value=='${entity.tel}'){this.value='${entity.idcard}';this.style.color='#aaa';}"/>
         </div>
     </div>
 
@@ -58,10 +79,10 @@
             身份证号码<i class="zi-hui weight100 pl-5 size10">(必填)</i>
         </div>
         <div class=" pull-right hang50">
-            <input class="width-10 size12 txt-r zi-hui weight500 hang50 line-height50" type="text" name=""
-                   value="610126199709083456"
-                   onfocus="if(this.value=='610126199709083456'){this.value=''};this.style.color='#666666';"
-                   onblur="if(this.value==''||this.value=='610126199709083456'){this.value='610126199709083456';this.style.color='#aaa';}">
+            <input class="width-10 size12 txt-r zi-hui weight500 hang50 line-height50" type="text" id="idcard"
+                   value="${entity.idcard}"
+                   onfocus="if(this.value=='${entity.idcard}'){this.value=''};this.style.color='#666666';"
+                   onblur="if(this.value==''||this.value=='${entity.idcard}'){this.value='${entity.idcard}';this.style.color='#aaa';}"/>
         </div>
     </div>
 
@@ -72,32 +93,17 @@
             微信帐号<i class="zi-hui weight100 pl-5 size10">(选填)</i>
         </div>
         <div class=" pull-right hang50 pr-10">
-            <input class="width-10 size12 txt-r zi-hui weight500 hang50 line-height50" type="text" name=""
-                   value="js5512jishy"
-                   onfocus="if(this.value=='js5512jishy'){this.value=''};this.style.color='#666666';"
-                   onblur="if(this.value==''||this.value=='js5512jishy'){this.value='js5512jishy';this.style.color='#aaa';}">
+            <input class="width-10 size12 txt-r zi-hui weight500 hang50 line-height50" type="text" id="wxid"
+                   value="${entity.wxid}"
+                   onfocus="if(this.value=='${entity.wxid}'){this.value=''};this.style.color='#666666';"
+                   onblur="if(this.value==''||this.value=='${entity.wxid}'){this.value='${entity.wxid}';this.style.color='#aaa';}"/>
         </div>
-    </div>
-
-    <div class="line-bottom overflow-hidden weight500">
-        <div class="pull-left pl-10 hang50 line-height50 zi-6">
-            备用手机<i class="zi-hui weight100 pl-5 size10">(选填)</i>
-        </div>
-        <div class=" pull-right hang50 pr-10">
-            <input class="width-10 size12 txt-r zi-hui weight500 hang50 line-height50" type="text" name=""
-                   value="15091531187"
-                   onfocus="if(this.value=='15091531187'){this.value=''};this.style.color='#666666';"
-                   onblur="if(this.value==''||this.value=='15091531187'){this.value='15091531187';this.style.color='#aaa';}">
-        </div>
-    </div>
-
-    <a href="#">
-        <div class=" clear mt-30">
-            <div class="width-9_5 maring-a btn-26bd93 zi-bai div-group-10 maring-a size14 txt-c weight500 border-radius3 lock">
+    </div> 
+    <div class="clear mt-30" onclick="ajaxsave()">
+         <div class="width-9_5 maring-a btn-26bd93 zi-bai div-group-10 maring-a size14 txt-c weight500 border-radius3 lock">
                 完成
-            </div>
-        </div>
-    </a>
+         </div>
+    </div> 
 </main>
 <%@include file="/webcom/mission-foot.jsp"%>
 </body>

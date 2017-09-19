@@ -16,6 +16,7 @@
     <script src="${ctx}/app/js/jquery-1.8.3.js"></script>
     <link href="${ctx}/app/css/YLui.css" rel="stylesheet" type="text/css"/>
     <link href="${ctx}/app/css/font-awesome.min.css" rel="stylesheet">
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <style>
 
         .hang45 {
@@ -92,7 +93,7 @@
     </div>
 
     <div class="hang10 clear bg-hui-92"></div>
-    <div class="hang45 lin bg-bai line-bottom-92 zi-hei pr-10 clear weight500 overflow-hidden size14">
+    <div class="hang45 lin bg-bai line-bottom-92 zi-hei pr-10 clear weight500 overflow-hidden size14" onclick="window.location.href='${ctx}/parttime/mission!withposi.action?custid=${custid}&lscode=${lscode}'">
         <div class="pull-left div-group-10">
             <div class=" bg-cheng img-wh25 txt-c zi-bai overflow-hidden" style="background-color: #e3c06a">
                 <i class="fa fa-gg line-height25"></i>
@@ -105,7 +106,7 @@
             <i class="pr-5 zi-hui">0</i><i class="fa fa-chevron-right hang45"></i>
         </div>
     </div>
-    <div class="hang45 bg-bai line-bottom-92 zi-hei pr-10 clear weight500 overflow-hidden size14">
+    <div class="hang45 bg-bai line-bottom-92 zi-hei pr-10 clear weight500 overflow-hidden size14" onclick="window.location.href='${ctx}/parttime/mission!withposidet.action?custid=${custid}&lscode=${lscode}'">
         <div class="pull-left div-group-10">
             <div class="bj-cheng img-wh25 txt-c zi-bai overflow-hidden">
                 <i class="fa fa-calculator line-height25"></i>
@@ -118,7 +119,7 @@
             <i class="fa fa-chevron-right hang45"></i>
         </div>
     </div>
-    <div class="hang45 bg-bai line-bottom-92 zi-hei pr-10 clear weight500 overflow-hidden size14">
+    <div class="hang45 bg-bai line-bottom-92 zi-hei pr-10 clear weight500 overflow-hidden size14" onclick="window.location.href='${ctx}/parttime/mission!telcertifica.action?custid=${custid}&lscode=${lscode}'">
         <div class="pull-left div-group-10">
             <div class="img-wh25 txt-c zi-bai overflow-hidden"style="background-color: #e3c06a">
                 <i class="fa fa-mobile line-height25"></i>
@@ -132,7 +133,7 @@
         </div>
     </div>
     <div class="hang10 clear bg-hui-92"></div>
-    <div class="hang45 bg-bai line-bottom-92 zi-hei pr-10 clear weight500 overflow-hidden size14">
+    <div class="hang45 bg-bai line-bottom-92 zi-hei pr-10 clear weight500 overflow-hidden size14" onclick="window.location.href='${ctx}/parttime/mission!minedata.action?custid=${custid}&lscode=${lscode}'">
         <div class="pull-left div-group-10">
             <div class="bj-lan2 img-wh25 txt-c zi-bai overflow-hidden">
                 <i class="fa fa-drivers-license-o line-height25"></i>
@@ -145,7 +146,19 @@
             <i class="pr-5 zi-hui size10">未完成</i><i class="fa fa-chevron-right hang45"></i>
         </div>
     </div>
-    <div class="hang45 bg-bai line-bottom-92 zi-hei pr-10 clear weight500 overflow-hidden size14">
+    <div class="hang10 clear bg-hui-92"></div>
+    <div class="hang45 bg-bai line-bottom-92 zi-hei pr-10 clear weight500 overflow-hidden size14" onclick="window.location.href='${ctx}/parttime/mission!ajaxadd.action?custid=${custid}&lscode=${lscode}'">
+        <div class="pull-left div-group-10">
+            <div class="bj-lan2 img-wh25 txt-c zi-bai overflow-hidden">
+                <i class="fa fa-drivers-license-o line-height25"></i>
+            </div>
+        </div>
+        <div class="pull-left">
+            职位发布
+        </div>
+         
+    </div>
+    <div class="hang45 bg-bai line-bottom-92 zi-hei pr-10 clear weight500 overflow-hidden size14" onclick="share_xianshi()">
         <div class="pull-left div-group-10">
             <div class=" bj-lan1 img-wh25 txt-c zi-bai overflow-hidden">
                 <i class="fa fa-group line-height25"></i>
@@ -190,5 +203,6 @@
 
 </main>
 <%@include file="/webcom/mission-foot.jsp"%>
+<%@include file="/webcom/mission-share.jsp"%>
 </body>
 </html>

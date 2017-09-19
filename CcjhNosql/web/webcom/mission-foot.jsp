@@ -29,7 +29,7 @@
                 </font>
             </div>
         </div>
-        <div class=" button_group1 zi-6">
+        <div class=" button_group1 zi-6" onclick="window.location.href='${ctx}/parttime/mission!notice.action?custid=${custid}&lscode=${lscode}'">
             <div class="bottom-26bd93 zi-hui-wx txt-c weight500 line-right_bai hang50">
                 <font size="3">
                     <div class="hang25 line-height30 fa fa-clone position-r">

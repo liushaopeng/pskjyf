@@ -18,6 +18,7 @@
     <link href="${ctx}/app/css/YLui.css" rel="stylesheet" type="text/css"/>
     <link href="${ctx}/app/css/font-awesome.min.css" rel="stylesheet"/>
     <script type="text/javascript" src="${ctx}/mvccol/js/fomatdate2.js"></script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <style>
 
         .line-height32 {
@@ -114,7 +115,7 @@
                 <!--<i class="fa fa-caret-down pl-5"></i>-->
             </div>
         </div>
-        <div class="pull-right zi-6">
+        <div class="pull-right zi-6" onclick="share_xianshi()">
             <i class="weight500">分享得佣金</i>
         </div>
     </div>
@@ -141,6 +142,7 @@
     <div id="ajaxdiv"></div> 
 </main>
 <%@include file="/webcom/mission-foot.jsp"%>
+<%@include file="/webcom/mission-share.jsp"%>
  
 <script> 
 ajaxjz(false); 

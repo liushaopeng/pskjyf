@@ -17,6 +17,7 @@
     <script src="${ctx}/app/js/jquery-1.8.3.js"></script>
     <link href="${ctx}/app/css/YLui.css" rel="stylesheet" type="text/css"/>
     <link href="${ctx}/app/css/font-awesome.min.css" rel="stylesheet">
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <style>
         .btn-26bd93 {
             background-color: #26bd93;

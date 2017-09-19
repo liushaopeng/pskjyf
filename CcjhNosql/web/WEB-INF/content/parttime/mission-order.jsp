@@ -17,6 +17,7 @@
     <link href="${ctx}/app/css/YLui.css" rel="stylesheet" type="text/css"/>
     <link href="${ctx}/app/css/font-awesome.min.css" rel="stylesheet">
     <script type="text/javascript" src="${ctx}/mvccol/js/fomatdate1.js"></script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
      <style>
 
         .line-height32 {
