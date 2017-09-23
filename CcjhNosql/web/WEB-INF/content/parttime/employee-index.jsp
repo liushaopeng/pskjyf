@@ -70,7 +70,7 @@
                 if (json.state == 0) {
                     var v = json.list;
                     for (var i = 0; i < v.length; i++) {
-                    	xszf+='<div class="zi-hei div-group-5 pt-10 pl-10 pr-10 overflow-hidden position-r size16" onclick="window.location.href=\'${ctx}/parttime/mission!details.action?custid=${custid}&lscode=${lscode}&id='+v[i]._id+'\'">'
+                    	xszf+='<div class="zi-hei div-group-5 pt-10 pl-10 pr-10 overflow-hidden position-r size16" onclick="window.location.href=\'${ctx}/parttime/employee!details.action?custid=${custid}&lscode=${lscode}&id='+v[i]._id+'\'">'
                     		+'<div class="weight500 hang30 line-height30">'
                     		+'<div class="sl"><i class="zi-26bd93 pr-5">[自营]</i>'+v[i].title+'<i class="pl-5">'+v[i].age+'</i><i  class="pl-5">需'+v[i].num+'人</i>'
                     		+'</div></div>'
@@ -153,7 +153,39 @@ $(window).scroll(function () {
             ajaxjz(false); 
         }
  });
- 
+wx.config({
+    debug: false,
+    appId: '${token.appid}', 
+    timestamp: '${token.timestamp}', 
+    nonceStr: '${token.noncestr}', 
+    signature: '${token.signature}',
+    jsApiList: [ 'checkJsApi',
+                 'onMenuShareTimeline',
+                 'onMenuShareAppMessage',
+                 'onMenuShareQQ',
+                 'onMenuShareWeibo',
+                 'hideMenuItems',
+                 'showMenuItems'
+                 ] 
+});
+wx.ready(function(){ 
+	var share={
+		    title: '${share.fxtitle}', // 分享标题
+		    desc: '${share.fxsummary}', // 分享描述
+		    link: '${share.fxurl}', // 分享链接
+		    imgUrl: '${filehttp}${share.fximg}', // 分享图标
+		    success: function () {
+		     check_task();
+		    },
+		    cancel: function () {
+		    }
+		};
+	wx.onMenuShareAppMessage(share);
+	wx.onMenuShareTimeline(share);
+	wx.onMenuShareAppMessage(share);
+	wx.onMenuShareQQ(share);
+	wx.onMenuShareWeibo(share);
+}); 
 </script>
 </body>
 </html>

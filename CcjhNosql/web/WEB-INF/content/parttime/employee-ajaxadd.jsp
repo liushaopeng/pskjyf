@@ -22,7 +22,6 @@
     <link rel="stylesheet" href="${ctx}/mvccol/mui-css/mui.min.css">
     <link rel="stylesheet" type="text/css" href="${ctx}/mvccol/mui-css/app.css"/>
     <link rel="stylesheet" type="text/css" href="${ctx}/mvccol/mui-css/mui.picker.min.css"/>
-    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <style>
         .btn-cheng {
             background-color: #26bd93;

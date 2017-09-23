@@ -5,7 +5,7 @@
 <div class="clear hang60"></div>
 <font size="2">
     <div class=" button_foot bg-bai shadow-wai cmp640">
-        <div class=" button_group1 zi-6" onclick="window.location.href='${ctx}/parttime/mission!index.action?custid=${custid}&lscode=${lscode}'"onclick="window.location.href='${ctx}/parttime/mission!index.action?custid=${custid}&lscode=${lscode}'">
+        <div class=" button_group1 zi-6" onclick="window.location.href='${ctx}/parttime/employee!index.action?custid=${custid}&lscode=${lscode}'"onclick="window.location.href='${ctx}/parttime/mission!index.action?custid=${custid}&lscode=${lscode}'">
             <div class="bottom-26bd93 zi-hui-wx txt-c weight500 line-right_bai hang50">
                 <font size="3">
                     <div class="hang25 line-height30 fa fa-home"></div>
@@ -60,3 +60,38 @@
         </div>
     </div>
 </font>
+<script> 
+wx.config({
+    debug: false,
+    appId: '${token.appid}', 
+    timestamp: '${token.timestamp}', 
+    nonceStr: '${token.noncestr}', 
+    signature: '${token.signature}',
+    jsApiList: [ 'checkJsApi',
+                 'onMenuShareTimeline',
+                 'onMenuShareAppMessage',
+                 'onMenuShareQQ',
+                 'onMenuShareWeibo',
+                 'hideMenuItems',
+                 'showMenuItems'
+                 ] 
+});
+wx.ready(function(){ 
+	var share={
+		    title: '${share.fxtitle}', // 分享标题
+		    desc: '${share.fxsummary}', // 分享描述
+		    link: '${share.fxurl}', // 分享链接
+		    imgUrl: '${filehttp}${share.fximg}', // 分享图标
+		    success: function () {
+		     check_task();
+		    },
+		    cancel: function () {
+		    }
+		};
+	wx.onMenuShareAppMessage(share);
+	wx.onMenuShareTimeline(share);
+	wx.onMenuShareAppMessage(share);
+	wx.onMenuShareQQ(share);
+	wx.onMenuShareWeibo(share);
+}); 
+</script>

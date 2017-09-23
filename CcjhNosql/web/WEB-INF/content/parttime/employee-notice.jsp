@@ -68,7 +68,7 @@
                 <!--<i class="fa fa-caret-down pl-5"></i>-->
             </div>
         </div>
-        <div class="pull-right zi-hei" onclick="share_xianshi()">
+        <div class="pull-right zi-hei" onclick="window.location.href='${ctx}/parttime/mission!share.action?custid=${custid}&lscode=${lscode}'">
             <i class="weight500">分享得佣金</i>
         </div>
     </div>
@@ -182,6 +182,5 @@
 <div class="clear hang60"></div>
 <!--底部按钮-->
  <%@include file="/webcom/mission-foot.jsp"%>
- <%@include file="/webcom/mission-share.jsp"%>
 </body>
 </html>

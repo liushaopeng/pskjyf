@@ -21,22 +21,18 @@ import com.lsp.pub.db.MongoSequence;
 import com.lsp.pub.entity.GetAllFunc;
 import com.lsp.pub.entity.PubConstants;
 import com.lsp.pub.entity.WxToken;
-import com.lsp.pub.util.DateFormat;
-import com.lsp.pub.util.DateUtil;
+import com.lsp.pub.util.DateFormat; 
 import com.lsp.pub.util.SpringSecurityUtils;
 import com.lsp.pub.util.Struts2Utils;
-import com.lsp.pub.util.SysConfig;
-import com.lsp.pub.util.UniObject;
+import com.lsp.pub.util.SysConfig; 
 import com.lsp.pub.util.WeiXinUtil;
 import com.lsp.pub.web.GeneralAction;
 import com.lsp.website.service.WwzService;
 import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
-import com.sun.faces.taglib.html_basic.DataTableTag;
+import com.mongodb.DBObject; 
 
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-import sun.nio.cs.MS1250;
+import net.sf.json.JSONObject; 
 /**
  * 任务管理
  * @author lsp
@@ -139,7 +135,7 @@ public class MissionAction extends GeneralAction<Mission>{
 	 * @throws ParseException 
 	 */
 	public void  createMiss() throws ParseException {
-		getLocale();
+		getLscode();
 		Map<String, Object>submap=new HashMap<String, Object>(); 
 		submap.put("state", 1);
 		if (wwzService.CheckEmployee(fromUserid, custid)) {
@@ -160,6 +156,7 @@ public class MissionAction extends GeneralAction<Mission>{
 			String company=Struts2Utils.getParameter("company");
 			String area=Struts2Utils.getParameter("area");
 			String age=Struts2Utils.getParameter("age");
+			String summary=Struts2Utils.getParameter("summary");
 			
 			try {
 				Mission mission=new Mission();
@@ -173,6 +170,7 @@ public class MissionAction extends GeneralAction<Mission>{
 				if (StringUtils.isNotEmpty(jstype)) {
 					mission.setJstype(Integer.parseInt(jstype));
 				} 
+				System.out.println(gatherdate);
 				mission.setGatherdate(DateFormat.StringToDate(gatherdate+":00"));
 				mission.setStartdate(DateFormat.StringToDate(startdate+":00"));
 				mission.setEnddate(DateFormat.StringToDate(enddate+":00"));
@@ -198,6 +196,7 @@ public class MissionAction extends GeneralAction<Mission>{
 				mission.setLinktel(linktel);
 				mission.setWages(wages);
 				mission.setWorkaddress(workaddress);
+				mission.setSummary(summary);
 				baseDao.insert(PubConstants.PARTTIME_MISSION, mission);
 				submap.put("state", 0);
 			} catch (NumberFormatException e) {
@@ -221,6 +220,7 @@ public class MissionAction extends GeneralAction<Mission>{
 		} 
 		Struts2Utils.getRequest().setAttribute("token", WeiXinUtil.getSignature(token,Struts2Utils.getRequest()));
 		token=WeiXinUtil.getSignature(token,Struts2Utils.getRequest());
+		System.out.println(token.getAppid());
 		String url=SysConfig.getProperty("ip")+"/parttime/mission!index.action?custid="+custid;
 		if(StringUtils.isEmpty(fromUserid)){ 
 			String inspection="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+token.getAppid()+"&redirect_uri="+URLEncoder.encode(url)+"&response_type=code&scope=snsapi_base&state=c1c2j3h4#wechat_redirect";
@@ -231,6 +231,7 @@ public class MissionAction extends GeneralAction<Mission>{
 			Struts2Utils.getRequest().setAttribute("inspection",inspection);  
 			return "refresh";
 		}
+		System.out.println("************");
 		DBObject share=wwzService.getShareFx(custid,"mission_share");  
 		if(share==null){
 			share=new BasicDBObject();
@@ -242,7 +243,7 @@ public class MissionAction extends GeneralAction<Mission>{
 			share.put("fxurl", url);
 		} 
 		Struts2Utils.getRequest().setAttribute("share", share);
-		return "index";
+		return "index2";
 	}
 	/**
 	 * 详情页
@@ -351,10 +352,10 @@ public class MissionAction extends GeneralAction<Mission>{
 			share=new BasicDBObject();
 			share.put("fxtitle", wwzService.getWxUsertype(fromUserid, "nickname"));
 			share.put("fximg",wwzService.getWxUsertype(fromUserid, "headimgurl"));
-			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/mission!index.action?custid="+custid);
+			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/employee!index.action?custid="+custid);
 			share.put("fxsummary", share.get("fxsummary"));
 		}else{
-			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/mission!index.action?custid="+custid);
+			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/employee!index.action?custid="+custid);
 		} 
 		Struts2Utils.getRequest().setAttribute("share", share);
 		return "order";
@@ -387,10 +388,10 @@ public class MissionAction extends GeneralAction<Mission>{
 			share=new BasicDBObject();
 			share.put("fxtitle", wwzService.getWxUsertype(fromUserid, "nickname"));
 			share.put("fximg",wwzService.getWxUsertype(fromUserid, "headimgurl"));
-			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/mission!index.action?custid="+custid);
+			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/employee!index.action?custid="+custid);
 			share.put("fxsummary", share.get("fxsummary"));
 		}else{
-			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/mission!index.action?custid="+custid);
+			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/employee!index.action?custid="+custid);
 		} 
 		Struts2Utils.getRequest().setAttribute("share", share);
 		return "withposi";
@@ -423,10 +424,10 @@ public class MissionAction extends GeneralAction<Mission>{
 			share=new BasicDBObject();
 			share.put("fxtitle", wwzService.getWxUsertype(fromUserid, "nickname"));
 			share.put("fximg",wwzService.getWxUsertype(fromUserid, "headimgurl"));
-			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/mission!index.action?custid="+custid);
+			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/employee!index.action?custid="+custid);
 			share.put("fxsummary", share.get("fxsummary"));
 		}else{
-			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/mission!index.action?custid="+custid);
+			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/employee!index.action?custid="+custid);
 		} 
 		Struts2Utils.getRequest().setAttribute("share", share);
 		return "withposidet";
@@ -459,10 +460,10 @@ public class MissionAction extends GeneralAction<Mission>{
 			share=new BasicDBObject();
 			share.put("fxtitle", wwzService.getWxUsertype(fromUserid, "nickname"));
 			share.put("fximg",wwzService.getWxUsertype(fromUserid, "headimgurl"));
-			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/mission!index.action?custid="+custid);
+			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/employee!index.action?custid="+custid);
 			share.put("fxsummary", share.get("fxsummary"));
 		}else{
-			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/mission!index.action?custid="+custid);
+			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/employee!index.action?custid="+custid);
 		} 
 		Struts2Utils.getRequest().setAttribute("share", share);
 		return "telcertifica";
@@ -495,10 +496,10 @@ public class MissionAction extends GeneralAction<Mission>{
 			share=new BasicDBObject();
 			share.put("fxtitle", wwzService.getWxUsertype(fromUserid, "nickname"));
 			share.put("fximg",wwzService.getWxUsertype(fromUserid, "headimgurl"));
-			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/mission!index.action?custid="+custid);
+			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/employee!index.action?custid="+custid);
 			share.put("fxsummary", share.get("fxsummary"));
 		}else{
-			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/mission!index.action?custid="+custid);
+			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/employee!index.action?custid="+custid);
 		} 
 		Struts2Utils.getRequest().setAttribute("share", share);
 		return "notice";
@@ -531,10 +532,10 @@ public class MissionAction extends GeneralAction<Mission>{
 			share=new BasicDBObject();
 			share.put("fxtitle", wwzService.getWxUsertype(fromUserid, "nickname"));
 			share.put("fximg",wwzService.getWxUsertype(fromUserid, "headimgurl"));
-			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/mission!index.action?custid="+custid);
+			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/employee!index.action?custid="+custid);
 			share.put("fxsummary", share.get("fxsummary"));
 		}else{
-			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/mission!index.action?custid="+custid);
+			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/employee!index.action?custid="+custid);
 		} 
 		Struts2Utils.getRequest().setAttribute("share", share);
 		return "about";
@@ -567,10 +568,10 @@ public class MissionAction extends GeneralAction<Mission>{
 			share=new BasicDBObject();
 			share.put("fxtitle", wwzService.getWxUsertype(fromUserid, "nickname"));
 			share.put("fximg",wwzService.getWxUsertype(fromUserid, "headimgurl"));
-			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/mission!index.action?custid="+custid);
+			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/employee!index.action?custid="+custid);
 			share.put("fxsummary", share.get("fxsummary"));
 		}else{
-			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/mission!index.action?custid="+custid);
+			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/employee!index.action?custid="+custid);
 		} 
 		Struts2Utils.getRequest().setAttribute("share", share);
 		return "question";
@@ -603,10 +604,10 @@ public class MissionAction extends GeneralAction<Mission>{
 			share=new BasicDBObject();
 			share.put("fxtitle", wwzService.getWxUsertype(fromUserid, "nickname"));
 			share.put("fximg",wwzService.getWxUsertype(fromUserid, "headimgurl"));
-			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/mission!index.action?custid="+custid);
+			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/employee!index.action?custid="+custid);
 			share.put("fxsummary", share.get("fxsummary"));
 		}else{
-			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/mission!index.action?custid="+custid);
+			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/employee!index.action?custid="+custid);
 		} 
 		Struts2Utils.getRequest().setAttribute("share", share);
 		return "share";
@@ -639,10 +640,10 @@ public class MissionAction extends GeneralAction<Mission>{
 			share=new BasicDBObject();
 			share.put("fxtitle", wwzService.getWxUsertype(fromUserid, "nickname"));
 			share.put("fximg",wwzService.getWxUsertype(fromUserid, "headimgurl"));
-			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/mission!index.action?custid="+custid);
+			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/employee!index.action?custid="+custid);
 			share.put("fxsummary", share.get("fxsummary"));
 		}else{
-			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/mission!index.action?custid="+custid);
+			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/employee!index.action?custid="+custid);
 		} 
 		Struts2Utils.getRequest().setAttribute("share", share);
 		return "ajaxadd";
@@ -675,13 +676,13 @@ public class MissionAction extends GeneralAction<Mission>{
 			share=new BasicDBObject();
 			share.put("fxtitle", wwzService.getWxUsertype(fromUserid, "nickname"));
 			share.put("fximg",wwzService.getWxUsertype(fromUserid, "headimgurl"));
-			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/mission!index.action?custid="+custid);
+			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/employee!index.action?custid="+custid);
 			share.put("fxsummary", share.get("fxsummary"));
 		}else{
-			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/mission!index.action?custid="+custid);
+			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/employee!index.action?custid="+custid);
 		} 
 		Struts2Utils.getRequest().setAttribute("share", share);
-		Struts2Utils.getRequest().setAttribute("entity",wwzService.getWxUser(fromUserid));
+		Struts2Utils.getRequest().setAttribute("entity",baseDao.getMessage(PubConstants.PARTTIME_EMPLOYEE, fromUserid)); 
 		return "mine";
 	}
 	/**
@@ -714,10 +715,10 @@ public class MissionAction extends GeneralAction<Mission>{
 			share=new BasicDBObject();
 			share.put("fxtitle", wwzService.getWxUsertype(fromUserid, "nickname"));
 			share.put("fximg",wwzService.getWxUsertype(fromUserid, "headimgurl"));
-			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/mission!index.action?custid="+custid);
+			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/employee!index.action?custid="+custid);
 			share.put("fxsummary", share.get("fxsummary"));
 		}else{
-			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/mission!index.action?custid="+custid);
+			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/employee!index.action?custid="+custid);
 		} 
 		Struts2Utils.getRequest().setAttribute("share", share);
 		return "minedata";
@@ -833,6 +834,7 @@ public class MissionAction extends GeneralAction<Mission>{
 			employee.setWxid(wxid);
 			employee.setTel(tel);
 			baseDao.insert(PubConstants.PARTTIME_EMPLOYEE, employee);
+			wwzService.InsMissionInform(custid, fromUserid, "个人信息修改提醒", "您在近期进行了个人信息的修改，如果不是本人操作请尽快修改！并重置个人账户！", 0, "", "", 0L);
 			submap.put("state", 0);
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block

@@ -19,11 +19,14 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.http.HttpRequest;
+import org.bson.util.StringRangeSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
  
-import com.alibaba.fastjson.JSONObject; 
+import com.alibaba.fastjson.JSONObject;
+import com.lsp.parttime.entity.Mission;
+import com.lsp.parttime.entity.MissionInform;
 import com.lsp.pub.dao.BaseDao;
 import com.lsp.pub.db.MongoSequence;
 import com.lsp.pub.entity.Fromusermb;
@@ -1873,6 +1876,38 @@ public class WwzService {
 		 }
 		}
 		return false; 
+    }
+    /**
+     * 兼职通知
+     * @param custid
+     * @param fromid
+     * @param title
+     * @param content
+     * @param type
+     * @param tid
+     * @param oid
+     * @param mid
+     * @return
+     */
+    public boolean InsMissionInform(String custid,String fromid,String title,String content,int type,String tid,String oid,Long mid) {
+    	try {
+			MissionInform inform=new MissionInform();
+			inform.set_id(mongoSequence.currval(PubConstants.PARTTIME_MISSIONINFORM));
+			inform.setContent(content);
+			inform.setCreatedate(new Date());
+			inform.setCustid(custid);
+			inform.setFromid(fromid);
+			inform.setMid(mid);
+			inform.setOid(oid);
+			inform.setTid(tid);
+			inform.setType(type); 
+			baseDao.insert(PubConstants.PARTTIME_MISSIONINFORM, inform);
+			return true;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return false; 
     }
     
 }

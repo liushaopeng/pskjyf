@@ -180,40 +180,6 @@
         </div>
     </div>
 </div>
-<script> 
-wx.config({
-    debug: false,
-    appId: '${token.appid}', 
-    timestamp: '${token.timestamp}', 
-    nonceStr: '${token.noncestr}', 
-    signature: '${token.signature}',
-    jsApiList: [ 'checkJsApi',
-                 'onMenuShareTimeline',
-                 'onMenuShareAppMessage',
-                 'onMenuShareQQ',
-                 'onMenuShareWeibo',
-                 'hideMenuItems',
-                 'showMenuItems'
-                 ] 
-});
-wx.ready(function(){ 
-	var share={
-		    title: '${share.fxtitle}', // 分享标题
-		    desc: '${share.fxsummary}', // 分享描述
-		    link: '${share.fxurl}', // 分享链接
-		    imgUrl: '${filehttp}${share.fximg}', // 分享图标
-		    success: function () {
-		     check_task();
-		    },
-		    cancel: function () {
-		    }
-		};
-	wx.onMenuShareAppMessage(share);
-	wx.onMenuShareTimeline(share);
-	wx.onMenuShareAppMessage(share);
-	wx.onMenuShareQQ(share);
-	wx.onMenuShareWeibo(share);
-}); 
-</script>
+
 </body>
 </html>

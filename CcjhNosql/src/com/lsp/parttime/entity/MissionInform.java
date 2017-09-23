@@ -11,7 +11,7 @@ import com.mongodb.ReflectionDBObject;
 public class MissionInform extends ReflectionDBObject{
 
 	private String custid;
-	private String formid; 
+	private String fromid; 
 	/**
 	 * 0未读1已读
 	 */
@@ -41,11 +41,12 @@ public class MissionInform extends ReflectionDBObject{
 	public void setCustid(String custid) {
 		this.custid = custid;
 	}
-	public String getFormid() {
-		return formid;
+	 
+	public String getFromid() {
+		return fromid;
 	}
-	public void setFormid(String formid) {
-		this.formid = formid;
+	public void setFromid(String fromid) {
+		this.fromid = fromid;
 	}
 	public int getState() {
 		return state;

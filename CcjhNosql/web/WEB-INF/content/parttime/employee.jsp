@@ -18,58 +18,7 @@ function del(id) {
 		location.href = "${contextPath}/parttime/mission!delete.action?_id="
 				+ id+"&fypage=${fypage}";
 	}
-} 
-function add(){
-	    $('#_id').val('');
-	    $('#title').val('');
-	    $('#sort').val(0);
-	    $('#wages').val('');
-	    $('#workaddress').val('');
-	    $('#num').val(0);
-	    $('#education').val(0).trigger("change");
-	    $('#experience').val(0).trigger("change");
-	    $('#age').val(0).trigger("change");
-	    $('#linkname').val('');
-	    $('#linktel').val(''); 
-	    $('#type').val(0).trigger("change"); 
-	    $('#gatherdate').val(''); 
-	    $('#startdate').val(''); 
-	    $('#enddate').val(''); 
-	    $('#company').val(''); 
-	    $('#summary').val(''); 
-	    $('#area').val('');
-	    $('#price').val(0);
-	    $('#jstype').val('').trigger("change");
-	ps_show('inszc');
-}
-function upd(id){
-   var submitData = {
-    _id : id
-  };
-  $.post('${ctx}/parttime/mission!upd.action', submitData, function(json) { 
-    $('#_id').val(json._id);
-    $('#title').val(json.title);
-    $('#sort').val(json.sort);
-    $('#wages').val(json.wages);
-    $('#workaddress').val(json.workaddress);
-    $('#num').val(json.num);
-    $('#education').val(json.education).trigger("change");
-    $('#experience').val(json.experience).trigger("change");
-    $('#age').val(json.age).trigger("change");
-    $('#linkname').val(json.linkname);
-    $('#linktel').val(json.linktel); 
-    $('#company').val(json.company); 
-    $('#summary').val(json.summary); 
-    $('#area').val(json.area);
-    $('#price').val(json.price);
-    $('#type').val(json.type).trigger("change"); 
-    $('#jstype').val(json.jstype).trigger("change"); 
-    $('#gatherdate').val(Date.prototype.format(json.gatherdate)); 
-    $('#startdate').val(Date.prototype.format(json.startdate)); 
-    $('#enddate').val(Date.prototype.format(json.enddate)); 
-  }, "json")
-  ps_show('inszc');
-}
+}  
 function page_submit(num){
 	
 	if(num==-1){
@@ -83,7 +32,33 @@ function page_submit(num){
 	$("#custinfoForm").submit();
 }
  
-
+function set(id){
+	   var submitData = {
+	    id : id
+	  };
+	  $.post('${ctx}/parttime/employee!ajaxSetAdmin.action', submitData, function(json) { 
+	  
+		  if(json.state==0){
+			  alert("设置成功！");
+			  window.location.reload();
+		  }else{
+			  alert("设置失败！"); 
+		  }
+	  }, "json") 
+	}
+function cal(id){
+	   var submitData = {
+	    id : id
+	  };
+	  $.post('${ctx}/parttime/employee!ajaxCancelAdmin.action', submitData, function(json) { 
+		  if(json.state==0){
+			  alert("设置成功！");
+			  window.location.reload();
+		  }else{
+			  alert("设置失败！"); 
+		  }
+	  }, "json") 
+	}
  </script>
 
  
@@ -102,7 +77,7 @@ function page_submit(num){
     
    
     
-	<form  id="custinfoForm" name="custinfoForm" method="post"  action="${contextPath}/parttime/mission.action?" >
+	<form  id="custinfoForm" name="custinfoForm" method="post"  action="${contextPath}/parttime/employee.action?" >
     
     <div class="pageheader">
       
@@ -112,13 +87,7 @@ function page_submit(num){
         	<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                       	菜单 <span class="caret"></span>
             </button>
-            <ul class="dropdown-menu pull-right" role="menu">
-                <li><a href="javascript:updfx('mission_share')"><i class="fa fa-share-alt-square"></i>&nbsp;&nbsp;&nbsp;&nbsp;首页分享设置</a></li> 
-            	<li><a href="javascript:add()"><i class="fa fa-plus"></i>&nbsp;&nbsp;&nbsp;&nbsp;新增</a></li>
-            	<li><a href="javascript:qrcode('${ctxurl}/parttime/mission!index.action?custid=${custid}&lscode=${lscode}');">
-                    <i class="fa fa-mail-reply-all"></i> 预览&nbsp;
-                  </a></li>
-            </ul>
+           
          </div>
       </div>
        
@@ -136,7 +105,9 @@ function page_submit(num){
                 <table class="table table-striped table-primary mb30" >
                     <thead>
                       <tr> 
-                       	<th class="th5">标题</th> 
+                       	<th class="th5">姓名</th>
+                       	<th class="th5">电话</th> 
+                       	<th class="th5">身份状态</th> 
                         <th class="th6">日期</th>
                          
 						
@@ -146,7 +117,10 @@ function page_submit(num){
                     <tbody>
                       <c:forEach items="${list}" var="bean">
                       <tr>  
-                        <td>${bean.title}</td> 
+                        <td>${bean.name}</td> 
+                        <td>${bean.tel}</td> 
+                        <td><c:if test="${bean.type==0}">普通用户</c:if>
+                        <c:if test="${bean.type==1}">管理员</c:if></td> 
                         <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${bean.createdate}" /></td>
                          
                         <td class="table-action">
@@ -156,12 +130,12 @@ function page_submit(num){
                                       <i class="fa fa-cog"></i>
                                   </a>
                                   <ul role="menu" class="dropdown-menu pull-right">
-                                   <li><a href="javascript:upd('${bean._id}')"> <i
-																	class="fa fa-pencil "></i>&nbsp;&nbsp;&nbsp;&nbsp;修改</a>
+                                   <li><a href="javascript:set('${bean._id}')"> <i
+																	class="fa fa-pencil "></i>&nbsp;&nbsp;&nbsp;&nbsp;设置管理员</a>
 								   </li>
-								   <li><a href="javascript:del('${bean._id}')"> <i
-																	class="fa fa-pencil "></i>&nbsp;&nbsp;&nbsp;&nbsp;删除</a>
-								   </li>
+								  <li><a href="javascript:cal('${bean._id}')"> <i
+																	class="fa fa-pencil "></i>&nbsp;&nbsp;&nbsp;&nbsp;取消管理员</a>
+								   </li> 
                                     
                                   </ul>
                               </div>
@@ -180,188 +154,6 @@ function page_submit(num){
 	</form>
   </div><!-- mainpanel -->
 </section>
-<%@include file="/webcom/preview.jsp"%>
-<%--弹出层新--%>
-<div class="fullscreen bg-hei-8 display-none" id="inszc" style="height: 100%;">
-    <div style="padding-top:2%">
-        <div class="pl-10 pr-10 maring-a cmp500"
-             style="width: 100%;max-width: 500px;min-width: 320px;margin: 0px auto;right: 0px;">
-            <div class=" bg-bai border-radius3 overflow-hidden">
-                <div class="overflow-hidden line-height40 bg-bai line-bottom">
-                    <div class="hang50 pull-left zi-hui-tq">
-                        <i class="weight500 size14 pl-10 line-height50">添加任务</i>
-                    </div>
-                    <a href="javascript:ps_hide('inszc')">
-                        <div class="hang40 pull-right zi-hui-tq">
-                            <i class="weight500 size14 pl-10 pr-10 fa-1dx fa fa-remove" style="line-height: 50px;"></i>
-                        </div>
-                    </a>
-                     </div>
-                  <form id="inscxForm" action="${ctx }/parttime/mission!save.action?fypage=${fypage}"
-                      class="form-horizontal" method="post">
-                    <input type="hidden" id="_id" name="_id"/>
-                    <div class="pt-15 pl-15 pr-15 overflow-auto" style="height:490px;">
-
-                        <div class="col-sm-6">
-                            <div class="mb-20">
-                                <label class="control-label">标题：</label>
-                                <input type="text" id="title" name="title"
-                                       class="form-control" placeholder="请输入"/>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="mb-20">
-                                <label class="control-label">薪资：</label>
-                                <input type="text" id="price" name="price"
-                                       class="form-control" placeholder="请输入"/>
-                            </div>
-                        </div>
-                         <div class="col-sm-6">
-                            <div class="mb-20">
-                                <label class="control-label">结算类型：</label> 
-                                <select id="jstype" name="jstype" class="select2 form-control hang40" style="line-height: 28px!important;"
-                                        required data-placeholder="请选择">
-                                  <option value="0">默认</option> 
-                                  <option value="1">小时结算</option> 
-                                  <option value="2">日结算</option> 
-                                  <option value="3">月结算</option> 
-                                </select>       
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="mb-20">
-                                <label class="control-label">工作地点：</label>
-                                <input type="text" id="workaddress" name="workaddress"
-                                       class="form-control" placeholder="请输入"/>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="mb-20">
-                                <label class="control-label">招聘人数：</label>
-                                <input type="text" id="num" name="num"
-                                       class="form-control" placeholder="请输入"/>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="mb-20">
-                                <label class="control-label">学历要求：</label> 
-                                <select id="education" name="education" class="select2 form-control hang40" style="line-height: 28px!important;"
-                                        required data-placeholder="请选择">
-                                  <option value="0">无</option> 
-                                  <option value="1">大专以上</option> 
-                                  <option value="2">本科以上</option> 
-                                  <option value="3">硕士以上</option> 
-                                </select>       
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="mb-20">
-                                <label class="control-label">经验要求：</label> 
-                                  <select id="experience" name="experience" class="select2 form-control hang40" style="line-height: 28px!important;"
-                                        required data-placeholder="请选择">
-                                  <option value="0">无</option> 
-                                  <option value="1">一年以上</option> 
-                                  <option value="2">一年到三年</option> 
-                                  <option value="3">三年以上</option> 
-                                  </select>  
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="mb-20">
-                                <label class="control-label">年龄要求：</label> 
-                                  <select id="age" name="age" class="select2 form-control hang40" style="line-height: 28px!important;"
-                                        required data-placeholder="请选择">
-                                  <option value="0">18岁以上</option>  
-                                  </select> 
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="mb-20">
-                                <label class="control-label">负责人姓名：</label>
-                                <input type="text" id="linkname" name="linkname"
-                                       class="form-control" placeholder="请输入"/>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="mb-20">
-                                <label class="control-label">负责人电话：</label>
-                                <input type="text" id="linktel" name="linktel"
-                                       class="form-control" placeholder="请输入"/>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="mb-20">
-                                <label class="control-label">集合时间：</label>
-                                <input type="text" id="gatherdate" name="gatherdate"
-                                       class="form-control" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" placeholder="请输入"/>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="mb-20">
-                                <label class="control-label">开始时间：</label>
-                                <input type="text" id="startdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"  name="startdate"
-                                       class="form-control" placeholder="请输入"/>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="mb-20">
-                                <label class="control-label">结束时间：</label>
-                                <input type="text" id="enddate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" name="enddate"
-                                       class="form-control" placeholder="请输入"/>
-                            </div>
-                        </div>
-                         <div class="col-sm-6">
-                            <div class="mb-20">
-                                <label class="control-label">类型：</label> 
-                                  <select id="type" name="type" class="select2 form-control hang40" style="line-height: 28px!important;"
-                                        required data-placeholder="请选择">
-                                  <option value="0">平台自营</option>  
-                                  </select>  
-                            </div>
-                        </div>
-                        
-                        <div class="col-sm-6">
-                            <div class="mb-20">
-                                <label class="control-label">公司名称：</label>
-                                <input type="text" id="company" name="company"
-                                       class="form-control" placeholder="请输入"/>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="mb-20">
-                                <label class="control-label">区域：</label>
-                                <input type="text" id="area" name="area"
-                                       class="form-control" placeholder="请输入"/>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="mb-20">
-                                <label class="control-label">序号：</label>
-                                <input type="text" id="sort" name="sort"
-                                       class="form-control" placeholder="请输入"/>
-                            </div>
-                        </div>
-                         <div class="col-sm-12">
-                            <div class="mb-20">
-                                <label class="control-label">工作描述：</label>
-                                <textarea style="height: 150px;overflow: scroll;" id="summary" name="summary"
-                                       class="form-control" placeholder="请输入"></textarea>
-                            </div>
-                        </div>
-                         
-                    </div>
-                     <div class="div-group-10 line-top" style="padding-left: 40px; padding-right: 40px;" onclick="submit()">
-                        <button class="btn btn-primary width-10 maring-a clear weight500 hang40">提 交
-                        </button>
-                    </div> 
-                    </form>
-                   
-            </div>
-        </div>
-    </div>
-  </div>
-<%@ include file="/webcom/share.jsp" %> 
-<%@include file="/webcom/cut-img.jsp" %> 
-<%@ include file="/webcom/preview.jsp" %>
+ 
 </body>
 </html>

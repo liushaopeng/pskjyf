@@ -115,7 +115,7 @@ function page_submit(num){
             <ul class="dropdown-menu pull-right" role="menu">
                 <li><a href="javascript:updfx('mission_share')"><i class="fa fa-share-alt-square"></i>&nbsp;&nbsp;&nbsp;&nbsp;首页分享设置</a></li> 
             	<li><a href="javascript:add()"><i class="fa fa-plus"></i>&nbsp;&nbsp;&nbsp;&nbsp;新增</a></li>
-            	<li><a href="javascript:qrcode('${ctxurl}/parttime/mission!index.action?custid=${custid}&lscode=${lscode}');">
+            	<li><a href="javascript:qrcode('${ctxurl}/parttime/mission!index.action?custid=${custid}');">
                     <i class="fa fa-mail-reply-all"></i> 预览&nbsp;
                   </a></li>
             </ul>

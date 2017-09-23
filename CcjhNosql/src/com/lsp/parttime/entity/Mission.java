@@ -90,6 +90,10 @@ public class Mission extends ReflectionDBObject{
 	 * 结算类型（0为默认即一单多钱，1为小时结算，2为日结算，3为月结算）
 	 */
 	private int jstype;
+	/**
+	 * 0为已审核1为未审核
+	 */
+	private int state;
 	 
 	public String getArea() {
 		return area;
@@ -247,5 +251,12 @@ public class Mission extends ReflectionDBObject{
 	}
 	public void setJstype(int jstype) {
 		this.jstype = jstype;
-	} 
+	}
+	public int getState() {
+		return state;
+	}
+	public void setState(int state) {
+		this.state = state;
+	}
+	
 }

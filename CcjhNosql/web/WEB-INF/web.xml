@@ -18,6 +18,16 @@
 			classpath*:/applicationContext-quartz.xml 
 		</param-value>
 	</context-param>
+	
+ 	<filter>
+        <filter-name>URLFilter</filter-name>
+        <filter-class>com.lsp.pub.entity.URLFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>URLFilter</filter-name>
+        <url-pattern>*.action</url-pattern>
+    </filter-mapping>
+
 	<!-- Filter 定义 -->
 	<!-- Character Encoding filter -->
 	<filter>
@@ -197,7 +207,6 @@
         <!-- 业界标准 用.do后缀来表示 controler -->
         <url-pattern>/afterlogin.do</url-pattern>
 </servlet-mapping>
- 
  
  	
 </web-app>
