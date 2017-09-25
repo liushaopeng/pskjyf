@@ -84,9 +84,7 @@
                     <div class="hang20 border-radius3 line-height20 zi-bai bg-hei-5 pl-5 pr-5 pull-left"><i
                             class="fa fa-mobile-phone line-height20 pr-5"></i>手机认证
                     </div>
-                    <div class="hang20 border-radius3 line-height20 zi-bai bg-jin bg-hei-5 pl-5 pr-5 pull-left"><i
-                            class="fa fa-mobile-phone line-height20 pr-5"></i>手机认证
-                    </div>
+                  
                 </div>
             </font>
         </div>
@@ -119,19 +117,7 @@
             <i class="fa fa-chevron-right hang45"></i>
         </div>
     </div>
-    <div class="hang45 bg-bai line-bottom-92 zi-hei pr-10 clear weight500 overflow-hidden size14" onclick="window.location.href='${ctx}/parttime/mission!telcertifica.action?custid=${custid}&lscode=${lscode}'">
-        <div class="pull-left div-group-10">
-            <div class="img-wh25 txt-c zi-bai overflow-hidden"style="background-color: #e3c06a">
-                <i class="fa fa-mobile line-height25"></i>
-            </div>
-        </div>
-        <div class="pull-left">
-            手机认证
-        </div>
-        <div class="pull-right zi-hui ">
-            <i class="pr-5 size12">未认证(无法进行工资提现)</i><i class="fa fa-chevron-right hang45"></i>
-        </div>
-    </div>
+     
     <div class="hang10 clear bg-hui-92"></div>
     <div class="hang45 bg-bai line-bottom-92 zi-hei pr-10 clear weight500 overflow-hidden size14" onclick="window.location.href='${ctx}/parttime/mission!minedata.action?custid=${custid}&lscode=${lscode}'">
         <div class="pull-left div-group-10">
@@ -150,12 +136,30 @@
     <div class="hang10 clear bg-hui-92"></div>
     <div class="hang45 bg-bai line-bottom-92 zi-hei pr-10 clear weight500 overflow-hidden size14" onclick="window.location.href='${ctx}/parttime/mission!ajaxadd.action?custid=${custid}&lscode=${lscode}'">
         <div class="pull-left div-group-10">
-            <div class="bj-lan2 img-wh25 txt-c zi-bai overflow-hidden">
-                <i class="fa fa-drivers-license-o line-height25"></i>
+            <div class="bj-cheng img-wh25 txt-c zi-bai overflow-hidden">
+                <i class="fa fa-plus line-height25"></i>
             </div>
         </div>
         <div class="pull-left">
             职位发布
+        </div>
+         <div class="pull-right zi-hui">
+            <i class="pr-5 zi-hui size10"></i><i class="fa fa-chevron-right hang45"></i>
+        </div>
+         
+    </div>
+      <div class="hang10 clear bg-hui-92"></div>
+    <div class="hang45 bg-bai line-bottom-92 zi-hei pr-10 clear weight500 overflow-hidden size14" onclick="window.location.href='${ctx}/parttime/mission!mission.action?custid=${custid}&lscode=${lscode}'">
+        <div class="pull-left div-group-10">
+            <div class="bj-hong2 img-wh25 txt-c zi-bai overflow-hidden">
+                <i class="fa fa-user-circle line-height25"></i>
+            </div>
+        </div>
+        <div class="pull-left">
+            职位管理
+        </div>
+         <div class="pull-right zi-hui">
+            <i class="pr-5 zi-hui size10"></i><i class="fa fa-chevron-right hang45"></i>
         </div>
          
     </div>
@@ -171,37 +175,31 @@
             邀请好友
         </div>
         <div class="pull-right zi-hui">
-            <i class="pr-5 zi-hui size12">邀请好友可以赚佣金</i><i class="fa fa-chevron-right hang45"></i>
+            <i class="pr-5 zi-hui size12"></i><i class="fa fa-chevron-right hang45"></i>
         </div>
     </div>
 
     <div class="hang10 clear bg-hui-92"></div>
-    <div class="hang45 bg-bai line-bottom-92 zi-hei pr-10 clear weight500 overflow-hidden size14">
+    <div class="hang45 bg-bai line-bottom-92 zi-hei pr-10 clear weight500 overflow-hidden size14" onclick="window.location.href='http://www.pskjyf.com/set/rules!web.action?custid=6a7a7a90-e85b-4517-a44c-033394bcdb6f&lscode=7192795f-9f98-4eef-a1e9-a6849384c4eb'">
         <div class="pull-left div-group-10">
             <div class="bj-hong1 img-wh25 txt-c zi-bai overflow-hidden">
                 <i class="fa fa-info-circle line-height25"></i>
             </div>
         </div>
         <div class="pull-left size14">
-            关于《平台名称》
+            关于我们
         </div>
         <div class="pull-right zi-hui">
             <i class="fa fa-chevron-right hang45"></i>
         </div>
     </div>
-    <div class="hang45 bg-bai line-bottom-92 zi-hei pr-10 clear weight500 overflow-hidden size14">
-        <div class="pull-left div-group-10">
-            <div class=" bj-cheng img-wh25 txt-c zi-bai overflow-hidden">
-                <i class="fa fa-question-circle-o line-height25"></i>
-            </div>
+     <font size="2">
+        <div class="clear txt-c pt-20 pb-15 weight500 zi-6">
+            <i class="zi-green pr-5">邑联科技</i><i class="zi-6">进行技术服务（支持）</i>
+            
         </div>
-        <div class="pull-left">
-            常见问题
-        </div>
-        <div class="pull-right zi-hui">
-            <i class="fa fa-chevron-right hang45"></i>
-        </div>
-    </div>
+    </font>
+    
 
 
 </main>

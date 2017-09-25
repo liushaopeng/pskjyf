@@ -69,7 +69,22 @@ public class Order extends ReflectionDBObject{
 	 * 结算类型（0为默认即一单多钱，1为小时结算，2为日结算，3为月结算）
 	 */
 	private int jstype;
-	
+	/**
+	 * 完结时间
+	 */
+	private Date updatedate;
+	/**
+	 * 联系电话
+	 */
+	private String linktel;
+	/**
+	 * 时间(统一小时计算)
+	 */
+	private int  time;
+	/**
+	 * 总额
+	 */
+	private double total;
 	public Date getGatherdate() {
 		return gatherdate;
 	}
@@ -171,6 +186,30 @@ public class Order extends ReflectionDBObject{
 	}
 	public void setJstype(int jstype) {
 		this.jstype = jstype;
+	}
+	public Date getUpdatedate() {
+		return updatedate;
+	}
+	public void setUpdatedate(Date updatedate) {
+		this.updatedate = updatedate;
+	}
+	public String getLinktel() {
+		return linktel;
+	}
+	public void setLinktel(String linktel) {
+		this.linktel = linktel;
+	}
+	public int getTime() {
+		return time;
+	}
+	public void setTime(int time) {
+		this.time = time;
+	}
+	public double getTotal() {
+		return total;
+	}
+	public void setTotal(double total) {
+		this.total = total;
 	}
 	
 }

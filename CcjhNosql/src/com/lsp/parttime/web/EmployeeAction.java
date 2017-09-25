@@ -204,6 +204,8 @@ public class EmployeeAction extends GeneralAction<Employee>{
 	 */
 	public String index() {
 		getLscode();
+		String tgid=Struts2Utils.getParameter("tgid");
+		
     	Struts2Utils.getRequest().setAttribute("custid", custid); 
     	WxToken token=GetAllFunc.wxtoken.get(custid); 
 		if(token.getSqlx()>0){
@@ -212,7 +214,7 @@ public class EmployeeAction extends GeneralAction<Employee>{
 		Struts2Utils.getRequest().setAttribute("token", WeiXinUtil.getSignature(token,Struts2Utils.getRequest()));
 		token=WeiXinUtil.getSignature(token,Struts2Utils.getRequest());
 		System.out.println(token.getAppid());
-		String url=SysConfig.getProperty("ip")+"/parttime/employee!index.action?custid="+custid;
+		String url=SysConfig.getProperty("ip")+"/parttime/employee!index.action?custid="+custid+"&tgid="+tgid;
 		if(StringUtils.isEmpty(fromUserid)){ 
 			String inspection="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+token.getAppid()+"&redirect_uri="+URLEncoder.encode(url)+"&response_type=code&scope=snsapi_base&state=c1c2j3h4#wechat_redirect";
 			Struts2Utils.getRequest().setAttribute("inspection",inspection);  
@@ -222,16 +224,16 @@ public class EmployeeAction extends GeneralAction<Employee>{
 			Struts2Utils.getRequest().setAttribute("inspection",inspection);  
 			return "refresh";
 		}
-		System.out.println("************");
+		Struts2Utils.getRequest().setAttribute("tgid",tgid);
 		DBObject share=wwzService.getShareFx(custid,"mission_share");  
 		if(share==null){
 			share=new BasicDBObject();
 			share.put("fxtitle", wwzService.getWxUsertype(fromUserid, "nickname"));
 			share.put("fximg",wwzService.getWxUsertype(fromUserid, "headimgurl"));
-			share.put("fxurl", url);
+			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/employee!index.action?custid="+custid+"&tgid="+fromUserid);
 			share.put("fxsummary", share.get("fxsummary"));
 		}else{
-			share.put("fxurl", url);
+			share.put("fxurl",  SysConfig.getProperty("ip")+"/parttime/employee!index.action?custid="+custid+"&tgid="+fromUserid);
 		} 
 		Struts2Utils.getRequest().setAttribute("share", share);
 		return "index";
@@ -243,6 +245,7 @@ public class EmployeeAction extends GeneralAction<Employee>{
 	public String details() {
 		
 		getLscode();
+		String tgid=Struts2Utils.getParameter("tgid");
     	Struts2Utils.getRequest().setAttribute("custid", custid); 
     	String id=Struts2Utils.getParameter("id");
     	WxToken token=GetAllFunc.wxtoken.get(custid); 
@@ -251,7 +254,7 @@ public class EmployeeAction extends GeneralAction<Employee>{
 		} 
 		Struts2Utils.getRequest().setAttribute("token", WeiXinUtil.getSignature(token,Struts2Utils.getRequest()));
 		token=WeiXinUtil.getSignature(token,Struts2Utils.getRequest());
-		String url=SysConfig.getProperty("ip")+"/parttime/employee!details.action?custid="+custid+"&id="+id;
+		String url=SysConfig.getProperty("ip")+"/parttime/employee!details.action?custid="+custid+"&id="+id+"&tgid="+tgid;
 		if(StringUtils.isEmpty(fromUserid)){ 
 			String inspection="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+token.getAppid()+"&redirect_uri="+URLEncoder.encode(url)+"&response_type=code&scope=snsapi_base&state=c1c2j3h4#wechat_redirect";
 			Struts2Utils.getRequest().setAttribute("inspection",inspection);  
@@ -266,13 +269,13 @@ public class EmployeeAction extends GeneralAction<Employee>{
 			share=new BasicDBObject();
 			share.put("fxtitle", wwzService.getWxUsertype(fromUserid, "nickname"));
 			share.put("fximg",wwzService.getWxUsertype(fromUserid, "headimgurl"));
-			share.put("fxurl", url);
+			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/employee!details.action?custid="+custid+"&id="+id+"&tgid="+fromUserid);
 			share.put("fxsummary", share.get("fxsummary"));
 		}else{
-			share.put("fxurl", url);
+			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/employee!details.action?custid="+custid+"&id="+id+"&tgid="+fromUserid);
 		} 
 		Struts2Utils.getRequest().setAttribute("share", share);
-		
+		Struts2Utils.getRequest().setAttribute("tgid",tgid);
 		
 		if (StringUtils.isNotEmpty(id)) {
 			DBObject dbObject=baseDao.getMessage(PubConstants.PARTTIME_MISSION, Long.parseLong(id));

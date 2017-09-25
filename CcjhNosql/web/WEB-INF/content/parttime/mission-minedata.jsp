@@ -29,11 +29,10 @@
     <script>
     function ajaxsave(){
     	   var submitData = { 
-    			  tel:$('#tel').val(), 
-    			  name:$('#name').val(), 
-    			  idcard:$('#idcard').val(), 
-    			  wxid:$('#wxid').val(), 
-    			  tel:$('#tel').val(),  
+    			  tel:$('#tel').val().replace('请输入电话',''), 
+    			  name:$('#name').val().replace('请输入姓名',''), 
+    			  idcard:$('#idcard').val().replace('请输入身份证',''), 
+    			  wxid:$('#wxid').val().replace('请输入微信号',''),   
     	  };
     	  $.post('${ctx}/parttime/mission!ajaxSaveMine.action?custid=${custid}&lscode=${lscode}', submitData, function(json) { 
     	   if(json.state==0){
@@ -57,8 +56,8 @@
         <div class=" pull-right hang50">
             <input class="width-10 size12 txt-r zi-hui weight500 hang50 line-height50" type="text" id="name"
                    value="${entity.name}"
-                   onfocus="if(this.value=='${entity.name}'){this.value=''};this.style.color='#666666';"
-                   onblur="if(this.value==''||this.value=='${entity.name}'){this.value='${entity.name}';this.style.color='#aaa';}"/>
+                   onfocus="if(this.value=='请输入姓名'){this.value=''};this.style.color='#666666';"
+                   onblur="if(this.value==''||this.value=='请输入姓名'){this.value='请输入姓名';this.style.color='#aaa';}"/>
         </div>
     </div>
 
@@ -69,8 +68,8 @@
         <div class=" pull-right hang50">
             <input class="width-10 size12 txt-r zi-hui weight500 hang50 line-height50" type="text" id="tel"
                    value="${entity.tel}"
-                   onfocus="if(this.value=='${entity.tel}'){this.value=''};this.style.color='#666666';"
-                   onblur="if(this.value==''||this.value=='${entity.tel}'){this.value='${entity.idcard}';this.style.color='#aaa';}"/>
+                   onfocus="if(this.value=='请输入电话'){this.value=''};this.style.color='#666666';"
+                   onblur="if(this.value==''||this.value=='请输入电话'){this.value='请输入电话';this.style.color='#aaa';}"/>
         </div>
     </div>
 
@@ -81,8 +80,8 @@
         <div class=" pull-right hang50">
             <input class="width-10 size12 txt-r zi-hui weight500 hang50 line-height50" type="text" id="idcard"
                    value="${entity.idcard}"
-                   onfocus="if(this.value=='${entity.idcard}'){this.value=''};this.style.color='#666666';"
-                   onblur="if(this.value==''||this.value=='${entity.idcard}'){this.value='${entity.idcard}';this.style.color='#aaa';}"/>
+                   onfocus="if(this.value=='请输入身份证'){this.value=''};this.style.color='#666666';"
+                   onblur="if(this.value==''||this.value=='请输入身份证'){this.value='请输入身份证';this.style.color='#aaa';}"/>
         </div>
     </div>
 
@@ -95,8 +94,8 @@
         <div class=" pull-right hang50 pr-10">
             <input class="width-10 size12 txt-r zi-hui weight500 hang50 line-height50" type="text" id="wxid"
                    value="${entity.wxid}"
-                   onfocus="if(this.value=='${entity.wxid}'){this.value=''};this.style.color='#666666';"
-                   onblur="if(this.value==''||this.value=='${entity.wxid}'){this.value='${entity.wxid}';this.style.color='#aaa';}"/>
+                   onfocus="if(this.value=='请输入微信号'){this.value=''};this.style.color='#666666';"
+                   onblur="if(this.value==''||this.value=='请输入微信号'){this.value='请输入微信号';this.style.color='#aaa';}"/>
         </div>
     </div> 
     <div class="clear mt-30" onclick="ajaxsave()">
@@ -104,7 +103,6 @@
                 完成
          </div>
     </div> 
-</main>
-<%@include file="/webcom/mission-foot.jsp"%>
+</main> 
 </body>
 </html>

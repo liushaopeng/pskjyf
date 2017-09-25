@@ -35,7 +35,7 @@
                     <div class="hang25 line-height30 fa fa-clone position-r">
                         <div class="position-a bg-26bd93 zi-bai border-radius50 img-wh15 sl"
                              style="top:-3px; right: -10px;line-height: 15px;">
-                            <font size="2">9</font>
+                            <font size="2">0</font>
                         </div>
                     </div>
                 </font>

@@ -60,7 +60,7 @@
             	return;
             }
             issend = false; 
-            $.post('${ctx}/parttime/mission!ajaxIndex.action?custid=${custid}&lscode=${lscode}&fypage=' +fypage, submitData, function (json) {
+            $.post('${ctx}/parttime/mission!ajaxMisson.action?custid=${custid}&lscode=${lscode}&fypage=' +fypage, submitData, function (json) {
                 var xszf;
                 if (fag) {
                     xszf = $('#ajaxdiv').html();
@@ -70,7 +70,7 @@
                 if (json.state == 0) {
                     var v = json.list;
                     for (var i = 0; i < v.length; i++) {
-                    	xszf+='<div class="zi-hei div-group-5 pt-10 pl-10 pr-10 overflow-hidden position-r size16" onclick="window.location.href=\'${ctx}/parttime/employee!details.action?custid=${custid}&lscode=${lscode}&id='+v[i]._id+'\'">'
+                    	xszf+='<div class="zi-hei div-group-5 pt-10 pl-10 pr-10 overflow-hidden position-r size16" onclick="window.location.href=\'${ctx}/parttime/mission!missorder.action?custid=${custid}&lscode=${lscode}&id='+v[i]._id+'\'">'
                     		+'<div class="weight500 hang30 line-height30">'
                     		+'<div class="sl"><i class="zi-26bd93 pr-5">[自营]</i>'+v[i].title+'<i class="pl-5">'+v[i].age+'</i><i  class="pl-5">需'+v[i].num+'人</i>'
                     		+'</div></div>'
@@ -102,29 +102,8 @@
 </head>
 <body>
 <main class="cmp640">
-    <!--标题放置处-->
-    <div class="hang40 bg-bai line-height40 pl-10 pr-10 zi-bai cmp640 position-f line-bottom"
-         style="left:0px;top: 0px;z-index: 10;">
-        <div class="pull-left zi-bai">
-            <div class="pull-left pt-4 pr-5">
-                <div class="bg-bai overflow-hidden" style="height:32px;width:118px;">
-                    <img src="${ctx}/img/parttime/logo.png" class="width-10">
-                </div>
-            </div>
-            <div class="pull-left zi-hei-tq pl-10">
-                <!--<i class="fa fa-caret-down pl-5"></i>-->
-            </div>
-        </div>
-        <div class="pull-right zi-6" onclick="share_xianshi()">
-            <i class="weight500">分享得佣金</i>
-        </div>
-    </div>
-    <div class="hang40"></div>
-
-
-    <div class="width-10">
-        <img src="${ctx}/img/parttime/banner.jpg" class="width-10">
-    </div>
+     
+ 
     <font size="2">
         <div class="cmp640 position-r" style=" z-index:3;">
             <div class="hang40 bg-bai pt-5 weight500 yListr2 zi-hui-tq">
@@ -140,9 +119,7 @@
     </font> 
     
     <div id="ajaxdiv"></div> 
-</main>
-<%@include file="/webcom/mission-foot.jsp"%>
-<%@include file="/webcom/mission-share.jsp"%>
+</main> 
  
 <script> 
 ajaxjz(false); 

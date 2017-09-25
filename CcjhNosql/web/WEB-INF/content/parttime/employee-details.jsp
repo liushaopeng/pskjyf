@@ -93,7 +93,7 @@
                 <!--<i class="fa fa-caret-down pl-5"></i>-->
             </div>
         </div>
-        <div class="pull-right zi-hei">
+        <div class="pull-right zi-hei" onclick="share_xianshi()">
             <i class="weight500">分享得佣金</i>
         </div>
     </div>
@@ -107,7 +107,7 @@
         <div class="pt-15 pb-5 zi-6 overflow-hidden weight500">
             <font size="2">
                 <div class="txt-l col-6">
-                    发布时间：<i><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${entity.createdate}" /></i>
+                    发布时间：<i><fmt:formatDate pattern="yyyy-MM-dd" value="${entity.createdate}" /></i>
                 </div>
                 <div class="txt-r col-6">
                     <i>关注度：20</i>
@@ -120,7 +120,9 @@
     <div class="div-group-10 weight500">
         <font size="5">
             <div class="line-height25 zi-jin pt-5">
-                薪资待遇：${entity.wages}
+                薪资待遇：<fmt:formatNumber value='${entity.price}' pattern="0.0#"/><c:if test="${jstype==1}">/时</c:if>
+                <c:if test="${jstype==2}">/天</c:if>
+                <c:if test="${jstype==3}">/月</c:if>
             </div>
         </font>
 
@@ -128,27 +130,12 @@
             <div><i class="zi-hei">公司名称：</i>${entity.company}</div>
             <div><i class="zi-hei">工作地点：</i>${entity.workaddress}</div>
             <div><i class="zi-hei">集合时间：</i><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${entity.gatherdate}" /></div>
-            <div><i class="zi-hei">工作时间：</i><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${entity.startdate}" />至<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${entity.enddate}" /></div>
+            <div><i class="zi-hei">工作时间：</i><fmt:formatDate pattern="HH:mm" value="${entity.startdate}" />至<fmt:formatDate pattern="HH:mm" value="${entity.enddate}" /></div>
             <div><i class="zi-hei">招聘条件：</i>学历一本<i class="pl-5 pr-5">|</i>${entity.experience}</div>
-            <div><i class="zi-hei">年龄要求：</i>${entity.education}</div>
+            <div><i class="zi-hei">年龄要求：</i>${entity.age}</div>
             <div><i class="zi-hei">招聘人数：</i>招聘${entity.num}人</div>
         </div>
-    </div>
-    <div class="hang7 overflow-hidden bg-hui clear"></div>
-    <div class="size16 div-group-10 zi-hei overflow-hidden weight500">
-        <div class="hang40 line-height40">联系人：${entity.linkname}</div>
-        <div class="hang40">
-            <div class="pull-left line-height40">联系电话：${entity.linktel}</div>
-            <div class="pull-right">
-                <div class="clear img-wh35 line-height37 btn-26bd93 txt-c border-radius50">
-                    <font size="4">
-                        <i class="fa fa-phone zi-bai line-height37"></i>
-                    </font>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
+    </div>  
     <div class="hang7 overflow-hidden bg-hui clear"></div>
 
     <font size="3">
@@ -161,25 +148,19 @@
         ${entity.summary}
     </div>
 </main>
-
-<!--点击事件提示框  弹出后经过很短时间就消失-->
-<div class="position-f width-10" style="bottom:100px;left:0px;">
-    <div class="zi-bai txt-c line-height25">
-        <!--此处字数尽量不要超过十字-->
-        <i class="bg-hei-8 div-group-10 border-radius5 line-height25">提示信息条字数尽量不要超过十五字</i>
-    </div>
-</div>
+ 
 
 <div class="clear hang50"></div>
 
 <div class=" button_foot bg-bai zi-hui shadow-wai cmp640">
     <div class="zi-hui-wx txt-c weight500 button_group1">
-        <div class="col-4 hang50 line-height50 bottom-26bd93"><i class="fa fa-star pr-5"></i>收藏</div>
-        <div class="col-8 hang50 line-height50 zi-bai btn-26bd93 txt-c" onclick="apply()">
+         
+        <div class="hang50 line-height50 zi-bai btn-26bd93 txt-c" onclick="apply()">
             立刻报名
         </div>
     </div>
 </div>
+<%@include file="/webcom/mission-share.jsp"%>
 <script> 
 wx.config({
     debug: false,

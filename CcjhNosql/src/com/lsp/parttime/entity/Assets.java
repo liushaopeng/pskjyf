@@ -11,7 +11,7 @@ import com.mongodb.ReflectionDBObject;
 public class Assets extends ReflectionDBObject{
 
 	private String custid;
-	private String formid;
+	private String fromid;
 	private double value;
 	/**
 	 * 更新时间
@@ -23,11 +23,12 @@ public class Assets extends ReflectionDBObject{
 	public void setCustid(String custid) {
 		this.custid = custid;
 	}
-	public String getFormid() {
-		return formid;
+	 
+	public String getFromid() {
+		return fromid;
 	}
-	public void setFormid(String formid) {
-		this.formid = formid;
+	public void setFromid(String fromid) {
+		this.fromid = fromid;
 	}
 	public double getValue() {
 		return value;

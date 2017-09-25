@@ -107,7 +107,7 @@
         <div class="pt-15 pb-5 zi-6 overflow-hidden weight500">
             <font size="2">
                 <div class="txt-l col-6">
-                    发布时间：<i><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${entity.createdate}" /></i>
+                    发布时间：<i><fmt:formatDate pattern="yyyy-MM-dd" value="${entity.createdate}" /></i>
                 </div>
                 <div class="txt-r col-6">
                     <i>关注度：20</i>
@@ -130,7 +130,7 @@
             <div><i class="zi-hei">集合时间：</i><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${entity.gatherdate}" /></div>
             <div><i class="zi-hei">工作时间：</i><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${entity.startdate}" />至<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${entity.enddate}" /></div>
             <div><i class="zi-hei">招聘条件：</i>学历一本<i class="pl-5 pr-5">|</i>${entity.experience}</div>
-            <div><i class="zi-hei">年龄要求：</i>${entity.education}</div>
+            <div><i class="zi-hei">年龄要求：</i>${entity.age}</div>
             <div><i class="zi-hei">招聘人数：</i>招聘${entity.num}人</div>
         </div>
     </div>

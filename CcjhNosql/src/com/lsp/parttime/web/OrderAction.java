@@ -18,10 +18,14 @@ import com.lsp.pub.dao.BaseDao;
 import com.lsp.pub.db.MongoSequence;
 import com.lsp.pub.entity.PubConstants;
 import com.lsp.pub.util.DateFormat;
+import com.lsp.pub.util.DateUtil;
+import com.lsp.pub.util.SpringSecurityUtils;
 import com.lsp.pub.util.Struts2Utils;
+import com.lsp.pub.util.SysConfig;
 import com.lsp.pub.util.TenpayUtil;
 import com.lsp.pub.util.UniObject;
 import com.lsp.pub.web.GeneralAction;
+import com.lsp.website.service.WwzService;
 import com.mongodb.DBObject;
 
 import net.sf.json.JSONArray;
@@ -39,6 +43,8 @@ public class OrderAction extends GeneralAction<Order>{
 	private BaseDao baseDao;
 	private Order entity = new Order();
 	private Long _id;
+	@Autowired
+	private WwzService wwzService;
 
 	private MongoSequence mongoSequence;
 
@@ -124,6 +130,7 @@ public class OrderAction extends GeneralAction<Order>{
 					order.setPrice(mission.getPrice());
 					order.setJstype(mission.getJstype());
 					order.setWorkaddress(mission.getWorkaddress());
+					order.setLinktel(mission.getLinktel());
 					baseDao.insert(PubConstants.PARTTIME_ORDER, order);
 					submap.put("state", 0);
 				}
@@ -141,14 +148,43 @@ public class OrderAction extends GeneralAction<Order>{
 	 * @param id
 	 * @return
 	 */
-	public boolean updateState(String id,int state) {
+	public boolean updateState(String id,int state) { 
 		DBObject dbObject=baseDao.getMessage(PubConstants.PARTTIME_ORDER, id);
 		if (dbObject!=null) {
 			Order order=(Order) UniObject.DBObjectToObject(dbObject, Order.class);
 			order.setState(state);
+			order.setUpdatedate(new Date());
+			if (state==4) {
+				//计算时间和金额
+				int i=(int) (DateUtil.getTimeDifference(order.getEnddate(),order.getStartdate())/(1000*60*60));
+				order.setTime(i);
+				double price=order.getPrice();
+				if (order.getJstype()==0) {
+					order.setTotal(price);
+				}else if (order.getJstype()==1){
+					order.setTotal(price*i);
+				}else if (order.getJstype()==2){
+					order.setTotal(price*i/24);
+				}else if (order.getJstype()==3){
+					order.setTotal(price*i/24/30);
+				}
+				 
+			}
+			
 			baseDao.insert(PubConstants.PARTTIME_ORDER, order);
+			
+			if (state==4) {
+				HashMap<String, Object>whereMap=new HashMap<>();
+				whereMap.put("custid",order.getCustid());
+				whereMap.put("fromid",order.getFromid());
+				DBObject dbObject2=baseDao.getMessage(PubConstants.PARTTIME_MISSIONPROMOTE, whereMap);
+				if (dbObject2!=null&&Integer.parseInt(dbObject2.get("state").toString())==0) {
+					wwzService.addAssMiss(order.getCustid(), dbObject2.get("tgid").toString(), Double.parseDouble(SysConfig.getProperty("tgprice")));
+				}
+			}
 			return true;
 		}
+		
 		return false; 
 	}
 	 

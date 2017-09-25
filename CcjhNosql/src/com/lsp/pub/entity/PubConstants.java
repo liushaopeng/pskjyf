@@ -336,6 +336,7 @@ public class PubConstants
   public static String PARTTIME_MISSION="parttime_mission";
   public static String PARTTIME_MISSIONCOLLECT="parttime_missioncollect";
   public static String PARTTIME_MISSIONINFORM="parttime_missioninform";
+  public static String PARTTIME_MISSIONPROMOTE="parttime_missionpromote";
   
   
 }

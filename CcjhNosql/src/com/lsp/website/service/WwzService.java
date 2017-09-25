@@ -25,6 +25,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
  
 import com.alibaba.fastjson.JSONObject;
+import com.lsp.parttime.entity.Assets;
+import com.lsp.parttime.entity.AssetsRecord;
 import com.lsp.parttime.entity.Mission;
 import com.lsp.parttime.entity.MissionInform;
 import com.lsp.pub.dao.BaseDao;
@@ -1908,6 +1910,157 @@ public class WwzService {
 			e.printStackTrace();
 		}
     	return false; 
+    }
+    /**
+     * 结算资金
+     * @param custid
+     * @param fromid
+     * @param price
+     * @param state
+     * @return
+     */
+    private boolean clearingMiss(String custid,String fromid,double price,int type) { 
+    		
+    		DBObject dbObject=getAssetMiss(custid,fromid);
+			Assets obj=new Assets();
+			if (dbObject!=null) {
+				obj=(Assets) UniObject.DBObjectToObject(dbObject, Assets.class);
+			}else {
+				obj.set_id(mongoSequence.currval(PubConstants.PARTTIME_ASSETS));
+			}
+    		if (type==0) { 
+    			obj.setValue(obj.getValue()+price);
+    			boolean bl=insAssMiss(custid, fromid, price, type);
+    			if (bl) {
+    				obj.setCustid(custid);
+            		obj.setFromid(fromid);
+            		obj.setUpdate(new Date());
+            		baseDao.insert(PubConstants.PARTTIME_ASSETS, obj);
+            		return true;
+				}
+    			
+			}else {
+				if (obj.getValue()-price>=0) {
+					obj.setValue(obj.getValue()-price);
+					boolean bl=insAssMiss(custid, fromid, price, type);
+					if (bl) {
+	    				obj.setCustid(custid);
+	            		obj.setFromid(fromid);
+	            		obj.setUpdate(new Date());
+	            		baseDao.insert(PubConstants.PARTTIME_ASSETS, obj);
+	            		return true;
+					}
+				}
+				
+			}
+    	
+    		
+    		
+		return false; 	
+    }
+    /**
+     * 增加资金
+     * @param custid
+     * @param fromid
+     * @param price
+     * @return
+     */
+    public boolean  addAssMiss(String custid,String fromid,double price) {
+    	clearingMiss(custid, fromid, price, 0);
+		return false;
+		
+	}
+    /**
+     * 减少资金
+     * @param custid
+     * @param fromid
+     * @param price
+     * @return
+     */
+    public boolean  reduceAssMiss(String custid,String fromid,double price) {
+    	clearingMiss(custid, fromid, price, 1);
+		return false;
+		
+	}
+    /**
+     * 记录
+     * @param custid
+     * @param fromid
+     * @param price
+     * @param type
+     * @return
+     */
+    private boolean insAssMiss(String custid,String fromid,double price,int type) {
+    	try {
+			AssetsRecord assetsRecord=new AssetsRecord();
+			Long idLong=mongoSequence.currval(PubConstants.PARTTIME_ASSETSRECORD);
+			assetsRecord.set_id(idLong);
+			assetsRecord.setCustid(custid);
+			assetsRecord.setFromid(fromid); 
+			assetsRecord.setValue(price);
+			assetsRecord.setCreatedate(new Date());
+			assetsRecord.setType(type);
+			assetsRecord.setState(0);
+			baseDao.insert(PubConstants.PARTTIME_ASSETSRECORD,assetsRecord);
+			return true;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false; 
+    }
+    /**
+     * 获取资金
+     * @param custid
+     * @param fromid
+     * @return
+     */
+    private DBObject getAssetMiss(String custid,String fromid) {
+    	HashMap<String, Object>whereMap=new HashMap<>();
+    	whereMap.put("custid", custid);
+    	whereMap.put("fromid", fromid);
+    	DBObject dbObject=baseDao.getMessage(PubConstants.PARTTIME_ASSETS, whereMap);
+    	if (dbObject!=null) {
+			return dbObject;
+		}
+		return null; 
+    }
+    /**
+     * 获取资金
+     * @return
+     */
+    public double  getAsset(String custid,String fromUserid){
+    	DBObject db=getAssetMiss(custid, fromUserid);
+    	if(db!=null&&db.get("value")!=null){
+    		return Double.parseDouble(db.get("value").toString());
+    	}
+    	return 0;
+    }
+    /**
+     * 验证资金
+     * @param custid
+     * @param fromid
+     * @return
+     */
+    public boolean checkAssetMiss(String custid,String fromid) {
+    	double d=0;
+    	HashMap<String, Object>whereMap=new HashMap<>();
+    	whereMap.put("custid", custid);
+    	whereMap.put("fromid", fromid);
+    	List<DBObject>list=baseDao.getList(PubConstants.PARTTIME_ASSETSRECORD, whereMap,null);
+    	for (DBObject dbObject : list) {
+			if (Integer.parseInt(dbObject.get("type").toString())==1) {
+				 d-=Double.parseDouble(dbObject.get("value").toString());
+			}else {
+				 d+=Double.parseDouble(dbObject.get("value").toString());
+			}
+		}
+    	DBObject dbObject=getAssetMiss(custid, fromid);
+    	if (dbObject!=null&&Double.parseDouble(dbObject.get("value").toString())==d) {
+			return true;
+		}
+		return false;
+    	
     }
     
 }

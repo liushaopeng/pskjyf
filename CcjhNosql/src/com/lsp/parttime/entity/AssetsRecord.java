@@ -11,10 +11,15 @@ import com.mongodb.ReflectionDBObject;
 public class AssetsRecord extends ReflectionDBObject{
 
 	private String custid;
-	private String formid;
+	private String fromid;
+	private String no;
 	private double value;
 	/**
-	 * 状态0为增加1为减少
+	 * 类型0为增加1为减少
+	 */
+	private int type;
+	/**
+	 * 状态0为成功1为失败
 	 */
 	private int state;
 	/**
@@ -27,11 +32,12 @@ public class AssetsRecord extends ReflectionDBObject{
 	public void setCustid(String custid) {
 		this.custid = custid;
 	}
-	public String getFormid() {
-		return formid;
+	 
+	public String getFromid() {
+		return fromid;
 	}
-	public void setFormid(String formid) {
-		this.formid = formid;
+	public void setFromid(String fromid) {
+		this.fromid = fromid;
 	}
 	public double getValue() {
 		return value;
@@ -50,6 +56,18 @@ public class AssetsRecord extends ReflectionDBObject{
 	}
 	public void setCreatedate(Date createdate) {
 		this.createdate = createdate;
+	}
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
+	}
+	public String getNo() {
+		return no;
+	}
+	public void setNo(String no) {
+		this.no = no;
 	}
 	 
 	
