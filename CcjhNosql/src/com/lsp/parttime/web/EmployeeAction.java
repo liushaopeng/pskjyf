@@ -103,6 +103,8 @@ public class EmployeeAction extends GeneralAction<Employee>{
 	@Override
 	public String delete() throws Exception {
 		// TODO Auto-generated method stub
+		SpringSecurityUtils.getCurrentUser().getId();
+		baseDao.delete(PubConstants.PARTTIME_EMPLOYEE,_id);
 		return null;
 	}
 
@@ -168,6 +170,27 @@ public class EmployeeAction extends GeneralAction<Employee>{
 			if (dbObject!=null) {
 				Employee employee=(Employee) UniObject.DBObjectToObject(dbObject, Employee.class);
 				employee.setType(1);
+				baseDao.insert(PubConstants.PARTTIME_EMPLOYEE, employee);
+				submap.put("state",0);
+			}
+		}
+	 
+		String json = JSONArray.fromObject(submap).toString(); 
+		Struts2Utils.renderJson(json.substring(1, json.length() - 1), new String[0]);
+		
+	}
+	/**
+	 * 设置管理员
+	 */
+	public void ajaxSetCjAdmin() {  
+		Map<String, Object>submap=new HashMap<String, Object>(); 
+		submap.put("state", 1);
+		String id=Struts2Utils.getParameter("id");
+		if (id!=null) {
+			DBObject dbObject=baseDao.getMessage(PubConstants.PARTTIME_EMPLOYEE, id);
+			if (dbObject!=null) {
+				Employee employee=(Employee) UniObject.DBObjectToObject(dbObject, Employee.class);
+				employee.setType(2);
 				baseDao.insert(PubConstants.PARTTIME_EMPLOYEE, employee);
 				submap.put("state",0);
 			}

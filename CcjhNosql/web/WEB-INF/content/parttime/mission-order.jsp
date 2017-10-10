@@ -116,7 +116,7 @@
                     	    +'<div class="hang30 line-height30"><i class="zi-hei">集合时间：</i>'+Date.prototype.format(v[i].gatherdate)+'</div>'
                     	    +'<div class="hang30 line-height30"><i class="zi-hei">上班时间：</i>'+Date.prototype.format(v[i].startdate)+'<i class="pl-10 pr-10">至</i>'+Date.prototype.format(v[i].enddate)+'</div>'
                     	    +'<div class=" line-height30">'
-                    	    +'<i class="zi-hei">地点：</i>'+v[i].workaddress+'<i class="zi-lan-tq pl-5">查看地图</i></div>'
+                    	    +'<i class="zi-hei">地点：</i>'+v[i].workaddress+'<i class="zi-lan-tq pl-5"></i></div>'
                     	    +'<div class="hang30 line-height30"><i class="zi-hei">订单编号：</i>'+v[i]._id+'</div></div>'
                     	    +'<div class="hang10 clear bg-hui"></div>'; 
                     }

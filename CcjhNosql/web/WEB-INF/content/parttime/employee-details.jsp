@@ -120,9 +120,9 @@
     <div class="div-group-10 weight500">
         <font size="5">
             <div class="line-height25 zi-jin pt-5">
-                薪资待遇：<fmt:formatNumber value='${entity.price}' pattern="0.0#"/><c:if test="${jstype==1}">/时</c:if>
-                <c:if test="${jstype==2}">/天</c:if>
-                <c:if test="${jstype==3}">/月</c:if>
+                薪资待遇：￥<fmt:formatNumber value='${entity.price}' pattern="0.0#"/><c:if test="${entity.jstype==1}">(时)</c:if>
+                <c:if test="${entity.jstype==2}">(日)</c:if>
+                <c:if test="${entity.jstype==3}">(月)</c:if>
             </div>
         </font>
 

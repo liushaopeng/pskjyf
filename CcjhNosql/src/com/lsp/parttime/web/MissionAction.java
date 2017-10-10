@@ -122,6 +122,8 @@ public class MissionAction extends GeneralAction<Mission>{
 	@Override
 	public String delete() throws Exception {
 		// TODO Auto-generated method stub
+		SpringSecurityUtils.getCurrentUser().getId();
+		baseDao.delete(PubConstants.PARTTIME_MISSION,_id);
 		return RELOAD;
 	}
 
@@ -836,12 +838,15 @@ public class MissionAction extends GeneralAction<Mission>{
 				if (Integer.parseInt(jstype)==1) {
 					dbObject.put("jstype","时");
 				}
-				if (Integer.parseInt(jstype)==0) {
+				if (Integer.parseInt(jstype)==2) {
 					dbObject.put("jstype","日");
 				}
-				if (Integer.parseInt(jstype)==0) {
+				if (Integer.parseInt(jstype)==3) {
 					dbObject.put("jstype","月");
 				}
+				HashMap<String,Object>whereMap1=new HashMap<>();
+				whereMap1.put("mid",Long.parseLong(dbObject.get("_id").toString()));
+				dbObject.put("zpcount", baseDao.getCount(PubConstants.PARTTIME_ORDER,whereMap1));
 			}
 			submap.put("list",list);	
 		}
@@ -916,6 +921,10 @@ public class MissionAction extends GeneralAction<Mission>{
 			String experience=Struts2Utils.getParameter("experience");
 			String education=Struts2Utils.getParameter("education"); 
 			Employee employee=new Employee();
+			DBObject dbObject=baseDao.getMessage(PubConstants.PARTTIME_EMPLOYEE, fromUserid);
+			if (dbObject!=null) {
+				employee=(Employee) UniObject.DBObjectToObject(dbObject, Employee.class);
+			} 
 			employee.set_id(fromUserid);
 			employee.setBytel(bytel);
 			employee.setCustid(custid);
@@ -1127,10 +1136,10 @@ public class MissionAction extends GeneralAction<Mission>{
 					if (Integer.parseInt(jstype)==1) {
 						dbObject.put("jstype","时");
 					}
-					if (Integer.parseInt(jstype)==0) {
+					if (Integer.parseInt(jstype)==2) {
 						dbObject.put("jstype","日");
 					}
-					if (Integer.parseInt(jstype)==0) {
+					if (Integer.parseInt(jstype)==3) {
 						dbObject.put("jstype","月");
 					}
 				}
@@ -1147,36 +1156,59 @@ public class MissionAction extends GeneralAction<Mission>{
 			getLscode();
 			Map<String, Object>submap=new HashMap<String, Object>();
 			submap.put("state", 1);
-			String mid=Struts2Utils.getParameter("mid");
-			if (StringUtils.isNotEmpty(mid)) {
-				HashMap<String, Object>whereMap=new HashMap<String, Object>();
-				HashMap<String, Object>sortMap=new HashMap<String, Object>();
-				sortMap.put("createdate", -1);
-				whereMap.put("mid",Long.parseLong(mid));
-				if (StringUtils.isNotEmpty(Struts2Utils.getParameter("fypage"))) {
-					fypage=Integer.parseInt(Struts2Utils.getParameter("fypage"));
-				} 
-				String state=Struts2Utils.getParameter("state"); 
-				if (StringUtils.isNotEmpty(state)) {
-					whereMap.put("state", Integer.parseInt(state));
-				}  
-				List<DBObject>list=baseDao.getList(PubConstants.PARTTIME_ORDER, whereMap,fypage,20, sortMap);
-				 
-				if(list.size()>0){
-					submap.put("state",0);
-					for (DBObject dbObject : list) {
-						whereMap.clear();
-						whereMap.put("custid", custid);
-						whereMap.put("fromid",dbObject.get("fromid").toString());
-						DBObject dbObject2=baseDao.getMessage(PubConstants.PARTTIME_EMPLOYEE, whereMap);
-						dbObject.put("obj",dbObject2);
+			DBObject dbObject1=baseDao.getMessage(PubConstants.PARTTIME_EMPLOYEE, fromUserid);
+			if (dbObject1!=null&&dbObject1.get("type")!=null) {
+				int type=Integer.parseInt(dbObject1.get("type").toString());
+				if (type>0) {
+					String mid=Struts2Utils.getParameter("mid");
+					if (StringUtils.isNotEmpty(mid)) {
+						HashMap<String, Object>whereMap=new HashMap<String, Object>();
+						HashMap<String, Object>sortMap=new HashMap<String, Object>();
+						sortMap.put("createdate", -1);
+						whereMap.put("mid",Long.parseLong(mid));
+						if (StringUtils.isNotEmpty(Struts2Utils.getParameter("fypage"))) {
+							fypage=Integer.parseInt(Struts2Utils.getParameter("fypage"));
+						} 
+						String state=Struts2Utils.getParameter("state"); 
+						if (StringUtils.isNotEmpty(state)) {
+							whereMap.put("state", Integer.parseInt(state));
+						}  
+						List<DBObject>list=baseDao.getList(PubConstants.PARTTIME_ORDER, whereMap,fypage,20, sortMap);
+						 
+						if(list.size()>0){
+							submap.put("state",0);
+							for (DBObject dbObject : list) {
+								whereMap.clear();
+								whereMap.put("custid", custid);
+								whereMap.put("fromid",dbObject.get("fromid").toString());
+								DBObject dbObject2=baseDao.getMessage(PubConstants.PARTTIME_EMPLOYEE, whereMap);
+								if (type==1) {
+									String tel=dbObject2.get("tel").toString();
+									dbObject2.put("tel",encryptingTel(tel));
+								}
+								dbObject.put("obj",dbObject2);
+							}
+							submap.put("list",list);	
+						} 
 					}
-					submap.put("list",list);	
-				} 
+				}
 			}
+			
 			
 			String json = JSONArray.fromObject(submap).toString(); 
 			Struts2Utils.renderJson(json.substring(1, json.length() - 1), new String[0]);
+		}
+		public String encryptingTel(String tel) {
+			if (tel.length()==11) {
+				String str1=tel.substring(0,3);
+				String str2=tel.substring(7);
+				
+				return str1+"****"+str2; 
+			}else {
+				return tel;
+			}
+			
+			
 		}
 		
 }

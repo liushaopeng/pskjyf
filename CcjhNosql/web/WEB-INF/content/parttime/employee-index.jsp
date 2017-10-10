@@ -75,9 +75,9 @@
                     		+'<div class="sl"><i class="zi-26bd93 pr-5">[自营]</i>'+v[i].title+'<i class="pl-5">'+v[i].age+'</i><i  class="pl-5">需'+v[i].num+'人</i>'
                     		+'</div></div>'
                     		+'<div class="clear sl weight100 hang30 line-height30">'
-                    		+'<span class="zi-hui"><i class="pr-5 weight500 zi-hei">['+v[i].area+']</i><i>已招募:</i>'+v[i].num+'人</span></div>'
+                    		+'<span class="zi-hui"><i class="pr-5 weight500 zi-hei">['+v[i].area+']</i><i>已招募:</i>'+v[i].zpcount+'人</span></div>'
                     		+'<div class="sl weight500 hang30 line-height30">'
-                    		+'<div class="pull-left">薪资<span class="zi-cheng pl-5 weight500">￥'+v[i].price+'</span>'
+                    		+'<div class="pull-left">薪资<span class="zi-cheng pl-5 weight500">￥'+v[i].price+'('+v[i].jstype+')</span>'
                     		+'</div><div class="pull-right zi-hui">'+Date.prototype.format(v[i].createdate)+'</div></div></div>'
                     		+'<div class="hang7 bg-hui clear"></div>';
                     	  

@@ -144,8 +144,7 @@
 	   var type=0;
 	   if($.trim($('#type').html())=="平台自营"){
 		   type=0;
-	   }
-	   alert('444');
+	   } 
 	   var submitData = {
 			  title:$('#title').val().replace('职位名称', ''), 
 			  num:$('#num').val().replace('招聘人数', ''),
@@ -166,8 +165,7 @@
 	   };
 	  
 	   $.post('${ctx}/parttime/mission!createMiss.action?custid=${custid}&lscode=${lscode}', submitData,
-	           function (json) {
-		   alert(json);
+	           function (json) { 
 	                 if(json.state==0){
 	                	alert("发布成功！"); 
 	                	window.location.href='${ctx}/parttime/mission!index.action?custid=${custid}&lscode=${lscode}'

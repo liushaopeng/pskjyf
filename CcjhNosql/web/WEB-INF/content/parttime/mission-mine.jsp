@@ -129,7 +129,7 @@
             个人资料
         </div>
         <div class="pull-right zi-hui">
-            <i class="pr-5 zi-hui size10">未完成</i><i class="fa fa-chevron-right hang45"></i>
+            <i class="pr-5 zi-hui size10"></i><i class="fa fa-chevron-right hang45"></i>
         </div>
     </div>
     <c:if test="${entity.type==1}">

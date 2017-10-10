@@ -15,7 +15,7 @@
 
 function del(id) {
 	if (confirm('确实要删除吗?')) {
-		location.href = "${contextPath}/parttime/mission!delete.action?_id="
+		location.href = "${contextPath}/parttime/employee!delete.action?_id="
 				+ id+"&fypage=${fypage}";
 	}
 }  
@@ -37,6 +37,20 @@ function set(id){
 	    id : id
 	  };
 	  $.post('${ctx}/parttime/employee!ajaxSetAdmin.action', submitData, function(json) { 
+	  
+		  if(json.state==0){
+			  alert("设置成功！");
+			  window.location.reload();
+		  }else{
+			  alert("设置失败！"); 
+		  }
+	  }, "json") 
+	}
+function setCj(id){
+	   var submitData = {
+	    id : id
+	  };
+	  $.post('${ctx}/parttime/employee!ajaxSetCjAdmin.action', submitData, function(json) { 
 	  
 		  if(json.state==0){
 			  alert("设置成功！");
@@ -120,7 +134,8 @@ function cal(id){
                         <td>${bean.name}</td> 
                         <td>${bean.tel}</td> 
                         <td><c:if test="${bean.type==0}">普通用户</c:if>
-                        <c:if test="${bean.type==1}">管理员</c:if></td> 
+                        <c:if test="${bean.type==1}">普通管理员</c:if> 
+                        <c:if test="${bean.type==2}">超级管理员</c:if></td> 
                         <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${bean.createdate}" /></td>
                          
                         <td class="table-action">
@@ -130,11 +145,17 @@ function cal(id){
                                       <i class="fa fa-cog"></i>
                                   </a>
                                   <ul role="menu" class="dropdown-menu pull-right">
-                                   <li><a href="javascript:set('${bean._id}')"> <i
-																	class="fa fa-pencil "></i>&nbsp;&nbsp;&nbsp;&nbsp;设置管理员</a>
+                                   <li><a href="javascript:setCj('${bean._id}')"> <i
+																	class="fa fa-pencil "></i>&nbsp;&nbsp;&nbsp;&nbsp;设置超级管理员</a>
 								   </li>
-								  <li><a href="javascript:cal('${bean._id}')"> <i
+                                   <li><a href="javascript:set('${bean._id}')"> <i
+																	class="fa fa-pencil "></i>&nbsp;&nbsp;&nbsp;&nbsp;设置普通管理员</a>
+								   </li>
+								   <li><a href="javascript:cal('${bean._id}')"> <i
 																	class="fa fa-pencil "></i>&nbsp;&nbsp;&nbsp;&nbsp;取消管理员</a>
+								   </li> 
+								   <li><a href="javascript:del('${bean._id}')"> <i
+																	class="fa fa-pencil "></i>&nbsp;&nbsp;&nbsp;&nbsp;删除</a>
 								   </li> 
                                     
                                   </ul>

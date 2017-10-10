@@ -150,7 +150,7 @@ $(window).scroll(function () {
         var offsetY = $(window).scrollTop();
         var section1 = $("#section1").height();
         if (section1 - offsetY < 600) { 
-            ajaxjz(false); 
+            ajaxjz(true); 
         }
  });
  

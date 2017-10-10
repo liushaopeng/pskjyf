@@ -35,7 +35,7 @@ public class Employee extends ReflectionDBObject{
 	 */
 	private String wxid;
 	/**
-	 * 0为普通用户，1为管理员
+	 * 0为普通用户，1为管理员（只能查看手机号部分数据）2为超级管理员
 	 */
 	private int type;
 	public String getCustid() {
