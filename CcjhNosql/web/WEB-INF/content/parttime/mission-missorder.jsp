@@ -52,12 +52,13 @@
            if (json.state == 0) {
                var v = json.list;
                for (var i = 0; i < v.length; i++) {
-               	xszf+='<div class="weight500 zi-6 pl-10 overflow-hidden">'
-               	    +'<div class="hang40 line-height40 col-9"><i class="pr-10">'+v[i].obj.name+'</i>'+v[i].obj.tel+'</div>'
-               	    +'<div class="hang40 line-height40 btn-jin col-3 txt-c zi-bai">线下结算</div>'
-               	    +'</div>'
-               	    +'<div class="hang10 clear bg-hui-92"></div>';
-                  
+            	   if(v[i].obj!=null){
+            		 	xszf+='<div class="weight500 zi-6 pl-10 overflow-hidden">'
+                       	    +'<div class="hang40 line-height40 col-9"><i class="pr-10">'+v[i].obj.name+'</i>'+v[i].obj.tel+'</div>'
+                       	    +'<div class="hang40 line-height40 btn-jin col-3 txt-c zi-bai">线下结算</div>'
+                       	    +'</div>'
+                       	    +'<div class="hang10 clear bg-hui-92"></div>';
+            	   } 
                }
                fypage++;
            } else {

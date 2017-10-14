@@ -1142,6 +1142,9 @@ public class MissionAction extends GeneralAction<Mission>{
 					if (Integer.parseInt(jstype)==3) {
 						dbObject.put("jstype","月");
 					}
+					HashMap<String,Object>whereMap1=new HashMap<>();
+					whereMap1.put("mid",Long.parseLong(dbObject.get("_id").toString()));
+					dbObject.put("zpcount", baseDao.getCount(PubConstants.PARTTIME_ORDER,whereMap1));
 				}
 				submap.put("list",list);	
 			}
@@ -1183,8 +1186,11 @@ public class MissionAction extends GeneralAction<Mission>{
 								whereMap.put("fromid",dbObject.get("fromid").toString());
 								DBObject dbObject2=baseDao.getMessage(PubConstants.PARTTIME_EMPLOYEE, whereMap);
 								if (type==1) {
-									String tel=dbObject2.get("tel").toString();
-									dbObject2.put("tel",encryptingTel(tel));
+									if(dbObject2!=null&&dbObject2.get("tel")!=null) {
+										String tel=dbObject2.get("tel").toString();
+										dbObject2.put("tel",encryptingTel(tel));
+									}
+									
 								}
 								dbObject.put("obj",dbObject2);
 							}

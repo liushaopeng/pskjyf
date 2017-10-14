@@ -28,6 +28,14 @@
     </style>
     <script>
     function ajaxsave(){
+    	if($('#tel').val().replace('请输入电话','').length<11){
+    	 alert("请输入正确的手机号");
+    	 return;
+    	}
+    	if($('#name').val().replace('请输入姓名','').length<1){
+       	 alert("请输入姓名");
+       	 return;
+       	}
     	   var submitData = { 
     			  tel:$('#tel').val().replace('请输入电话',''), 
     			  name:$('#name').val().replace('请输入姓名',''), 

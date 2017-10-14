@@ -71,6 +71,9 @@
     			  alert("报名失败！"); 
     		  }else if(json.state==2){
     			  alert("重复报名！"); 
+    		  }else if(json.state==3){
+    			  alert("请先填写基本资料！");
+    			  window.location.href="${ctx}/parttime/mission!minedata.action?custid=${custid}&lscode=${lscode}";
     		  }
     	    
     	  }, "json") 
@@ -131,7 +134,7 @@
             <div><i class="zi-hei">工作地点：</i>${entity.workaddress}</div>
             <div><i class="zi-hei">集合时间：</i><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${entity.gatherdate}" /></div>
             <div><i class="zi-hei">工作时间：</i><fmt:formatDate pattern="HH:mm" value="${entity.startdate}" />至<fmt:formatDate pattern="HH:mm" value="${entity.enddate}" /></div>
-            <div><i class="zi-hei">招聘条件：</i>学历一本<i class="pl-5 pr-5">|</i>${entity.experience}</div>
+            <div><i class="zi-hei">招聘条件：</i>${entity.experience}</div>
             <div><i class="zi-hei">年龄要求：</i>${entity.age}</div>
             <div><i class="zi-hei">招聘人数：</i>招聘${entity.num}人</div>
         </div>

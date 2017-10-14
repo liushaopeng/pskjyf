@@ -47,10 +47,10 @@ public class EmployeeAction extends GeneralAction<Employee>{
 	@Autowired
 	private BaseDao baseDao;
 	private Employee entity = new Employee();
-	private Long _id;
+	private String _id;
 	@Autowired
 	private WwzService wwzService;
-	public void set_id(Long _id) {
+	public void set_id(String _id) {
 		this._id = _id;
 	}
 
@@ -105,7 +105,7 @@ public class EmployeeAction extends GeneralAction<Employee>{
 		// TODO Auto-generated method stub
 		SpringSecurityUtils.getCurrentUser().getId();
 		baseDao.delete(PubConstants.PARTTIME_EMPLOYEE,_id);
-		return null;
+		return RELOAD;
 	}
 
 	@Override

@@ -96,6 +96,14 @@ public class OrderAction extends GeneralAction<Order>{
 		Map<String, Object>submap=new HashMap<String, Object>(); 
 		submap.put("state", 1);
 		String mid=Struts2Utils.getParameter("mid"); 
+		//验证是否注册信息
+		DBObject db=baseDao.getMessage(PubConstants.PARTTIME_EMPLOYEE, fromUserid);
+		if (db==null||db.get("tel")==null) {
+			submap.put("state", 3);
+			String json = JSONArray.fromObject(submap).toString(); 
+			Struts2Utils.renderJson(json.substring(1, json.length() - 1), new String[0]);
+			return;
+		}
 		try {
 			if (StringUtils.isNotEmpty(mid)) {
 				DBObject dbObject=baseDao.getMessage(PubConstants.PARTTIME_MISSION, Long.parseLong(mid));

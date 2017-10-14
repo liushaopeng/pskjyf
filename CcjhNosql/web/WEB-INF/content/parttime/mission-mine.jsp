@@ -132,6 +132,38 @@
             <i class="pr-5 zi-hui size10"></i><i class="fa fa-chevron-right hang45"></i>
         </div>
     </div>
+    <c:if test="${entity.type==2}">
+    <div class="hang10 clear bg-hui-92"></div>
+    <div class="hang45 bg-bai line-bottom-92 zi-hei pr-10 clear weight500 overflow-hidden size14" onclick="window.location.href='${ctx}/parttime/mission!ajaxadd.action?custid=${custid}&lscode=${lscode}'">
+        <div class="pull-left div-group-10">
+            <div class="bj-cheng img-wh25 txt-c zi-bai overflow-hidden">
+                <i class="fa fa-plus line-height25"></i>
+            </div>
+        </div>
+        <div class="pull-left">
+            职位发布
+        </div>
+         <div class="pull-right zi-hui">
+            <i class="pr-5 zi-hui size10"></i><i class="fa fa-chevron-right hang45"></i>
+        </div>
+         
+    </div>
+      <div class="hang10 clear bg-hui-92"></div>
+    <div class="hang45 bg-bai line-bottom-92 zi-hei pr-10 clear weight500 overflow-hidden size14" onclick="window.location.href='${ctx}/parttime/mission!mission.action?custid=${custid}&lscode=${lscode}'">
+        <div class="pull-left div-group-10">
+            <div class="bj-hong2 img-wh25 txt-c zi-bai overflow-hidden">
+                <i class="fa fa-user-circle line-height25"></i>
+            </div>
+        </div>
+        <div class="pull-left">
+            职位管理
+        </div>
+         <div class="pull-right zi-hui">
+            <i class="pr-5 zi-hui size10"></i><i class="fa fa-chevron-right hang45"></i>
+        </div>
+         
+    </div>
+    </c:if> 
     <c:if test="${entity.type==1}">
     <div class="hang10 clear bg-hui-92"></div>
     <div class="hang45 bg-bai line-bottom-92 zi-hei pr-10 clear weight500 overflow-hidden size14" onclick="window.location.href='${ctx}/parttime/mission!ajaxadd.action?custid=${custid}&lscode=${lscode}'">
