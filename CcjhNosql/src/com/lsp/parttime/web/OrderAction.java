@@ -97,7 +97,7 @@ public class OrderAction extends GeneralAction<Order>{
 		submap.put("state", 1);
 		String mid=Struts2Utils.getParameter("mid"); 
 		//验证是否注册信息
-		DBObject db=baseDao.getMessage(PubConstants.PARTTIME_EMPLOYEE, fromUserid);
+		DBObject db=baseDao.getMessage(PubConstants.PARTTIME_EMPLOYEE,custid+"-"+fromUserid);
 		if (db==null||db.get("tel")==null) {
 			submap.put("state", 3);
 			String json = JSONArray.fromObject(submap).toString(); 

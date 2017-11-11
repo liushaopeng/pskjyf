@@ -168,7 +168,7 @@
 	           function (json) { 
 	                 if(json.state==0){
 	                	alert("发布成功！"); 
-	                	window.location.href='${ctx}/parttime/mission!index.action?custid=${custid}&lscode=${lscode}'
+	                	window.location.href='${ctx}/parttime/employee!index.action?custid=${custid}&lscode=${lscode}'
 	                 }else{
 	                	alert("发布失败！");  
 	                 }        

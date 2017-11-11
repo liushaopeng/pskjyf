@@ -150,7 +150,7 @@ public class MissionAction extends GeneralAction<Mission>{
 		getLscode();
 		Map<String, Object>submap=new HashMap<String, Object>(); 
 		submap.put("state", 1);
-		if (wwzService.CheckEmployee(fromUserid, custid)) {
+		if (wwzService.CheckEmployee(fromUserid, custid)) { 
 			String linktel=Struts2Utils.getParameter("linktel");
 			String linkname=Struts2Utils.getParameter("linkname"); 
 			String experience=Struts2Utils.getParameter("experience");
@@ -769,7 +769,7 @@ public class MissionAction extends GeneralAction<Mission>{
 			share.put("fxurl",SysConfig.getProperty("ip")+"/parttime/employee!index.action?custid="+custid+"&tgid="+fromUserid);
 		} 
 		Struts2Utils.getRequest().setAttribute("share", share);
-		Struts2Utils.getRequest().setAttribute("entity",baseDao.getMessage(PubConstants.PARTTIME_EMPLOYEE, fromUserid)); 
+		Struts2Utils.getRequest().setAttribute("entity",baseDao.getMessage(PubConstants.PARTTIME_EMPLOYEE, custid+"-"+fromUserid)); 
 		return "mine";
 	}
 	/**
@@ -795,7 +795,7 @@ public class MissionAction extends GeneralAction<Mission>{
 			Struts2Utils.getRequest().setAttribute("inspection",inspection);  
 			return "refresh";
 		}
-		DBObject dbObject=baseDao.getMessage(PubConstants.PARTTIME_EMPLOYEE, fromUserid);
+		DBObject dbObject=baseDao.getMessage(PubConstants.PARTTIME_EMPLOYEE, custid+"-"+fromUserid);
 		Struts2Utils.getRequest().setAttribute("entity",dbObject); 
 		DBObject share=wwzService.getShareFx(custid,"mission_share");  
 		if(share==null){
@@ -820,6 +820,7 @@ public class MissionAction extends GeneralAction<Mission>{
 		HashMap<String, Object>whereMap=new HashMap<String, Object>();
 		HashMap<String, Object>sortMap=new HashMap<String, Object>();
 		sortMap.put("createdate", -1);
+		whereMap.put("custid", custid);
 		if (StringUtils.isNotEmpty(Struts2Utils.getParameter("fypage"))) {
 			fypage=Integer.parseInt(Struts2Utils.getParameter("fypage"));
 		}
@@ -867,6 +868,7 @@ public class MissionAction extends GeneralAction<Mission>{
 		if (StringUtils.isNotEmpty(Struts2Utils.getParameter("fypage"))) {
 			fypage=Integer.parseInt(Struts2Utils.getParameter("fypage"));
 		}
+		whereMap.put("custid", custid);
 		whereMap.put("fromid", fromUserid);
 		String state=Struts2Utils.getParameter("state");
 		System.out.println(state);
@@ -892,6 +894,7 @@ public class MissionAction extends GeneralAction<Mission>{
 		HashMap<String, Object>whereMap=new HashMap<String, Object>();
 		HashMap<String, Object>sortMap=new HashMap<String, Object>();
 		sortMap.put("createdate", -1);
+		whereMap.put("custid", custid);
 		whereMap.put("fromid", fromUserid);
 		if (StringUtils.isNotEmpty(Struts2Utils.getParameter("fypage"))) {
 			fypage=Integer.parseInt(Struts2Utils.getParameter("fypage"));
@@ -920,14 +923,14 @@ public class MissionAction extends GeneralAction<Mission>{
 			String bytel=Struts2Utils.getParameter("bytel");
 			String experience=Struts2Utils.getParameter("experience");
 			String education=Struts2Utils.getParameter("education"); 
-			Employee employee=new Employee();
-			DBObject dbObject=baseDao.getMessage(PubConstants.PARTTIME_EMPLOYEE, fromUserid);
+			Employee employee=new Employee(); 
+			DBObject dbObject=baseDao.getMessage(PubConstants.PARTTIME_EMPLOYEE,custid+"-"+fromUserid);
 			if (dbObject!=null) {
 				employee=(Employee) UniObject.DBObjectToObject(dbObject, Employee.class);
 			} 
-			employee.set_id(fromUserid);
+			employee.set_id(custid+"-"+fromUserid);
 			employee.setBytel(bytel);
-			employee.setCustid(custid);
+			employee.setCustid(custid); 
 			employee.setCreatedate(new Date());
 			if (StringUtils.isNotEmpty(experience)) {
 				employee.setEducation(Integer.parseInt(experience));
@@ -962,6 +965,7 @@ public class MissionAction extends GeneralAction<Mission>{
 		HashMap<String, Object>sortMap=new HashMap<String, Object>();
 		sortMap.put("createdate", -1);
 		whereMap.put("fromid", fromUserid);
+		whereMap.put("custid",custid);
 		if (StringUtils.isNotEmpty(Struts2Utils.getParameter("fypage"))) {
 			fypage=Integer.parseInt(Struts2Utils.getParameter("fypage"));
 		}
@@ -1118,6 +1122,7 @@ public class MissionAction extends GeneralAction<Mission>{
 			HashMap<String, Object>whereMap=new HashMap<String, Object>();
 			HashMap<String, Object>sortMap=new HashMap<String, Object>();
 			sortMap.put("createdate", -1);
+			whereMap.put("custid",custid);
 			if (StringUtils.isNotEmpty(Struts2Utils.getParameter("fypage"))) {
 				fypage=Integer.parseInt(Struts2Utils.getParameter("fypage"));
 			}
@@ -1159,7 +1164,7 @@ public class MissionAction extends GeneralAction<Mission>{
 			getLscode();
 			Map<String, Object>submap=new HashMap<String, Object>();
 			submap.put("state", 1);
-			DBObject dbObject1=baseDao.getMessage(PubConstants.PARTTIME_EMPLOYEE, fromUserid);
+			DBObject dbObject1=baseDao.getMessage(PubConstants.PARTTIME_EMPLOYEE, custid+"-"+fromUserid);
 			if (dbObject1!=null&&dbObject1.get("type")!=null) {
 				int type=Integer.parseInt(dbObject1.get("type").toString());
 				if (type>0) {
@@ -1168,6 +1173,7 @@ public class MissionAction extends GeneralAction<Mission>{
 						HashMap<String, Object>whereMap=new HashMap<String, Object>();
 						HashMap<String, Object>sortMap=new HashMap<String, Object>();
 						sortMap.put("createdate", -1);
+						whereMap.put("custid",custid);
 						whereMap.put("mid",Long.parseLong(mid));
 						if (StringUtils.isNotEmpty(Struts2Utils.getParameter("fypage"))) {
 							fypage=Integer.parseInt(Struts2Utils.getParameter("fypage"));
@@ -1180,11 +1186,8 @@ public class MissionAction extends GeneralAction<Mission>{
 						 
 						if(list.size()>0){
 							submap.put("state",0);
-							for (DBObject dbObject : list) {
-								whereMap.clear();
-								whereMap.put("custid", custid);
-								whereMap.put("fromid",dbObject.get("fromid").toString());
-								DBObject dbObject2=baseDao.getMessage(PubConstants.PARTTIME_EMPLOYEE, whereMap);
+							for (DBObject dbObject : list) { 
+								DBObject dbObject2=baseDao.getMessage(PubConstants.PARTTIME_EMPLOYEE, custid+"-"+dbObject.get("fromid").toString());
 								if (type==1) {
 									if(dbObject2!=null&&dbObject2.get("tel")!=null) {
 										String tel=dbObject2.get("tel").toString();

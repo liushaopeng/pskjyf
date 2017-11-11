@@ -1870,10 +1870,11 @@ public class WwzService {
     	HashMap<String ,Object>whereMap=new HashMap<>();
     	whereMap.put("custid",custid);
     	whereMap.put("fromid",fromid);
-    	DBObject dbObject=baseDao.getMessage(PubConstants.PARTTIME_EMPLOYEE, fromid);
+    	DBObject dbObject=baseDao.getMessage(PubConstants.PARTTIME_EMPLOYEE,custid+"-"+fromid);
+    	 
     	if (dbObject!=null&&dbObject.get("type")!=null) {
 		 int type=Integer.parseInt(dbObject.get("type").toString());
-		 if (type==1) {
+		 if (type>0) {
 			return true;
 		 }
 		}

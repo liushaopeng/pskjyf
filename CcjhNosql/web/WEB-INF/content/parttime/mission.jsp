@@ -39,7 +39,7 @@ function add(){
 	    $('#summary').val(''); 
 	    $('#area').val('');
 	    $('#price').val(0);
-	    $('#jstype').val('').trigger("change");
+	    $('#jstype').val(0).trigger("change");
 	ps_show('inszc');
 }
 function upd(id){
@@ -206,20 +206,20 @@ function page_submit(num){
                             <div class="mb-20">
                                 <label class="control-label">标题：</label>
                                 <input type="text" id="title" name="title"
-                                       class="form-control" placeholder="请输入"/>
+                                       class="form-control hang40" placeholder="请输入"/>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="mb-20">
                                 <label class="control-label">薪资：</label>
                                 <input type="text" id="price" name="price"
-                                       class="form-control" placeholder="请输入"/>
+                                       class="form-control hang40" placeholder="请输入"/>
                             </div>
                         </div>
                          <div class="col-sm-6">
                             <div class="mb-20">
                                 <label class="control-label">结算类型：</label> 
-                                <select id="jstype" name="jstype" class="select2 form-control hang40" style="line-height: 28px!important;"
+                                <select id="jstype" name="jstype" class="hang40 select2 form-control hang40" style="line-height: 28px!important;"
                                         required data-placeholder="请选择">
                                   <option value="0">默认</option> 
                                   <option value="1">小时结算</option> 
@@ -232,20 +232,20 @@ function page_submit(num){
                             <div class="mb-20">
                                 <label class="control-label">工作地点：</label>
                                 <input type="text" id="workaddress" name="workaddress"
-                                       class="form-control" placeholder="请输入"/>
+                                       class="form-control hang40" placeholder="请输入"/>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="mb-20">
                                 <label class="control-label">招聘人数：</label>
                                 <input type="text" id="num" name="num"
-                                       class="form-control" placeholder="请输入"/>
+                                       class="form-control hang40" placeholder="请输入"/>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="mb-20">
                                 <label class="control-label">学历要求：</label> 
-                                <select id="education" name="education" class="select2 form-control hang40" style="line-height: 28px!important;"
+                                <select id="education" name="education" class="hang40 select2 form-control hang40" style="line-height: 28px!important;"
                                         required data-placeholder="请选择">
                                   <option value="0">无</option> 
                                   <option value="1">大专以上</option> 
@@ -257,7 +257,7 @@ function page_submit(num){
                         <div class="col-sm-6">
                             <div class="mb-20">
                                 <label class="control-label">经验要求：</label> 
-                                  <select id="experience" name="experience" class="select2 form-control hang40" style="line-height: 28px!important;"
+                                  <select id="experience" name="experience" class="hang40 select2 form-control hang40" style="line-height: 28px!important;"
                                         required data-placeholder="请选择">
                                   <option value="0">无</option> 
                                   <option value="1">一年以上</option> 
@@ -269,7 +269,7 @@ function page_submit(num){
                         <div class="col-sm-6">
                             <div class="mb-20">
                                 <label class="control-label">年龄要求：</label> 
-                                  <select id="age" name="age" class="select2 form-control hang40" style="line-height: 28px!important;"
+                                  <select id="age" name="age" class="hang40 select2 form-control hang40" style="line-height: 28px!important;"
                                         required data-placeholder="请选择">
                                   <option value="0">18岁以上</option>  
                                   </select> 
@@ -279,41 +279,41 @@ function page_submit(num){
                             <div class="mb-20">
                                 <label class="control-label">负责人姓名：</label>
                                 <input type="text" id="linkname" name="linkname"
-                                       class="form-control" placeholder="请输入"/>
+                                       class="form-control hang40" placeholder="请输入"/>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="mb-20">
                                 <label class="control-label">负责人电话：</label>
                                 <input type="text" id="linktel" name="linktel"
-                                       class="form-control" placeholder="请输入"/>
+                                       class="form-control hang40" placeholder="请输入"/>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="mb-20">
                                 <label class="control-label">集合时间：</label>
                                 <input type="text" id="gatherdate" name="gatherdate"
-                                       class="form-control" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" placeholder="请输入"/>
+                                       class="form-control hang40" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" placeholder="请输入"/>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="mb-20">
                                 <label class="control-label">开始时间：</label>
                                 <input type="text" id="startdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"  name="startdate"
-                                       class="form-control" placeholder="请输入"/>
+                                       class="form-control hang40" placeholder="请输入"/>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="mb-20">
                                 <label class="control-label">结束时间：</label>
                                 <input type="text" id="enddate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" name="enddate"
-                                       class="form-control" placeholder="请输入"/>
+                                       class="form-control hang40" placeholder="请输入"/>
                             </div>
                         </div>
                          <div class="col-sm-6">
                             <div class="mb-20">
                                 <label class="control-label">类型：</label> 
-                                  <select id="type" name="type" class="select2 form-control hang40" style="line-height: 28px!important;"
+                                  <select id="type" name="type" class="hang40 select2 form-control hang40" style="line-height: 28px!important;"
                                         required data-placeholder="请选择">
                                   <option value="0">平台自营</option>  
                                   </select>  
@@ -324,28 +324,28 @@ function page_submit(num){
                             <div class="mb-20">
                                 <label class="control-label">公司名称：</label>
                                 <input type="text" id="company" name="company"
-                                       class="form-control" placeholder="请输入"/>
+                                       class="form-control hang40" placeholder="请输入"/>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="mb-20">
                                 <label class="control-label">区域：</label>
                                 <input type="text" id="area" name="area"
-                                       class="form-control" placeholder="请输入"/>
+                                       class="form-control hang40" placeholder="请输入"/>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="mb-20">
                                 <label class="control-label">序号：</label>
                                 <input type="text" id="sort" name="sort"
-                                       class="form-control" placeholder="请输入"/>
+                                       class="form-control hang40" placeholder="请输入"/>
                             </div>
                         </div>
                          <div class="col-sm-12">
                             <div class="mb-20">
                                 <label class="control-label">工作描述：</label>
                                 <textarea style="height: 150px;overflow: scroll;" id="summary" name="summary"
-                                       class="form-control" placeholder="请输入"></textarea>
+                                       class="form-control " placeholder="请输入"></textarea>
                             </div>
                         </div>
                          

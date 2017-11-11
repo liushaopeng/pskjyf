@@ -4,3 +4,8 @@
 /applicationContext-security.xml
 /applicationContext.xml
 /com/
+/log4j.properties
+/qqconnectconfig.properties
+/struts.xml
+/sys_config.properties
+/template/

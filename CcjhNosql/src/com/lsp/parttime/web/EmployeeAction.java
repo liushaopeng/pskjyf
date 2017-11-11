@@ -124,7 +124,7 @@ public class EmployeeAction extends GeneralAction<Employee>{
 		DBObject dbObject=baseDao.getMessage(PubConstants.PARTTIME_EMPLOYEE, whereMap);
 		if (dbObject==null) {
 			Employee employee=new Employee();
-			employee.set_id(fromUserid);
+			employee.set_id(custid+"-"+fromUserid);
 			employee.setCreatedate(new Date());
 			employee.setCustid(custid);
 			baseDao.insert(PubConstants.PARTTIME_EMPLOYEE, employee);
@@ -143,7 +143,7 @@ public class EmployeeAction extends GeneralAction<Employee>{
 		String idcard=Struts2Utils.getParameter("idcard");
 		String wxid=Struts2Utils.getParameter("wxid");
 		String bytel=Struts2Utils.getParameter("bytel");
-		DBObject dbObject=baseDao.getMessage(PubConstants.PARTTIME_EMPLOYEE, fromUserid);
+		DBObject dbObject=baseDao.getMessage(PubConstants.PARTTIME_EMPLOYEE, custid+"-"+fromUserid);
 		if (dbObject!=null) {
 			Employee employee=(Employee) UniObject.DBObjectToObject(dbObject, Employee.class);
 			employee.setBytel(bytel);
@@ -699,7 +699,7 @@ public class EmployeeAction extends GeneralAction<Employee>{
 			share.put("fxurl", SysConfig.getProperty("ip")+"/parttime/employee!index.action?custid="+custid);
 		} 
 		Struts2Utils.getRequest().setAttribute("share", share);
-		Struts2Utils.getRequest().setAttribute("entity",baseDao.getMessage(PubConstants.PARTTIME_EMPLOYEE, fromUserid)); 
+		Struts2Utils.getRequest().setAttribute("entity",baseDao.getMessage(PubConstants.PARTTIME_EMPLOYEE,custid+"-"+fromUserid)); 
 		return "mine";
 	}
 	/**
@@ -725,7 +725,7 @@ public class EmployeeAction extends GeneralAction<Employee>{
 			Struts2Utils.getRequest().setAttribute("inspection",inspection);  
 			return "refresh";
 		}
-		DBObject dbObject=baseDao.getMessage(PubConstants.PARTTIME_EMPLOYEE, fromUserid);
+		DBObject dbObject=baseDao.getMessage(PubConstants.PARTTIME_EMPLOYEE, custid+"-"+fromUserid);
 		Struts2Utils.getRequest().setAttribute("entity",dbObject);
 		DBObject share=wwzService.getShareFx(custid,"mission_share");  
 		if(share==null){
