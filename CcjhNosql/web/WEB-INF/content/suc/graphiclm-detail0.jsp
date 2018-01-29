@@ -17,11 +17,12 @@
         .img-100 img {
             width: 100%;
         }
+        .pd10{padding-left: 10px;padding-right: 10px;}
  </style>
     
 </head>
 <body class="bg-bai">
-<main class="cmp640 img-100">
+<main class="cmp640 img-100 pd10">
     ${entity.context}
 </main>
 <script type="text/javascript">   

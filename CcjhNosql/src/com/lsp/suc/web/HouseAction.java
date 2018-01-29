@@ -256,6 +256,7 @@ public class HouseAction extends GeneralAction<CompanyInfo> {
 	@Override
 	public String save() throws Exception {
 		//注册业务逻辑
+		System.out.println("---------------");
 		try {
 			if(_id == null){
 				_id=mongoSequence.currval(PubConstants.WX_COMPANY);	
@@ -291,10 +292,10 @@ public class HouseAction extends GeneralAction<CompanyInfo> {
 		    	}
 		    }
  
-		    String dlurl=this.getCtxurl()+"/wwz/wwz!companynuoche.action?_id="+_id+"&toUser="+toUser;
-			ShortUrl cmpsu=WeiXinUtil.getDwz(toUser,dlurl);	
+		    //String dlurl=this.getCtxurl()+"/wwz/wwz!companynuoche.action?_id="+_id+"&toUser="+toUser;
+			//ShortUrl cmpsu=WeiXinUtil.getDwz(toUser,dlurl);	
 			
-			String surl=SysConfig.getProperty("ym")+"d?id="+cmpsu.get_id().toString();
+			//String surl=SysConfig.getProperty("ym")+"d?id="+cmpsu.get_id().toString();
 			//CodeImageUtil.QRcodeToImage(surl, "cmpnuoche-"+_id, "jpg", 227, 227);
 		   
 		   /* if(entity.getMb()<2){
@@ -312,7 +313,75 @@ public class HouseAction extends GeneralAction<CompanyInfo> {
 			} 
 		    baseDao.insert(PubConstants.WX_COMPANY,entity);
 		     
+		    System.out.println("****************");
+			addActionMessage("成功添加!");
+		} catch (Exception e) {
+			e.printStackTrace();
+			addActionMessage("抱歉,添加过程中出现异常!");
+		}
+		
+		return RELOAD;
+	} 
+	public String savehou() throws Exception {
+		//注册业务逻辑
+		System.out.println("---------------");
+		try {
+			if(_id == null){
+				_id=mongoSequence.currval(PubConstants.WX_COMPANY);	
+				entity.setCreatedate(new Date());
+				if(entity.getMb()<0){
+					CodeImageUtil.nuochePic(_id, entity.getCss(), entity.getLogo() );	
+				} 	
+			}		
+			entity.set_id(_id);
+			custid=SpringSecurityUtils.getCurrentUser().getId();
+			entity.setCustid(custid);
+			
+		    List<Double>loc=new ArrayList<Double>();
+		    if(StringUtils.isEmpty(Struts2Utils.getParameter("page_lng"))||StringUtils.isEmpty(Struts2Utils.getParameter("page_lat"))){
+		    	loc.add(0.0);
+			    loc.add(0.0);
+		    }else{
+		    	loc.add(Double.parseDouble(Struts2Utils.getParameter("page_lng")));
+			    loc.add(Double.parseDouble(Struts2Utils.getParameter("page_lat")));
+		    }
+		    
+		    entity.setLoc(loc);
+		    if(entity.getMb()<0){
+		    	DBObject ticke =baseDao.getMessage(PubConstants.WEIXIN_TICKET,_id.intValue());
+		    	if(ticke==null){
+		    		WxTicket tic = new WxTicket();
+		    		tic.set_id(_id.intValue());
+		    		tic.setInsdate(new Date());
+		    		tic.setName(entity.getName());
+		    		tic.setToUser(SpringSecurityUtils.getCurrentUser().getToUser());
+		    		tic.setTel(entity.getTel());
+		    		baseDao.insert(PubConstants.WEIXIN_TICKET, tic);
+		    	}
+		    }
+ 
+		    //String dlurl=this.getCtxurl()+"/wwz/wwz!companynuoche.action?_id="+_id+"&toUser="+toUser;
+			//ShortUrl cmpsu=WeiXinUtil.getDwz(toUser,dlurl);	
+			
+			//String surl=SysConfig.getProperty("ym")+"d?id="+cmpsu.get_id().toString();
+			//CodeImageUtil.QRcodeToImage(surl, "cmpnuoche-"+_id, "jpg", 227, 227);
 		   
+		   /* if(entity.getMb()<2){
+		    	entity.setToUserid("");
+		    } else if(entity.getMb()==2){
+		    	
+		    }else{
+		    	FreeMarker free=new FreeMarker();
+		    	free.set_id("company-"+_id);
+		    	free.setToUser(toUser);
+		    	baseDao.insert(PubConstants.UPD_FREEMARKER,free);
+		    }*/
+			if(_id==null){
+				entity.setCreatedate(new Date());
+			} 
+		    baseDao.insert(PubConstants.WX_COMPANY,entity);
+		     
+		    System.out.println("****************");
 			addActionMessage("成功添加!");
 		} catch (Exception e) {
 			e.printStackTrace();

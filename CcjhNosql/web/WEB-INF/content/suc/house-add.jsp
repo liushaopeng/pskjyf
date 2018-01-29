@@ -14,50 +14,7 @@
     <link href="${ctx}/app/css/YLui.css" rel="stylesheet" type="text/css"/>
     <link href="${contextPath}/app/css/font-awesome.min.css" rel="stylesheet">
     <script type="text/javascript">
-        $(document).ready(function () {
-            //jQuery('#keyword').tagsInput({height: '40px'});
-            var validator = $("#custinfoForm").validate({
-                rules: {
-                    name: {
-                        required: true
-                    },
-                    logo: {
-                        required: true
-                    },
-                    page_lng: {
-                        isFloat: true
-                    },
-                    page_lat: {
-                        isFloat: true
-                    },
-                    mb: {
-                        required: true
-                    },
-                    type: {
-                        required: true
-                    },
-                    enddate:{
-                      required: true
-                    },
-                    startdate:{
-                      required: true
-                    },
-                    sort: {
-                        digits: true,
-                        required: true
-                    }
-
-                },
-                messages: {},
-                highlight: function (element) {
-                    jQuery(element).closest('.form-group').removeClass('has-success').addClass('has-error');
-                },
-                success: function (element) {
-                    jQuery(element).closest('.form-group').removeClass('has-error');
-                }
-
-            });
-        });
+      
         function cke() {
             var str = "";
             var tmp = document.getElementsByName("ch_type");
@@ -458,13 +415,7 @@
     </div>
     <!-- mainpanel -->
 </section>
-<div class="fullscreen-xz cmp640"
-     style="display: none;width: 400px;height: 100%;position:absolute;left:65%;  overflow: auto;" id="tubiao">
-
-    <%@ include file="/marker/set/dict2.html" %>
-</div>
-
-
+ 
 <div id="insMap" class="modal fade bs-example-modal-static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      data-backdrop="static" aria-hidden="true">
     <div class="modal-dialog modal-lg">

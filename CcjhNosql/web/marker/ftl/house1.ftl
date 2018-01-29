@@ -23,9 +23,7 @@
         
     </head>
     <body onselectstart="return true;" ondragstart="return false;">
-        
-<link rel="stylesheet" type="text/css" href="css/font-awesome.css-v=2014100823.css"  media="all" />
-
+ <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script> 
 <div class="body">
 		<!--
 	幻灯片管理
@@ -85,5 +83,49 @@
  
 	</body>
  
-  
+ <script type="text/javascript">
+    $(document).ready(function() {   
+		share();
+	}); 
+	function share() {
+		
+		$.post('/suc/ajax!share.action?custid=${custid}&url='+encodeURIComponent(window.location.href), null,
+    		function(data) { 
+    			wx.config({
+    				debug: false,
+    				appId: data.token.appid, 
+    				timestamp: data.token.timestamp, 
+    				nonceStr: data.token.noncestr, 
+   	 				signature: data.token.signature,
+    				jsApiList: [ 'checkJsApi',
+                 		'onMenuShareTimeline',
+                 		'onMenuShareAppMessage',
+                 		'onMenuShareQQ',
+                 		'onMenuShareWeibo'
+                	 ] 
+				});
+
+			wx.ready(function(){
+				var share={
+		    		title: '${company.name}', // 分享标题
+		    		desc: '${company.summary}', // 分享描述
+		   			link:  window.location.href, // 分享链接
+		    		imgUrl: '${filehttp}${company.logo}', // 分享图标
+		    		success: function () { 
+		      
+		    		},
+		   	 		cancel: function () { 
+		    			 
+		    		}
+			};
+			wx.onMenuShareAppMessage(share);
+			wx.onMenuShareTimeline(share);
+			wx.onMenuShareAppMessage(share);
+			wx.onMenuShareQQ(share);
+			wx.onMenuShareWeibo(share);
+		});
+    	},"json");	
+	}
+
+</script> 
 </html>
